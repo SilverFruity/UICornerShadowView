@@ -26,7 +26,8 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 @end
 
 @interface UIImage (Color)
-
++ (UIImage *)imageWithColor:(UIColor *)color;
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 //使用mask重新渲染图片颜色
 - (UIImage *)imageRenderWithColor:(UIColor *)color;
 
@@ -66,27 +67,5 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 - (UIImage *)resizeImageWithMaxValue:(CGFloat)max;
 @end
 
-
-@interface UIImage (Blur)
-
-@end
-
-@interface UIImage (Orientation)
-+ (UIImage *)fixOrientation:(UIImage *)aImage;
-@end
-
-@interface UIImage (QrCodeBarCode)
-+ (UIImage *)barcodeImageWithContent:(NSString *)content codeImageSize:(CGSize)size color:(UIColor *)color;
-//改变条形码尺寸大小
-+ (UIImage *)barcodeImageWithContent:(NSString *)content codeImageSize:(CGSize)size;
-//生成最原始的条形码
-+ (CIImage *)barcodeImageWithContent:(NSString *)content;
-@end
-
-
-
-@interface UIImage (Application)
-+ (UIImage *)profileMemberShipCircle:(CGSize)size maxPoint:(CGFloat)max currentPoint:(CGFloat)current;
-@end
 
 NS_ASSUME_NONNULL_END
