@@ -158,6 +158,36 @@ extern CGRect CGSize2CGRect(CGSize size);
     
     return image;
 }
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(nullable UIColor *)strokeColor{
+    return [self borderPathImageWithRoundingCorners:corners radius:radius width:width strokeColor:strokeColor fillColor:[UIColor clearColor]];
+}
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor{
+    if (radius == 0 || strokeColor == nil){
+        return self;
+    }
+    
+    CGRect backRect = CGRectMake(width, width, self.size.width, self.size.height);
+    CGRect rect = CGRectMake(0 , 0 , backRect.size.width + width*2, backRect.size.height + width*2);
+    
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [fillColor setFill];
+    [strokeColor setStroke];
+    //填充颜色
+    CGContextFillRect(context, rect);
+    //利用贝塞尔曲线裁剪矩形
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:backRect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
+    path.lineWidth = width;
+    path.lineCapStyle = kCGLineCapRound;
+    path.lineJoinStyle = kCGLineJoinRound;
+    [path stroke];
+    [self drawInRect:backRect];
+    //获取图像
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
 
 + (CGSize)shadowEdgeSizeWithSize:(CGSize)size offset:(CGSize)offset radius:(CGFloat)radius position:(UIShadowPostion)position{
     CGSize radiusOffset = CGSizeMake(radius, radius);

@@ -40,7 +40,9 @@ class UICornerShadowView: UIView {
     @IBInspectable public var _cornerRadius: CGFloat = 8
     @IBInspectable public var _shadowColor: UIColor = UIColor.black.withAlphaComponent(0.08)
     @IBInspectable public var _shadowOffset: CGSize = CGSize.init(width: 0, height: 0)
-    @IBInspectable public var _shadowRadius: CGFloat = 4
+    @IBInspectable public var _shadowRadius: CGFloat = 0
+    @IBInspectable public var _borderWidth: CGFloat = 0
+    @IBInspectable public var _borderColor: UIColor = UIColor.clear
     var _shadowPosition:UIShadowPostion = .all
     private var initailBackGroundColor = UIColor.white
     required init?(coder: NSCoder) {
@@ -78,7 +80,11 @@ class UICornerShadowView: UIView {
         let shadowRadius = self._shadowRadius
         let shadowRadiusOffset = CGSize.init(width: _shadowRadius, height: _shadowRadius)
         let shadowPosition = self._shadowPosition
+        let borderWidth = self._borderWidth
+        let borderColor = self._borderColor
         let selfSize = self.bounds.size
+        //FIXME: border和shadow同时存在时，宽高的计算，一大一小。
+        //FIXME: border和shadow只有一者存在时，宽高的计算。
         let viewX = (shadowOffset.width > 0 ? 0 : shadowOffset.width) + (self._shadowPosition.contains(.left) ? -shadowRadiusOffset.width : 0)
         let viewY = (shadowOffset.height > 0 ? 0 : shadowOffset.height) + (self._shadowPosition.contains(.top) ? -shadowRadiusOffset.height : 0)
         let viewSize = UIImage.shadowEdgeSize(with: self.bounds.size, offset: shadowOffset, radius: shadowRadius, position: self._shadowPosition)
@@ -97,7 +103,14 @@ class UICornerShadowView: UIView {
             if enableRectConer{
                 image = image.cornerImage(withRoundingCorners: rectCornner, radius: radius)
             }
-            image = image.shadow(shadowOffset, radius: shadowRadius, color: shadowColor, shadowPositoin: shadowPosition)
+            //FIME: 究竟是优先绘制border还是shadow，不同的顺序，导致的结果不同。
+            if borderColor != UIColor.clear && borderWidth != 0{
+                //FIXME: border是否能选择方向? left right top bottom
+                image = image.borderPathImage(withRoundingCorners: rectCornner, radius: radius, width: borderWidth, stroke: borderColor)
+            }
+            if shadowColor != UIColor.clear && shadowRadius != 0{
+                image = image.shadow(shadowOffset, radius: shadowRadius, color: shadowColor, shadowPositoin: shadowPosition)
+            }
             CustomRenderCache.default.setObject(image, forKey: imageIdentifier)
             DispatchQueue.main.async { [weak self] in
                 if self == nil{
@@ -109,10 +122,11 @@ class UICornerShadowView: UIView {
         self.backgroundColor = UIColor.clear
     }
     func identifier()->String{
+        //FIXME: border不启用和shadow不启用时的identifier
         if _enableRectCornner {
-            return "CornerShadow_\(self.bounds.size)_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)"
+            return "CornerShadow_\(self.bounds.size)_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
         }else{
-            return "CornerShadow_\(self.bounds.size)_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)"
+            return "CornerShadow_\(self.bounds.size)_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
         }
         
     }

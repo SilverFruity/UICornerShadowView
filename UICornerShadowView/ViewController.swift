@@ -20,11 +20,15 @@ class ViewController: UIViewController {
         self.shadowView._shadowPosition = [.left,.top,.right,.bottom]
         self.shadowView._shadowColor = UIColor.black.withAlphaComponent(0.3)
         self.shadowView._shadowRadius = 10
+        self.shadowView._borderColor = UIColor.gray
+        self.shadowView._borderWidth = 1
+        
         
         self.leftRightShadowView._enableRectCornner = false
         self.leftRightShadowView._shadowPosition = [.left,.right]
         self.leftRightShadowView._shadowColor = UIColor.black.withAlphaComponent(0.3)
         self.leftRightShadowView._shadowRadius = 10
+        
         
     }
 }

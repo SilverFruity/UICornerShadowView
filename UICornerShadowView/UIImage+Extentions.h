@@ -52,6 +52,11 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 - (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius;
 - (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius fillColor:(UIColor *)fillColor;
 
+///添加边框
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(nullable UIColor *)strokeColor;
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(nullable UIColor *)strokeColor fillColor:(UIColor *)fillColor;
+
+
 + (CGSize)shadowEdgeSizeWithSize:(CGSize)size offset:(CGSize)offset radius:(CGFloat)radius position:(UIShadowPostion)position;
 - (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color shadowPositoin:(UIShadowPostion)position;
 - (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color;
