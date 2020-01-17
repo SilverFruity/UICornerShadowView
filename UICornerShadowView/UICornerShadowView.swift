@@ -35,6 +35,7 @@ class CustomRenderCache{
 class UICornerShadowView: UIView {
     var backGroundImageView: UIImageView!
     // 加下划线的原因是与SwifterSwift库有冲突
+    // FIXME: 后续添加UIAppearance 全局设置默认值
     @IBInspectable public var _enableRectCornner: Bool = true
     @IBInspectable public var _rectCornner: UIRectCorner = .allCorners
     @IBInspectable public var _cornerRadius: CGFloat = 8
