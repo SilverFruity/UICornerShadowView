@@ -18,10 +18,76 @@ class UICornerShadowViewTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    func testAllShadowWithNegativeOffset(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let offset = CGSize(width: -20, height: -20)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = .all
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: offset, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: -40, y: -40, width: 260, height: 260),rect.debugDescription)
+    }
+    func testAllShadowWithPositiveOffset(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let offset = CGSize(width: 20, height: 20)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = .all
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: offset, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: -20, y: -20, width: 260, height: 260),rect.debugDescription)
+    }
+    func testHideLeftShadow(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = [.top,.bottom,.right]
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: CGSize.zero, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: 0, y: -20, width: 220, height: 240),rect.debugDescription)
+    }
+    func testHideRightShadow(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = [.top,.bottom,.left]
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: CGSize.zero, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: -20, y: -20, width: 220, height: 240),rect.debugDescription)
+    }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testHideVerticalShadow(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = [.left,.right]
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: CGSize.zero, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: -20, y: 0, width: 240, height: 200),rect.debugDescription)
+    }
+    
+    func testHideTopShadow(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = [.left,.right,.bottom]
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: CGSize.zero, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: -20, y: 0, width: 240, height: 220),rect.debugDescription)
+    }
+    func testHideBottomShadow(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let radius: CGFloat = 20
+        let position:UIShadowPostion = [.left,.right,.top]
+        let rect = UIImage.shadowBackGroundImageRect(withViewSize: viewSize, shadowOffset: CGSize.zero, shadowRadius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: -20, y: -20, width: 240, height: 220),rect.debugDescription)
+        
+    }
+    
+    func testAllBorder(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let rectCorner:UIRectCorner = .allCorners
+        let radius: CGFloat = 20
+        let position:UIBorderPostion = .all
+        let rect = UIImage.borderConvasRect(with: viewSize, rectCornner: rectCorner, radius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 180, height: 180),rect.debugDescription)
+    }
+    func testHideLeftBorder(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let rectCorner:UIRectCorner = .allCorners
+        let radius: CGFloat = 20
+        let position:UIBorderPostion = .all
+        let rect = UIImage.borderConvasRect(with: viewSize, rectCornner: rectCorner, radius: radius, position: position)
+        XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 180, height: 180),rect.debugDescription)
     }
 
     func testPerformanceExample() {

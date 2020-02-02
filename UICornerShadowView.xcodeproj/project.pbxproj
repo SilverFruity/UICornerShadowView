@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B844FE123E431F5008D98F1 /* UICornerShadowViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EC123CE3A89002ABFB5 /* UICornerShadowViewUITests.swift */; };
 		EE731EA023CE3A87002ABFB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731E9F23CE3A87002ABFB5 /* AppDelegate.swift */; };
 		EE731EA223CE3A87002ABFB5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EA123CE3A87002ABFB5 /* SceneDelegate.swift */; };
 		EE731EA423CE3A87002ABFB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EA323CE3A87002ABFB5 /* ViewController.swift */; };
@@ -14,7 +15,6 @@
 		EE731EA923CE3A89002ABFB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE731EA823CE3A89002ABFB5 /* Assets.xcassets */; };
 		EE731EAC23CE3A89002ABFB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE731EAA23CE3A89002ABFB5 /* LaunchScreen.storyboard */; };
 		EE731EB723CE3A89002ABFB5 /* UICornerShadowViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EB623CE3A89002ABFB5 /* UICornerShadowViewTests.swift */; };
-		EE731EC223CE3A89002ABFB5 /* UICornerShadowViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EC123CE3A89002ABFB5 /* UICornerShadowViewUITests.swift */; };
 		EE731ED423CE3ABD002ABFB5 /* UICornerShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731ED323CE3ABD002ABFB5 /* UICornerShadowView.swift */; };
 		EE731ED723CE3AD3002ABFB5 /* UIImage+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE731ED623CE3AD3002ABFB5 /* UIImage+Extentions.m */; };
 /* End PBXBuildFile section */
@@ -290,7 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE731EC223CE3A89002ABFB5 /* UICornerShadowViewUITests.swift in Sources */,
+				1B844FE123E431F5008D98F1 /* UICornerShadowViewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

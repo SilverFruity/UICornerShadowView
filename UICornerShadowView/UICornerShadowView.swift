@@ -45,6 +45,7 @@ class UICornerShadowView: UIView {
     @IBInspectable public var _borderWidth: CGFloat = 0
     @IBInspectable public var _borderColor: UIColor = UIColor.clear
     var _shadowPosition:UIShadowPostion = .all
+    var _borderPosition:UIBorderPostion = .all
     private var initailBackGroundColor = UIColor.white
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -79,20 +80,17 @@ class UICornerShadowView: UIView {
         let shadowColor = self._shadowColor
         let shadowOffset = self._shadowOffset
         let shadowRadius = self._shadowRadius
-        let shadowRadiusOffset = CGSize.init(width: _shadowRadius, height: _shadowRadius)
         let shadowPosition = self._shadowPosition
         let borderWidth = self._borderWidth
         let borderColor = self._borderColor
         let selfSize = self.bounds.size
         //FIXME: border和shadow同时存在时，宽高的计算，一大一小。
         //FIXME: border和shadow只有一者存在时，宽高的计算。
-        let viewX = (shadowOffset.width > 0 ? 0 : shadowOffset.width) + (self._shadowPosition.contains(.left) ? -shadowRadiusOffset.width : 0)
-        let viewY = (shadowOffset.height > 0 ? 0 : shadowOffset.height) + (self._shadowPosition.contains(.top) ? -shadowRadiusOffset.height : 0)
-        let viewSize = UIImage.shadowEdgeSize(with: self.bounds.size, offset: shadowOffset, radius: shadowRadius, position: self._shadowPosition)
+        let imageRect = UIImage.shadowBackGroundImageRect(withViewSize: self.bounds.size, shadowOffset: shadowOffset, shadowRadius: shadowRadius, position: shadowPosition)
         
         //TODO: errorValue:特意增加的误差 0.o。解决tableView显示时，全是阴影的情况，cell衔接时会有一点点点空缺。
         let errorValue :CGFloat = 1
-        self.backGroundImageView.frame = CGRect.init(x: viewX - errorValue, y: viewY - errorValue, width: viewSize.width + errorValue * 2, height: viewSize.height + errorValue * 2)
+        self.backGroundImageView.frame = imageRect.inset(by: UIEdgeInsets(top: errorValue, left: errorValue, bottom: errorValue, right: errorValue))
         
         if let cacheImage = CustomRenderCache.default.object(forKey: imageIdentifier){
             self.backGroundImageView.image = cacheImage
@@ -100,11 +98,16 @@ class UICornerShadowView: UIView {
             return
         }
         DispatchQueue.global().async { [unowned self] in
-            var image = UIImage.init(color: color, size: CGSize.init(width: selfSize.width, height: selfSize.height))
+            // Radius ShadowRadius BorderWidth 取最大值
+            var maxValue = radius > (borderWidth + 1) && enableRectConer ? radius : borderWidth + 1
+            maxValue = shadowRadius > maxValue ? shadowRadius : maxValue
+            let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
+            var image = UIImage.init(color: color, size: size)
+//            var image = UIImage.init(color: color, size: CGSize.init(width: selfSize.width, height: selfSize.height))
             if enableRectConer{
                 image = image.cornerImage(withRoundingCorners: rectCornner, radius: radius)
             }
-            //FIME: 究竟是优先绘制border还是shadow，不同的顺序，导致的结果不同。
+            //FIME: 当前是内边框，外边框的情况？
             if borderColor != UIColor.clear && borderWidth != 0{
                 //FIXME: border是否能选择方向? left right top bottom
                 image = image.borderPathImage(withRoundingCorners: rectCornner, radius: radius, width: borderWidth, stroke: borderColor)
@@ -112,6 +115,7 @@ class UICornerShadowView: UIView {
             if shadowColor != UIColor.clear && shadowRadius != 0{
                 image = image.shadow(shadowOffset, radius: shadowRadius, color: shadowColor, shadowPositoin: shadowPosition)
             }
+            image = image.resizableImageCenterMode()
             CustomRenderCache.default.setObject(image, forKey: imageIdentifier)
             DispatchQueue.main.async { [weak self] in
                 if self == nil{
@@ -125,9 +129,9 @@ class UICornerShadowView: UIView {
     func identifier()->String{
         //FIXME: border不启用和shadow不启用时的identifier
         if _enableRectCornner {
-            return "CornerShadow_\(self.bounds.size)_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
+            return "CornerShadow_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
         }else{
-            return "CornerShadow_\(self.bounds.size)_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
+            return "CornerShadow_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
         }
         
     }
