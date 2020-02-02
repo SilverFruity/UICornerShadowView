@@ -83,9 +83,9 @@ class UICornerShadowView: UIView {
         let shadowPosition = self._shadowPosition
         let borderWidth = self._borderWidth
         let borderColor = self._borderColor
-        let selfSize = self.bounds.size
-        //FIXME: border和shadow同时存在时，宽高的计算，一大一小。
-        //FIXME: border和shadow只有一者存在时，宽高的计算。
+        let borderPosition = self._borderPosition
+        //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
+        //FIXME: 外边框 border和shadow只有一者存在时，宽高的计算。
         let imageRect = UIImage.shadowBackGroundImageRect(withViewSize: self.bounds.size, shadowOffset: shadowOffset, shadowRadius: shadowRadius, position: shadowPosition)
         
         //TODO: errorValue:特意增加的误差 0.o。解决tableView显示时，全是阴影的情况，cell衔接时会有一点点点空缺。
@@ -100,17 +100,16 @@ class UICornerShadowView: UIView {
         DispatchQueue.global().async { [unowned self] in
             // Radius ShadowRadius BorderWidth 取最大值
             var maxValue = radius > (borderWidth + 1) && enableRectConer ? radius : borderWidth + 1
+//            FIXME: shadowRadius > cornerRadius时，可能会出现圆角大小显示出错的问题。拉伸导致
             maxValue = shadowRadius > maxValue ? shadowRadius : maxValue
             let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
             var image = UIImage.init(color: color, size: size)
-//            var image = UIImage.init(color: color, size: CGSize.init(width: selfSize.width, height: selfSize.height))
             if enableRectConer{
                 image = image.cornerImage(withRoundingCorners: rectCornner, radius: radius)
             }
             //FIME: 当前是内边框，外边框的情况？
             if borderColor != UIColor.clear && borderWidth != 0{
-                //FIXME: border是否能选择方向? left right top bottom
-                image = image.borderPathImage(withRoundingCorners: rectCornner, radius: radius, width: borderWidth, stroke: borderColor)
+                image = image.borderPathImage(withRoundingCorners: rectCornner, radius: enableRectConer ? radius : 0, width: borderWidth, position: borderPosition, stroke: borderColor)
             }
             if shadowColor != UIColor.clear && shadowRadius != 0{
                 image = image.shadow(shadowOffset, radius: shadowRadius, color: shadowColor, shadowPositoin: shadowPosition)

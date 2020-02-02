@@ -60,23 +60,20 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 - (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius;
 - (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius fillColor:(UIColor *)fillColor;
 
-+ (CGPoint)borderConvasOriginWithRectCornner:(UIRectCorner)rectCorner
-                                               radius:(CGFloat)radius
-                                              position:(UIBorderPostion)position;
++ (CGPoint)borderConvasOriginWithWidth:(CGFloat)width
+                              position:(UIBorderPostion)position;
 
 + (CGSize)borderConvasSizeWithViewSize:(CGSize)viewSize
-                           rectCornner:(UIRectCorner)rectCorner
-                                radius:(CGFloat)radius
-                              position:(UIShadowPostion)position;
+                                 width:(CGFloat)width
+                              position:(UIBorderPostion)position;
 
 + (CGRect)borderConvasRectWithSize:(CGSize)viewSize
-                       rectCornner:(UIRectCorner)rectCorner
-                            radius:(CGFloat)radius
+                             width:(CGFloat)width
                           position:(UIBorderPostion)position;
 
 ///添加边框
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(nullable UIColor *)strokeColor;
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(nullable UIColor *)strokeColor fillColor:(UIColor *)fillColor;
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor;
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width  position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor fillColor:(UIColor *)fillColor;
 
 + (CGPoint)shadowBackGroundImageOriginWithShadowOffset:(CGSize)shadowOffset
                                           shadowRadius:(CGFloat)shadowRadius

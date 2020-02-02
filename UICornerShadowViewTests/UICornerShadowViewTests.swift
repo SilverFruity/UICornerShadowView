@@ -75,20 +75,40 @@ class UICornerShadowViewTests: XCTestCase {
     
     func testAllBorder(){
         let viewSize = CGSize.init(width: 200, height: 200)
-        let rectCorner:UIRectCorner = .allCorners
-        let radius: CGFloat = 20
-        let position:UIBorderPostion = .all
-        let rect = UIImage.borderConvasRect(with: viewSize, rectCornner: rectCorner, radius: radius, position: position)
+        let width : CGFloat = 20
+        let rect = UIImage.borderConvasRect(with: viewSize, width: width, position: position)
         XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 180, height: 180),rect.debugDescription)
     }
     func testHideLeftBorder(){
         let viewSize = CGSize.init(width: 200, height: 200)
-        let rectCorner:UIRectCorner = .allCorners
-        let radius: CGFloat = 20
-        let position:UIBorderPostion = .all
-        let rect = UIImage.borderConvasRect(with: viewSize, rectCornner: rectCorner, radius: radius, position: position)
-        XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 180, height: 180),rect.debugDescription)
+        let width : CGFloat = 20
+        let position:UIBorderPostion = [.right,.top,.bottom]
+        let rect = UIImage.borderConvasRect(with: viewSize, width: width, position: position)
+        XCTAssertTrue(rect == CGRect(x: -10, y: 10, width: 200, height: 180),rect.debugDescription)
     }
+    func testHideRightBorder(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let width : CGFloat = 20
+        let position:UIBorderPostion = [.left,.top,.bottom]
+        let rect = UIImage.borderConvasRect(with: viewSize, width: width, position: position)
+        XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 200, height: 180),rect.debugDescription)
+    }
+    
+    func testHideTopBorder(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let width : CGFloat = 20
+        let position:UIBorderPostion = [.left,.right,.bottom]
+        let rect = UIImage.borderConvasRect(with: viewSize, width: width, position: position)
+        XCTAssertTrue(rect == CGRect(x: 10, y: -10, width: 180, height: 200),rect.debugDescription)
+    }
+    func testHideBottomBorder(){
+        let viewSize = CGSize.init(width: 200, height: 200)
+        let width : CGFloat = 20
+        let position:UIBorderPostion = [.left,.right,.top]
+        let rect = UIImage.borderConvasRect(with: viewSize, width: width, position: position)
+        XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 180, height: 200),rect.debugDescription)
+    }
+    
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

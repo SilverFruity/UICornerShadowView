@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="4mt-aM-Aiw">
-                                        <rect key="frame" x="40" y="0.0" width="334" height="420"/>
+                                        <rect key="frame" x="40" y="0.0" width="334" height="570"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Sr-3S-fpd" customClass="UICornerShadowView" customModule="UICornerShadowView" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="120"/>
@@ -46,6 +46,10 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rco-AT-9j8" customClass="UICornerShadowView" customModule="UICornerShadowView" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="300" width="334" height="120"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWB-dw-4D4" customClass="UICornerShadowView" customModule="UICornerShadowView" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="450" width="334" height="120"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -75,6 +79,7 @@
                         <outlet property="layerShadow" destination="ubi-FQ-K2g" id="M6g-Xb-bsE"/>
                         <outlet property="leftRightShadowView" destination="rco-AT-9j8" id="3Ma-aB-Vh9"/>
                         <outlet property="shadowView" destination="9Sr-3S-fpd" id="7tu-Yp-zFi"/>
+                        <outlet property="topBottomShadowView" destination="wWB-dw-4D4" id="Fud-NK-4yo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

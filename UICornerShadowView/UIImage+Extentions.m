@@ -162,14 +162,41 @@ extern CGRect CGSize2CGRect(CGSize size);
     
     return image;
 }
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(nullable UIColor *)strokeColor{
-    return [self borderPathImageWithRoundingCorners:corners radius:radius width:width strokeColor:strokeColor fillColor:[UIColor clearColor]];
++ (CGPoint)borderConvasOriginWithWidth:(CGFloat)width
+                              position:(UIBorderPostion)position{
+    return CGPointMake(position&UIBorderPostionLeft?width/2:-width/2, position&UIBorderPostionTop?width/2:-width/2);
 }
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor{
-    if (radius == 0 || strokeColor == nil){
+
++ (CGSize)borderConvasSizeWithViewSize:(CGSize)viewSize
+                                 width:(CGFloat)width
+                              position:(UIBorderPostion)position{
+    CGFloat convasWidth = viewSize.width;
+    convasWidth = position&UIBorderPostionLeft? convasWidth - width/2 : convasWidth + width/2;
+    convasWidth = position&UIBorderPostionRight? convasWidth - width/2 : convasWidth + width/2;
+    CGFloat convasHeight = viewSize.height;
+    convasHeight = position&UIBorderPostionTop? convasHeight - width/2 : convasHeight + width/2;
+    convasHeight = position&UIBorderPostionBottom? convasHeight - width/2 : convasHeight + width/2;
+    return CGSizeMake(convasWidth,convasHeight);
+}
+
++ (CGRect)borderConvasRectWithSize:(CGSize)viewSize
+                             width:(CGFloat)width
+                          position:(UIBorderPostion)position{
+    CGPoint origin = [self borderConvasOriginWithWidth:width position:position];
+    CGSize size = [self borderConvasSizeWithViewSize:viewSize width:width position:position];
+    return CGRectMake(origin.x, origin.y, size.width, size.height);
+}
+
+
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width
+                                       position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor{
+    return [self borderPathImageWithRoundingCorners:corners radius:radius width:width position:position strokeColor:strokeColor fillColor:[UIColor clearColor]];
+}
+- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width position:(UIBorderPostion)position strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor{
+    if (strokeColor == nil){
         return self;
     }
-    CGRect strokeRect = CGRectMake(width/2, width/2, self.size.width-width, self.size.height-width);
+    
     CGRect rect = CGSize2CGRect(self.size);
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -178,17 +205,21 @@ extern CGRect CGSize2CGRect(CGSize size);
     //填充颜色
     CGContextFillRect(context, rect);
     [self drawInRect:rect];
-    if (width > radius){ // 当 width 40 radius 20的情况下
-        UIBezierPath *clipPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
-        [clipPath addClip];
-    }
-    UIBezierPath *linePath = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
-    if (width > radius){ // 当 width 40 radius 20的情况下
+    UIBezierPath *clipPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
+    [clipPath addClip];
+    CGRect strokeRect = CGContextGetClipBoundingBox(context);
+    strokeRect = [UIImage borderConvasRectWithSize:strokeRect.size width:width position:position];
+    UIBezierPath *linePath;
+    if (width > radius || radius == 0){ // 当 width 40 radius 20的情况下
         linePath = [UIBezierPath bezierPathWithRect:strokeRect];
+    }else{
+        linePath = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
     }
     linePath.lineWidth = width;
-    linePath.lineCapStyle = kCGLineCapRound;
-    linePath.lineJoinStyle = kCGLineJoinRound;
+    if (radius > 0){
+        linePath.lineCapStyle = kCGLineCapRound;
+        linePath.lineJoinStyle = kCGLineJoinRound;
+    }
     [linePath stroke];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
