@@ -128,12 +128,28 @@ class UICornerShadowView: UIView {
     func identifier()->String{
         //FIXME: border不启用和shadow不启用时的identifier
         if _enableRectCornner {
-            return "CornerShadow_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
+            return "CornerShadow_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
         }else{
-            return "CornerShadow_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)"
+            return "CornerShadow_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
         }
         
     }
+    
+    #if DEBUG
+    func debugInfo()->String{
+      return  """
+              initailBackGroundColor=\(initailBackGroundColor);\n
+              cornerRadius=\(_cornerRadius);\n
+              rectCornner=\(_rectCornner);\n
+              shadowRadius=\(_shadowRadius);\n
+              shadowColor=\(_shadowColor);\n
+              shadowPosition=\(_shadowPosition);\n
+              borderColor=\(_borderColor);\n
+              borderWidth=\(_borderWidth);\n
+              borderPosition=\(_borderPosition);
+              """
+    }
+    #endif
     
     
     

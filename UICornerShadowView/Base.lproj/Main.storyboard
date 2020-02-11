@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pyd-Gk-7oT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
@@ -10,16 +10,17 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="UICornerShadowView" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iur-Kt-WL1">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="4mt-aM-Aiw">
-                                        <rect key="frame" x="40" y="0.0" width="334" height="570"/>
+                                        <rect key="frame" x="40" y="20" width="334" height="720"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Sr-3S-fpd" customClass="UICornerShadowView" customModule="UICornerShadowView" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="120"/>
@@ -52,6 +53,13 @@
                                                 <rect key="frame" x="0.0" y="450" width="334" height="120"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkv-jk-8Ms">
+                                                <rect key="frame" x="0.0" y="600" width="334" height="120"/>
+                                                <state key="normal" title="Test"/>
+                                                <connections>
+                                                    <segue destination="P4B-KE-0QT" kind="show" id="hsU-LT-Ajb"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -59,7 +67,7 @@
                                     <constraint firstAttribute="bottom" secondItem="4mt-aM-Aiw" secondAttribute="bottom" id="1i6-i5-hR6"/>
                                     <constraint firstItem="4mt-aM-Aiw" firstAttribute="centerX" secondItem="iur-Kt-WL1" secondAttribute="centerX" id="gtM-MI-F7v"/>
                                     <constraint firstItem="4mt-aM-Aiw" firstAttribute="width" secondItem="iur-Kt-WL1" secondAttribute="width" constant="-80" id="uwg-HI-KaQ"/>
-                                    <constraint firstItem="4mt-aM-Aiw" firstAttribute="top" secondItem="iur-Kt-WL1" secondAttribute="top" id="wqs-U9-ba0"/>
+                                    <constraint firstItem="4mt-aM-Aiw" firstAttribute="top" secondItem="iur-Kt-WL1" secondAttribute="top" constant="20" id="wqs-U9-ba0"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="UR9-a6-s2P"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Ber-uP-Lti"/>
@@ -74,6 +82,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="4Cq-kI-Q9C"/>
                     <connections>
                         <outlet property="layerCorner" destination="yeX-6Y-IAN" id="C6r-Me-IeI"/>
                         <outlet property="layerShadow" destination="ubi-FQ-K2g" id="M6g-Xb-bsE"/>
@@ -82,9 +91,84 @@
                         <outlet property="topBottomShadowView" destination="wWB-dw-4D4" id="Fud-NK-4yo"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+            <point key="canvasLocation" x="83" y="138"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="V8t-G4-tgz">
+            <objects>
+                <navigationController id="Pyd-Gk-7oT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZHO-n3-7Up">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9C8-bP-O2P"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X8c-dl-jWg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-638" y="138"/>
+        </scene>
+        <!--View Controller1-->
+        <scene sceneID="ytj-10-68S">
+            <objects>
+                <viewController id="P4B-KE-0QT" customClass="ViewController1" customModule="UICornerShadowView" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yjz-mR-PNo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aL2-8h-SDI">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RandomCell" rowHeight="94" id="GbQ-98-hbs" customClass="RandomCell" customModule="UICornerShadowView" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="94"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GbQ-98-hbs" id="3jn-cZ-gaV">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIX-c4-WJk" customClass="UICornerShadowView" customModule="UICornerShadowView" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="0.0" width="382" height="78"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WIX-c4-WJk" firstAttribute="leading" secondItem="3jn-cZ-gaV" secondAttribute="leading" constant="16" id="5Av-9h-sZi"/>
+                                                <constraint firstAttribute="bottom" secondItem="WIX-c4-WJk" secondAttribute="bottom" constant="16" id="IHt-ZU-KBB"/>
+                                                <constraint firstItem="WIX-c4-WJk" firstAttribute="top" secondItem="3jn-cZ-gaV" secondAttribute="top" id="NG7-fR-Y4Y"/>
+                                                <constraint firstAttribute="trailing" secondItem="WIX-c4-WJk" secondAttribute="trailing" constant="16" id="rC8-nR-Wm7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="container" destination="WIX-c4-WJk" id="DKW-M1-gLn"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="P4B-KE-0QT" id="iVv-gU-ZIO"/>
+                                    <outlet property="delegate" destination="P4B-KE-0QT" id="QTU-pl-T5M"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="aL2-8h-SDI" firstAttribute="top" secondItem="xOd-jL-DS9" secondAttribute="top" id="K5o-qf-pil"/>
+                            <constraint firstItem="aL2-8h-SDI" firstAttribute="leading" secondItem="xOd-jL-DS9" secondAttribute="leading" id="Wzh-Ij-7K4"/>
+                            <constraint firstItem="xOd-jL-DS9" firstAttribute="trailing" secondItem="aL2-8h-SDI" secondAttribute="trailing" id="fMn-qj-Cdr"/>
+                            <constraint firstItem="xOd-jL-DS9" firstAttribute="bottom" secondItem="aL2-8h-SDI" secondAttribute="bottom" id="mOf-Zu-SUd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xOd-jL-DS9"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ue6-ap-uKP"/>
+                    <connections>
+                        <outlet property="tableView" destination="aL2-8h-SDI" id="rKg-tL-sZX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qtp-5u-Bzc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="815.94202898550736" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>

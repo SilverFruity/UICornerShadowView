@@ -76,6 +76,7 @@ class UICornerShadowViewTests: XCTestCase {
     func testAllBorder(){
         let viewSize = CGSize.init(width: 200, height: 200)
         let width : CGFloat = 20
+        let position:UIBorderPostion = [.left,.right,.top,.bottom]
         let rect = UIImage.borderConvasRect(with: viewSize, width: width, position: position)
         XCTAssertTrue(rect == CGRect(x: 10, y: 10, width: 180, height: 180),rect.debugDescription)
     }
