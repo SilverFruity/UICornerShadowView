@@ -10,6 +10,7 @@ import CoreGraphics
 class CustomRenderCache{
     static let `default` = CustomRenderCache()
     private let cache: NSCache = NSCache<NSString,UIImage>.init()
+    private var hasCost: Int = 0
     init() {
         //10MB
         self.cache.totalCostLimit =  10 * 1024 * 1024
@@ -20,15 +21,22 @@ class CustomRenderCache{
     
     open func setObject(_ obj: UIImage, forKey key: String){
         // 32: RGBA
-        let bytes = Int(obj.size.width * obj.size.height * UIScreen.main.scale * 32)
+        var bytes = Int(obj.size.width * obj.size.height * 4 * UIScreen.main.scale * UIScreen.main.scale)
+        if let cgimg = obj.cgImage{
+            bytes = cgimg.height * cgimg.width * (cgimg.bitsPerPixel / cgimg.bitsPerComponent)
+        }
+        hasCost += bytes
         self.cache.setObject(obj, forKey: NSString.init(string: key), cost: bytes)
     }
     
     open func removeObject(forKey key: String){
         self.cache.removeObject(forKey: NSString.init(string: key))
     }
-    func removeAllObjects(){
+    func clear(){
         self.cache.removeAllObjects()
+    }
+    func cacheCost()->Int{
+        return hasCost
     }
 }
 

@@ -113,8 +113,75 @@ class UICornerShadowViewTests: XCTestCase {
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
+        let shadowView = UICornerShadowView.init()
         self.measure {
-            // Put the code you want to measure the time of here.
+            for _ in (0...1000){
+                shadowView.backgroundColor = UIColor.init(red: CGFloat.random(in: 0...10) / 10, green: CGFloat.random(in: 0...10) / 10, blue: CGFloat.random(in: 0...10) / 10, alpha: 1)
+                shadowView._enableRectCornner = true
+                shadowView._cornerRadius = CGFloat(Int.random(in: 0..<10))
+                let cornerPositions: [UIRectCorner] = [.topLeft,.topRight,.bottomLeft,.bottomRight]
+                var cornerResult = [UIRectCorner]()
+                var cornerCount = Int.random(in: 0..<4)
+                while cornerCount >= 0 {
+                    cornerResult.append(cornerPositions[Int.random(in: 0..<4)])
+                    cornerCount -= 1
+                }
+                shadowView._rectCornner = UIRectCorner.init(cornerResult)
+                
+                let shadowPositions: [UIShadowPostion] = [.left,.top,.right,.bottom]
+                var shadowResult = [UIShadowPostion]()
+                var shadowResultCount = Int.random(in: 0..<4)
+                while shadowResultCount >= 0 {
+                    shadowResult.append(shadowPositions[Int.random(in: 0..<4)])
+                    shadowResultCount -= 1
+                }
+                shadowView._shadowPosition = UIShadowPostion.init(shadowResult)
+                shadowView._shadowColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
+                shadowView._shadowRadius = CGFloat(Int.random(in: 8..<20))
+                shadowView._borderColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
+                shadowView._borderWidth = CGFloat(Int.random(in: 0..<20))
+                
+                let borderPositions: [UIBorderPostion] = [.left,.top,.right,.bottom]
+                var borderResult = [UIBorderPostion]()
+                var borderCount = Int.random(in: 0..<4)
+                while borderCount >= 0 {
+                    borderResult.append(borderPositions[Int.random(in: 0..<4)])
+                    borderCount -= 1
+                }
+                shadowView._borderPosition = UIBorderPostion.init(borderResult)
+
+                let enableRectConer = shadowView._enableRectCornner
+                let radius = shadowView._cornerRadius
+                let rectCornner = shadowView._rectCornner
+                let shadowColor = shadowView._shadowColor
+                let shadowOffset = shadowView._shadowOffset
+                let shadowRadius = shadowView._shadowRadius
+                let shadowPosition = shadowView._shadowPosition
+                let borderWidth = shadowView._borderWidth
+                let borderColor = shadowView._borderColor
+                let borderPosition = shadowView._borderPosition
+                
+                var maxValue = radius > (borderWidth + 1) && enableRectConer ? radius : borderWidth + 1
+                maxValue = shadowRadius > maxValue ? shadowRadius : maxValue
+                let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
+                var image = UIImage.init(color: UIColor.white, size: size)
+//                var image = UIImage.init(color: UIColor.white, size: CGSize.init(width: 400, height: 100))
+                if enableRectConer{
+                    image = image.cornerImage(withRoundingCorners: rectCornner, radius: radius)
+                }
+                if borderColor != UIColor.clear && borderWidth != 0{
+                    image = image.borderPathImage(withRoundingCorners: rectCornner, radius: enableRectConer ? radius : 0, width: borderWidth, position: borderPosition, stroke: borderColor)
+                }
+                if shadowColor != UIColor.clear && shadowRadius != 0{
+                    image = image.shadow(shadowOffset, radius: shadowRadius, color: shadowColor, shadowPositoin: shadowPosition)
+                }
+                image = image.resizableImageCenterMode()
+                CustomRenderCache.default.setObject(image, forKey: shadowView.identifier())
+            }
+            // width:400 height:100 1000次 耗时 7.5s 缓存大小712MB
+            // 仅使用圆角大小、阴影、边框的大小计算宽高时 1000次 耗时 1.4s 缓存大小29MB
+            print("\(CustomRenderCache.default.cacheCost() / (1024 * 1024))MB")
+            CustomRenderCache.default.clear()
         }
     }
 
