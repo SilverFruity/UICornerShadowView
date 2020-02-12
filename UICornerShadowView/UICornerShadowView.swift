@@ -114,7 +114,7 @@ class UICornerShadowView: UIView {
             var maxValue = rectCorner.radius > (border.width + 1) && rectCorner.isEnable ? rectCorner.radius : border.width + 1
             maxValue = shadow.shadowBlurRadius > maxValue ? shadow.shadowBlurRadius : maxValue
             let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
-            var image = UIImage.init(color: color, size: size)
+            var image = SFColorImage.init(color: color, size: size).general()
             image = rectCorner.process(image)
             //FIME: 当前是内边框，外边框的情况？
             image = border.process(image, rectCorner: rectCorner)

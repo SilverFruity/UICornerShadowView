@@ -24,6 +24,23 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
     UIBorderPostionAll  = ~0UL
 };
 
+@interface SFColorImage : NSObject
+@property (nonatomic, assign)CGSize size;
+@property (nonatomic, strong)UIColor *color;
++ (instancetype)imageWithColor:(UIColor *)color;
++ (instancetype)imageWithColor:(UIColor *)color size:(CGSize)size;
+- (UIImage *)general;
+@end
+
+@interface SFGradientImage : NSObject
+@property (nonatomic, assign)BOOL isHorizontal;
+@property (nonatomic, assign)CGSize size;
+@property (nonatomic, assign)NSArray<NSNumber *> *locations;
+@property (nonatomic, copy)NSArray<UIColor *> *colors;
++ (instancetype)isHorizontal:(BOOL)isHorizontal startColor:(UIColor *)startColor endColor:(UIColor *)endColor;
+- (UIImage *)general;
+@end
+
 @interface SFRectCorner: NSObject
 @property (nonatomic, assign)CGFloat radius;
 @property (nonatomic, strong)UIColor *fillColor;
@@ -63,42 +80,20 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 @end
 
 @interface UIImage (Color)
-+ (UIImage *)imageWithColor:(UIColor *)color;
-+ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 //使用mask重新渲染图片颜色
 - (UIImage *)imageRenderWithColor:(UIColor *)color;
-
-+ (UIImage *)gradientImage:(BOOL)isHorizontal
-                startColor:(UIColor *)startColor
-                  endColor:(UIColor *)endColor;
-
-//线性渐变图片
-+ (UIImage *)linearGradientImage:(CGSize)size
-                    isHorizontal:(BOOL)isHorizontal
-                       locations:(NSArray <NSNumber *>*)locations
-                      startColor:(UIColor *)startColor
-                        endColor:(UIColor *)endColor;
-+ (UIImage *)centerResizeCircleImage:(UIColor *)color width:(CGFloat)width;
 @end
 
 @interface UIImage (Radius)
-///圆形图片
-- (UIImage *)circleImage;
-///添加圆角
-- (UIImage *)cornerImageWithCornerRadius:(CGFloat)radius;
-- (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius;
-- (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius fillColor:(UIColor *)fillColor;
-///设置中点为拉伸区域
-- (UIImage *)resizableImageCenterMode;
-- (UIImage *)resizableImageCenterWithInset:(UIEdgeInsets)inset;
 ///获取正中心的正方形
 - (UIImage *)centerRectWithAspectRatio:(CGFloat)aspectRatio;
 - (UIImage *)centerSquare;
-@end
-@interface UIImage (Resize)
-- (UIImage *)imageInset:(UIEdgeInsets)insets;
-- (UIImage *)resizeImage:(CGSize)size;
-- (UIImage *)resizeImageWithMaxValue:(CGFloat)max;
+///圆形图片
+- (UIImage *)circleImage;
+
+///设置中点为拉伸区域
+- (UIImage *)resizableImageCenterMode;
+- (UIImage *)resizableImageCenterWithInset:(UIEdgeInsets)inset;
 @end
 
 
