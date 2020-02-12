@@ -228,30 +228,30 @@ extern CGRect CGSize2CGRect(CGSize size);
     return image;
 }
 + (CGPoint)shadowBackGroundImageOriginWithShadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
-    CGFloat viewX = (shadowOffset.width > 0 ? 0 : shadowOffset.width) + (position&UIShadowPostionLeft ? -shadowRadius : 0);
-    CGFloat viewY = (shadowOffset.height > 0 ? 0 : shadowOffset.height) + (position&UIShadowPostionTop ? -shadowRadius : 0);
-    return CGPointMake(viewX, viewY);
+    UIEdgeInsets insets = [self shadowEdgeInsets:shadowOffset shadowRadius:shadowRadius position:position];
+    return CGPointMake(-insets.left, -insets.top);
 }
-+ (CGSize)shadowBackGroundImageSizeWithViewSize:(CGSize)viewSize shadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
-    CGFloat offsetWidth = 0;
-    CGFloat offsetHeight = 0;
++ (UIEdgeInsets)shadowEdgeInsets:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
+    CGFloat left=0, right = 0, top = 0, bottom = 0;
     if (position&UIShadowPostionRight&&shadowOffset.width>0) {
-        offsetWidth = fabs(shadowOffset.height);
+        right += fabs(shadowOffset.width);
     }else if (position&UIShadowPostionLeft&&shadowOffset.width<0) {
-        offsetWidth = fabs(shadowOffset.height);
+        left += fabs(shadowOffset.width);
     }
     if (position&UIShadowPostionBottom&&shadowOffset.height>0) {
-        offsetHeight = fabs(shadowOffset.height);
+        bottom += fabs(shadowOffset.height);
     }else if (position&UIShadowPostionTop&&shadowOffset.height<0) {
-        offsetHeight = fabs(shadowOffset.height);
+        top += fabs(shadowOffset.height);
     }
-    CGFloat canvasWidth = viewSize.width + offsetWidth;
-    CGFloat canvasHeight = viewSize.height + offsetHeight;
-    canvasHeight += position&UIShadowPostionTop?shadowRadius:0;
-    canvasHeight += position&UIShadowPostionBottom?shadowRadius:0;
-    canvasWidth  += position&UIShadowPostionLeft?shadowRadius:0;
-    canvasWidth  += position&UIShadowPostionRight?shadowRadius:0;
-    return CGSizeMake(canvasWidth, canvasHeight);
+    top += position&UIShadowPostionTop?shadowRadius:0;
+    bottom += position&UIShadowPostionBottom?shadowRadius:0;
+    left  += position&UIShadowPostionLeft?shadowRadius:0;
+    right  += position&UIShadowPostionRight?shadowRadius:0;
+    return UIEdgeInsetsMake(top, left, bottom, right);
+}
++ (CGSize)shadowBackGroundImageSizeWithViewSize:(CGSize)viewSize shadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
+    UIEdgeInsets insets = [self shadowEdgeInsets:shadowOffset shadowRadius:shadowRadius position:position];
+    return CGSizeMake(viewSize.width + insets.left + insets.right, viewSize.height + insets.top + insets.bottom);
 }
 + (CGRect)shadowBackGroundImageRectWithViewSize:(CGSize)viewSize
                                    shadowOffset:(CGSize)shadowOffset
@@ -283,7 +283,12 @@ extern CGRect CGSize2CGRect(CGSize size);
     
 }
 - (UIImage *)resizableImageCenterMode{
-     return [self resizableImageWithCapInsets:UIEdgeInsetsMake(self.size.height / 2, self.size.width / 2, self.size.height / 2, self.size.width / 2)];
+    return [self resizableImageWithCapInsets:UIEdgeInsetsMake(self.size.height / 2, self.size.width / 2, self.size.height / 2, self.size.width / 2)];
+}
+- (UIImage *)resizableImageCenterWithInset:(UIEdgeInsets)inset{
+    CGFloat x = (self.size.width - inset.left - inset.right) / 2;
+    CGFloat y = (self.size.height - inset.top - inset.bottom) / 2;
+    return [self resizableImageWithCapInsets:UIEdgeInsetsMake(y + inset.top, x + inset.left, y + inset.bottom, x + inset.right)];
 }
 
 

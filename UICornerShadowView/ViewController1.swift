@@ -29,7 +29,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "RandomCell") as! RandomCell
         cell.container.backgroundColor = UIColor.init(red: CGFloat.random(in: 0...10) / 10, green: CGFloat.random(in: 0...10) / 10, blue: CGFloat.random(in: 0...10) / 10, alpha: 1)
         cell.container._enableRectCornner = true
-        cell.container._cornerRadius = CGFloat(Int.random(in: 0..<10))
+        cell.container._cornerRadius = CGFloat(Int.random(in: 10..<20))
         let cornerPositions: [UIRectCorner] = [.topLeft,.topRight,.bottomLeft,.bottomRight]
         var cornerResult = [UIRectCorner]()
         var cornerCount = Int.random(in: 0..<4)
@@ -47,10 +47,10 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             shadowResultCount -= 1
         }
         cell.container._shadowPosition = UIShadowPostion.init(shadowResult)
-        cell.container._shadowColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
+        cell.container._shadowColor = UIColor.black.withAlphaComponent(CGFloat(Int.random(in: 4...10)) / 10)
         cell.container._shadowRadius = CGFloat(Int.random(in: 8..<20))
         cell.container._borderColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
-        cell.container._borderWidth = CGFloat(Int.random(in: 0..<20))
+        cell.container._borderWidth = CGFloat(Int.random(in: 0..<8))
         
         let borderPositions: [UIBorderPostion] = [.left,.top,.right,.bottom]
         var borderResult = [UIBorderPostion]()
@@ -60,7 +60,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             borderCount -= 1
         }
         
-        cell.container._borderPosition = UIBorderPostion.init(borderResult)
+        cell.container._borderPosition = UIBorderPostion.init(borderPositions)
         cell.container.reloadBackGourndImage()
         return cell
     }

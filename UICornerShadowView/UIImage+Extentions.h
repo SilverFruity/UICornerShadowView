@@ -75,6 +75,7 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 - (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor;
 - (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width  position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor fillColor:(UIColor *)fillColor;
 
++ (UIEdgeInsets)shadowEdgeInsets:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position;
 + (CGPoint)shadowBackGroundImageOriginWithShadowOffset:(CGSize)shadowOffset
                                           shadowRadius:(CGFloat)shadowRadius
                                               position:(UIShadowPostion)position;
@@ -93,6 +94,7 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 - (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color;
 ///设置中点为拉伸区域
 - (UIImage *)resizableImageCenterMode;
+- (UIImage *)resizableImageCenterWithInset:(UIEdgeInsets)inset;
 ///获取正中心的正方形
 - (UIImage *)centerRectWithAspectRatio:(CGFloat)aspectRatio;
 - (UIImage *)centerSquare;

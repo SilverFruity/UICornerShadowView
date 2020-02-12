@@ -72,9 +72,6 @@ class UICornerShadowView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.reloadBackGourndImage()
-    }
-    func reloadBackGourndImage(){
-        self.sendSubviewToBack(self.backGroundImageView)
         if self.backgroundColor != UIColor.clear && self.backgroundColor != nil{
             self.initailBackGroundColor = self.backgroundColor!
         }
@@ -92,13 +89,6 @@ class UICornerShadowView: UIView {
         let borderWidth = self._borderWidth
         let borderColor = self._borderColor
         let borderPosition = self._borderPosition
-        //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
-        //FIXME: 外边框 border和shadow只有一者存在时，宽高的计算。
-        let imageRect = UIImage.shadowBackGroundImageRect(withViewSize: self.bounds.size, shadowOffset: shadowOffset, shadowRadius: shadowRadius, position: shadowPosition)
-        
-        //TODO: errorValue:特意增加的误差 0.o。解决tableView显示时，全是阴影的情况，cell衔接时会有一点点点空缺。
-        let errorValue :CGFloat = 1
-        self.backGroundImageView.frame = imageRect.inset(by: UIEdgeInsets(top: errorValue, left: errorValue, bottom: errorValue, right: errorValue))
         
         if let cacheImage = CustomRenderCache.default.object(forKey: imageIdentifier){
             self.backGroundImageView.image = cacheImage
@@ -121,8 +111,11 @@ class UICornerShadowView: UIView {
             }
             if shadowColor != UIColor.clear && shadowRadius != 0{
                 image = image.shadow(shadowOffset, radius: shadowRadius, color: shadowColor, shadowPositoin: shadowPosition)
+                let insets = UIImage.shadowEdgeInsets(shadowOffset, shadowRadius: shadowRadius, position: shadowPosition)
+                image = image.resizableImageCenter(withInset: insets)
+            }else{
+                image = image.resizableImageCenterMode()
             }
-            image = image.resizableImageCenterMode()
             CustomRenderCache.default.setObject(image, forKey: imageIdentifier)
             DispatchQueue.main.async { [weak self] in
                 if self == nil{
@@ -133,12 +126,21 @@ class UICornerShadowView: UIView {
         }
         self.backgroundColor = UIColor.clear
     }
+    func reloadBackGourndImage(){
+        self.sendSubviewToBack(self.backGroundImageView)
+        let imageRect = UIImage.shadowBackGroundImageRect(withViewSize: self.bounds.size, shadowOffset: _shadowOffset, shadowRadius: _shadowRadius, position: _shadowPosition)
+        //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
+        //FIXME: 外边框 border和shadow只有一者存在时，宽高的计算。
+        //TODO: errorValue:特意增加的误差 0.o。解决tableView显示时，全是阴影的情况，cell衔接时会有一点点点空缺。
+        let errorValue :CGFloat = 1
+        self.backGroundImageView.frame = imageRect.inset(by: UIEdgeInsets(top: errorValue, left: errorValue, bottom: errorValue, right: errorValue))
+    }
     func identifier()->String{
         //FIXME: border不启用和shadow不启用时的identifier
         if _enableRectCornner {
-            return "CornerShadow_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
+            return "CornerShadow_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowOffset)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
         }else{
-            return "CornerShadow_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
+            return "CornerShadow_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowOffset)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
         }
         
     }
@@ -149,6 +151,7 @@ class UICornerShadowView: UIView {
               initailBackGroundColor=\(initailBackGroundColor);\n
               cornerRadius=\(_cornerRadius);\n
               rectCornner=\(_rectCornner);\n
+              shadowOffset=\(_shadowOffset);\n
               shadowRadius=\(_shadowRadius);\n
               shadowColor=\(_shadowColor);\n
               shadowPosition=\(_shadowPosition);\n
