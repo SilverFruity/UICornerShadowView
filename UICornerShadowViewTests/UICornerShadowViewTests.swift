@@ -132,17 +132,24 @@ class UICornerShadowViewTests: XCTestCase {
                 maxValue = shadow.shadowBlurRadius > maxValue ? shadow.shadowBlurRadius : maxValue
                 let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
 //                let size = CGSize.init(width: 400, height: 100)
-                var image = SFColorImage.init(color: UIColor.white, size: size).general()
-                image = rectCorner.process(image)
-                //FIME: 当前是内边框，外边框的情况？
-                image = border.process(image, rectCorner: rectCorner)
-                image = shadow.process(image)
+                let colorImage = SFColorImage.init(color: UIColor.white, size: size);
+                UIGraphicsBeginImageContextWithOptions(colorImage.size, false, 0)
+                let ctx = UIGraphicsGetCurrentContext()!
+                rectCorner.process(ctx)
+                colorImage.process(ctx)
+                border.process(ctx, rectCorner: rectCorner)
+                shadow.process(ctx)
+                let image = UIGraphicsGetImageFromCurrentImageContext()!
+                UIGraphicsEndImageContext()
                 if let cgimg = image.cgImage{
                     cost += cgimg.height * cgimg.width * (cgimg.bitsPerPixel / cgimg.bitsPerComponent)
                 }
             }
             // width:400 height:100 1000次 耗时 7.5s 缓存大小715MB
-            // 仅使用圆角大小、阴影、边框的大小计算宽高时 1000次 耗时 1.01s 缓存大小29MB
+            // -----
+            // 压缩图片时: 仅使用圆角大小、阴影、边框的大小计算宽高
+            // 每次生成图片:  1000次 耗时 1.01s 缓存大小29MB
+            // 使用CGContext逐步绘制，只生成一次图片: 1000次 耗时 0.7s 缓存大小为29MB
             print("\(cost / (1024 * 1024))MB")
             cost = 0
         }

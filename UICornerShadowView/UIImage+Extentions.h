@@ -29,7 +29,8 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @property (nonatomic, strong)UIColor *color;
 + (instancetype)imageWithColor:(UIColor *)color;
 + (instancetype)imageWithColor:(UIColor *)color size:(CGSize)size;
-- (UIImage *)general;
+- (CGContextRef)begin;
+- (void)process:(CGContextRef)ctx;
 @end
 
 @interface SFGradientImage : NSObject
@@ -38,7 +39,8 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @property (nonatomic, assign)NSArray<NSNumber *> *locations;
 @property (nonatomic, copy)NSArray<UIColor *> *colors;
 + (instancetype)isHorizontal:(BOOL)isHorizontal startColor:(UIColor *)startColor endColor:(UIColor *)endColor;
-- (UIImage *)general;
+- (CGContextRef)begin;
+- (void)process:(CGContextRef)ctx;
 @end
 
 @interface SFRectCorner: NSObject
@@ -46,7 +48,7 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @property (nonatomic, strong)UIColor *fillColor;
 @property (nonatomic, assign)UIRectCorner position;
 @property (nonatomic, getter=isEnable)BOOL enable;
-- (UIImage *)process:(UIImage *)target;
+- (void)process:(CGContextRef)ctx;
 @end
 
 @interface SFShadow: NSObject
@@ -58,7 +60,7 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @property (nonatomic, getter=isEnable)BOOL enable;
 - (CGRect)viewRectForSize:(CGSize)size;
 - (UIEdgeInsets)convasEdgeInsets;
-- (UIImage *)process:(UIImage *)target;
+- (void)process:(CGContextRef)ctx;
 @end
     
 @interface SFBorder: NSObject
@@ -68,7 +70,7 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @property (nonatomic, assign)UIBorderPostion position;
 @property (nonatomic, getter=isEnable)BOOL enable;
 - (CGRect)strokeRectWithSize:(CGSize)size;
-- (UIImage *)process:(UIImage *)target rectCorner:(SFRectCorner *)rectCorner;
+- (void)process:(CGContextRef)ctx rectCorner:(nullable SFRectCorner *)rectCorner;
 @end
 
 extern UIImage* UIImageWithColor(UIColor * _Nullable color);
