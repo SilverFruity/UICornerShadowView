@@ -47,7 +47,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             shadowResultCount -= 1
         }
         cell.container._shadowPosition = UIShadowPostion.init(shadowResult)
-        cell.container._shadowColor = UIColor.black.withAlphaComponent(CGFloat(Int.random(in: 4...10)) / 10)
+        cell.container._shadowColor = UIColor.black.withAlphaComponent(CGFloat(Int.random(in: 4..<10)) / 10)
         cell.container._shadowRadius = CGFloat(Int.random(in: 8..<20))
         cell.container._borderColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
         cell.container._borderWidth = CGFloat(Int.random(in: 0..<8))

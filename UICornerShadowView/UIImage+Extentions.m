@@ -17,8 +17,162 @@
 #ifndef SCREEN_SCALE
 #define SCREEN_SCALE [UIScreen mainScreen].scale
 #endif
-
 extern CGRect CGSize2CGRect(CGSize size);
+
+@implementation SFRectCorner
+- (instancetype)init
+{
+    self = [super init];
+    self.fillColor = [UIColor clearColor];
+    return self;
+}
+- (BOOL)isEnable{
+    return self.position != 0 && self.radius != 0;
+}
+- (UIImage *)process:(UIImage *)target{
+    if (!self.isEnable) return target;
+    UIGraphicsBeginImageContextWithOptions(target.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGRect rect = CGSize2CGRect(target.size);
+    [self.fillColor setFill];
+    CGContextFillRect(context, rect);
+    //利用贝塞尔曲线裁剪矩形
+    if (self.radius != 0) {
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:self.position cornerRadii:CGSizeMake(self.radius, self.radius)];
+        [path addClip];
+    }
+    //绘制图像
+    [target drawInRect:rect];
+    //获取图像
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+@end
+
+@implementation SFShadow
+- (instancetype)init
+{
+    self = [super init];
+    self.fillColor = [UIColor clearColor];
+    return self;
+}
+- (BOOL)isEnable{
+    return self.shadowColor != nil && self.shadowColor != [UIColor clearColor] && self.shadowBlurRadius != 0;
+}
+- (CGRect)viewRectForSize:(CGSize)size{
+    UIEdgeInsets insets = [self convasEdgeInsets];
+    CGSize convasSize = [self convasSizeWithSize:size];
+    return CGRectMake(-insets.left, -insets.top, convasSize.width, convasSize.height);
+}
+- (CGSize)convasSizeWithSize:(CGSize)size{
+    UIEdgeInsets insets = [self convasEdgeInsets];
+    return CGSizeMake(size.width + insets.left + insets.right, size.height + insets.top + insets.bottom);
+}
+- (UIEdgeInsets)convasEdgeInsets{
+    CGFloat left=0, right = 0, top = 0, bottom = 0;
+    if (self.position&UIShadowPostionRight&&self.shadowOffset.width>0) {
+        right += fabs(self.shadowOffset.width);
+    }else if (self.position&UIShadowPostionLeft&&self.shadowOffset.width<0) {
+        left += fabs(self.shadowOffset.width);
+    }
+    if (self.position&UIShadowPostionBottom&&self.shadowOffset.height>0) {
+        bottom += fabs(self.shadowOffset.height);
+    }else if (self.position&UIShadowPostionTop&&self.shadowOffset.height<0) {
+        top += fabs(self.shadowOffset.height);
+    }
+    top += self.position&UIShadowPostionTop?self.shadowBlurRadius:0;
+    bottom += self.position&UIShadowPostionBottom?self.shadowBlurRadius:0;
+    left  += self.position&UIShadowPostionLeft?self.shadowBlurRadius:0;
+    right  += self.position&UIShadowPostionRight?self.shadowBlurRadius:0;
+    return UIEdgeInsetsMake(top, left, bottom, right);
+}
+- (UIImage *)process:(UIImage *)target{
+    if (!self.isEnable) return target;
+    UIEdgeInsets insets = [self convasEdgeInsets];
+    CGSize canvasSize = [self convasSizeWithSize:target.size];
+    CGRect canvasRect = CGRectMake(0, 0, canvasSize.width, canvasSize.height);
+    UIGraphicsBeginImageContextWithOptions(canvasRect.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.fillColor setFill];
+    CGContextFillRect(context,canvasRect);
+    CGContextSetShadowWithColor(context, self.shadowOffset, self.shadowBlurRadius, self.shadowColor.CGColor);
+    [target drawInRect:CGRectMake(insets.left, insets.top, target.size.width, target.size.height)];
+    //获取图像
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+@end
+
+@implementation SFBorder
+- (instancetype)init
+{
+    self = [super init];
+    self.fillColor = [UIColor clearColor];
+    return self;
+}
+- (BOOL)isEnable{
+    return self.color != nil && self.color != [UIColor clearColor] && self.width != 0;
+}
+- (UIEdgeInsets)strokeEdgeInsets{
+    CGFloat left=0, right = 0, top = 0, bottom = 0;
+    left = self.position&UIBorderPostionLeft? self.width/2 : -self.width/2;
+    right = self.position&UIBorderPostionRight? self.width/2 : -self.width/2;
+    top = self.position&UIBorderPostionTop?  self.width/2 : -self.width/2;
+    bottom = self.position&UIBorderPostionBottom? self.width/2 : -self.width/2;
+    return UIEdgeInsetsMake(top, left, bottom, right);
+}
+- (CGPoint)strokeOrigin{
+    UIEdgeInsets insets = [self strokeEdgeInsets];
+    return CGPointMake(insets.left, insets.top);
+}
+- (CGSize)strokeSizeWithSize:(CGSize)size{
+    UIEdgeInsets insets = [self strokeEdgeInsets];
+    return CGSizeMake(size.width - insets.left - insets.right,size.height - insets.top - insets.bottom);
+}
+- (CGRect)strokeRectWithSize:(CGSize)size{
+    CGPoint origin = [self strokeOrigin];
+    CGSize rectSize = [self strokeSizeWithSize:size];
+    return CGRectMake(origin.x, origin.y, rectSize.width, rectSize.height);
+}
+- (UIImage *)process:(UIImage *)target rectCorner:(SFRectCorner *)rectCorner{
+    if (!self.isEnable) return target;
+    CGRect rect = CGSize2CGRect(target.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.color setStroke];
+    [self.fillColor setFill];
+    CGContextFillRect(context, rect);
+    [target drawInRect:rect];
+    if (rectCorner){
+        UIBezierPath *clipPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:rectCorner.position cornerRadii:CGSizeMake(rectCorner.radius, rectCorner.radius)];
+        [clipPath addClip];
+    }
+    
+    CGRect strokeRect = CGContextGetClipBoundingBox(context);
+    strokeRect = [self strokeRectWithSize:target.size];
+    UIBezierPath *linePath;
+    if (!rectCorner || self.width > rectCorner.radius || rectCorner.radius == 0){ // 当 width 40 radius 20的情况下
+        linePath = [UIBezierPath bezierPathWithRect:strokeRect];
+    }else{
+        linePath = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:rectCorner.position cornerRadii:CGSizeMake(rectCorner.radius, rectCorner.radius)];
+    }
+    linePath.lineWidth = self.width;
+    if (rectCorner.radius > 0){
+        linePath.lineCapStyle = kCGLineCapRound;
+        linePath.lineJoinStyle = kCGLineJoinRound;
+    }
+    [linePath stroke];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+@end
+
+
 @implementation UIImage (Property)
 - (CGFloat)aspectRatio{
     return self.size.width / self.size.height;
@@ -162,126 +316,6 @@ extern CGRect CGSize2CGRect(CGSize size);
     
     return image;
 }
-+ (CGPoint)borderConvasOriginWithWidth:(CGFloat)width
-                              position:(UIBorderPostion)position{
-    return CGPointMake(position&UIBorderPostionLeft?width/2:-width/2, position&UIBorderPostionTop?width/2:-width/2);
-}
-
-+ (CGSize)borderConvasSizeWithViewSize:(CGSize)viewSize
-                                 width:(CGFloat)width
-                              position:(UIBorderPostion)position{
-    CGFloat convasWidth = viewSize.width;
-    convasWidth = position&UIBorderPostionLeft? convasWidth - width/2 : convasWidth + width/2;
-    convasWidth = position&UIBorderPostionRight? convasWidth - width/2 : convasWidth + width/2;
-    CGFloat convasHeight = viewSize.height;
-    convasHeight = position&UIBorderPostionTop? convasHeight - width/2 : convasHeight + width/2;
-    convasHeight = position&UIBorderPostionBottom? convasHeight - width/2 : convasHeight + width/2;
-    return CGSizeMake(convasWidth,convasHeight);
-}
-
-+ (CGRect)borderConvasRectWithSize:(CGSize)viewSize
-                             width:(CGFloat)width
-                          position:(UIBorderPostion)position{
-    CGPoint origin = [self borderConvasOriginWithWidth:width position:position];
-    CGSize size = [self borderConvasSizeWithViewSize:viewSize width:width position:position];
-    return CGRectMake(origin.x, origin.y, size.width, size.height);
-}
-
-
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width
-                                       position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor{
-    return [self borderPathImageWithRoundingCorners:corners radius:radius width:width position:position strokeColor:strokeColor fillColor:[UIColor clearColor]];
-}
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width position:(UIBorderPostion)position strokeColor:(UIColor *)strokeColor fillColor:(UIColor *)fillColor{
-    if (strokeColor == nil){
-        return self;
-    }
-    
-    CGRect rect = CGSize2CGRect(self.size);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [fillColor setFill];
-    [strokeColor setStroke];
-    //填充颜色
-    CGContextFillRect(context, rect);
-    [self drawInRect:rect];
-    UIBezierPath *clipPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
-    [clipPath addClip];
-    CGRect strokeRect = CGContextGetClipBoundingBox(context);
-    strokeRect = [UIImage borderConvasRectWithSize:strokeRect.size width:width position:position];
-    UIBezierPath *linePath;
-    if (width > radius || radius == 0){ // 当 width 40 radius 20的情况下
-        linePath = [UIBezierPath bezierPathWithRect:strokeRect];
-    }else{
-        linePath = [UIBezierPath bezierPathWithRoundedRect:strokeRect byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
-    }
-    linePath.lineWidth = width;
-    if (radius > 0){
-        linePath.lineCapStyle = kCGLineCapRound;
-        linePath.lineJoinStyle = kCGLineJoinRound;
-    }
-    [linePath stroke];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-+ (CGPoint)shadowBackGroundImageOriginWithShadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
-    UIEdgeInsets insets = [self shadowEdgeInsets:shadowOffset shadowRadius:shadowRadius position:position];
-    return CGPointMake(-insets.left, -insets.top);
-}
-+ (UIEdgeInsets)shadowEdgeInsets:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
-    CGFloat left=0, right = 0, top = 0, bottom = 0;
-    if (position&UIShadowPostionRight&&shadowOffset.width>0) {
-        right += fabs(shadowOffset.width);
-    }else if (position&UIShadowPostionLeft&&shadowOffset.width<0) {
-        left += fabs(shadowOffset.width);
-    }
-    if (position&UIShadowPostionBottom&&shadowOffset.height>0) {
-        bottom += fabs(shadowOffset.height);
-    }else if (position&UIShadowPostionTop&&shadowOffset.height<0) {
-        top += fabs(shadowOffset.height);
-    }
-    top += position&UIShadowPostionTop?shadowRadius:0;
-    bottom += position&UIShadowPostionBottom?shadowRadius:0;
-    left  += position&UIShadowPostionLeft?shadowRadius:0;
-    right  += position&UIShadowPostionRight?shadowRadius:0;
-    return UIEdgeInsetsMake(top, left, bottom, right);
-}
-+ (CGSize)shadowBackGroundImageSizeWithViewSize:(CGSize)viewSize shadowOffset:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position{
-    UIEdgeInsets insets = [self shadowEdgeInsets:shadowOffset shadowRadius:shadowRadius position:position];
-    return CGSizeMake(viewSize.width + insets.left + insets.right, viewSize.height + insets.top + insets.bottom);
-}
-+ (CGRect)shadowBackGroundImageRectWithViewSize:(CGSize)viewSize
-                                   shadowOffset:(CGSize)shadowOffset
-                                   shadowRadius:(CGFloat)shadowRadius
-                                       position:(UIShadowPostion)position{
-    CGPoint origin = [self shadowBackGroundImageOriginWithShadowOffset:shadowOffset shadowRadius:shadowRadius position:position];
-    CGSize size = [self shadowBackGroundImageSizeWithViewSize:viewSize shadowOffset:shadowOffset shadowRadius:shadowRadius position:position];
-    return CGRectMake(origin.x, origin.y, size.width, size.height);
-}
-
-- (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color shadowPositoin:(UIShadowPostion)position{
-    CGSize radiusOffset = CGSizeMake(radius, radius);
-    CGSize canvasSize = [[self class] shadowBackGroundImageSizeWithViewSize:self.size shadowOffset:offest shadowRadius:radius position:position];
-    CGRect canvasRect = CGRectMake(0, 0, canvasSize.width, canvasSize.height);
-    UIGraphicsBeginImageContextWithOptions(canvasRect.size, NO, 0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, UIColor.clearColor.CGColor);
-    CGContextSetShadowWithColor(context, offest, radius, color.CGColor);
-    [self drawInRect:CGRectMake((offest.width > 0 ? 0 : fabs(offest.width)) + (position&UIShadowPostionLeft?radiusOffset.width:0), (offest.height > 0 ? 0 : fabs(offest.height)) + (position&UIShadowPostionTop?radiusOffset.height:0), self.size.width, self.size.height)];
-
-    //获取图像
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-- (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color{
-    return [self shadow:offest radius:radius color:color shadowPositoin:UIShadowPostionAll];
-    
-}
 - (UIImage *)resizableImageCenterMode{
     return [self resizableImageWithCapInsets:UIEdgeInsetsMake(self.size.height / 2, self.size.width / 2, self.size.height / 2, self.size.width / 2)];
 }
@@ -336,9 +370,6 @@ extern CGRect CGSize2CGRect(CGSize size);
     }
 }
 @end
-
-
-
 
 CGRect CGSize2CGRect(CGSize size){
     return CGRectMake(0, 0, size.width, size.height);

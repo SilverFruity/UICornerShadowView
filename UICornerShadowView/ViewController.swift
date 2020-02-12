@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.shadowView._enableRectCornner = true
         self.shadowView._cornerRadius = 20
         self.shadowView._rectCornner = [.topLeft,.topRight,.bottomLeft,.bottomRight]
         self.shadowView._shadowPosition = [.left,.top,.right,.bottom]
@@ -41,7 +40,7 @@ class ViewController: UIViewController {
         self.layerShadow.layer.shadowRadius = self.shadowView._shadowRadius / 2
         self.layerShadow.layer.shadowColor = self.shadowView._shadowColor.cgColor
         
-        self.leftRightShadowView._enableRectCornner = false
+        self.leftRightShadowView._cornerRadius = 0
         self.leftRightShadowView._shadowPosition = [.left,.right]
         self.leftRightShadowView._shadowColor = UIColor.black.withAlphaComponent(0.6)
         self.leftRightShadowView._shadowRadius = 20
@@ -49,7 +48,7 @@ class ViewController: UIViewController {
         self.leftRightShadowView._borderColor = UIColor.systemBlue
         self.leftRightShadowView._borderPosition = [.left,.right]
         
-        self.topBottomShadowView._enableRectCornner = false
+        self.topBottomShadowView._cornerRadius = 0
         self.topBottomShadowView._shadowPosition = [.top,.bottom]
         self.topBottomShadowView._shadowColor = UIColor.black.withAlphaComponent(0.6)
         self.topBottomShadowView._shadowRadius = 20

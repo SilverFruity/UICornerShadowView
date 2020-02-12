@@ -24,6 +24,35 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
     UIBorderPostionAll  = ~0UL
 };
 
+@interface SFRectCorner: NSObject
+@property (nonatomic, assign)CGFloat radius;
+@property (nonatomic, strong)UIColor *fillColor;
+@property (nonatomic, assign)UIRectCorner position;
+@property (nonatomic, getter=isEnable)BOOL enable;
+- (UIImage *)process:(UIImage *)target;
+@end
+
+@interface SFShadow: NSObject
+@property (nonatomic, assign)CGSize shadowOffset;
+@property (nonatomic, assign)CGFloat shadowBlurRadius;
+@property (nonatomic, strong)UIColor *shadowColor;
+@property (nonatomic, strong)UIColor *fillColor;
+@property (nonatomic, assign)UIShadowPostion position;
+@property (nonatomic, getter=isEnable)BOOL enable;
+- (CGRect)viewRectForSize:(CGSize)size;
+- (UIEdgeInsets)convasEdgeInsets;
+- (UIImage *)process:(UIImage *)target;
+@end
+    
+@interface SFBorder: NSObject
+@property (nonatomic, assign)CGFloat width;
+@property (nonatomic, strong)UIColor *color;
+@property (nonatomic, strong)UIColor *fillColor;
+@property (nonatomic, assign)UIBorderPostion position;
+@property (nonatomic, getter=isEnable)BOOL enable;
+- (CGRect)strokeRectWithSize:(CGSize)size;
+- (UIImage *)process:(UIImage *)target rectCorner:(SFRectCorner *)rectCorner;
+@end
 
 extern UIImage* UIImageWithColor(UIColor * _Nullable color);
 extern UIImage* UIImageWithName( NSString * _Nullable name);
@@ -59,39 +88,6 @@ extern UIImage* UIImageWithName( NSString * _Nullable name);
 - (UIImage *)cornerImageWithCornerRadius:(CGFloat)radius;
 - (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius;
 - (UIImage *)cornerImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius fillColor:(UIColor *)fillColor;
-
-+ (CGPoint)borderConvasOriginWithWidth:(CGFloat)width
-                              position:(UIBorderPostion)position;
-
-+ (CGSize)borderConvasSizeWithViewSize:(CGSize)viewSize
-                                 width:(CGFloat)width
-                              position:(UIBorderPostion)position;
-
-+ (CGRect)borderConvasRectWithSize:(CGSize)viewSize
-                             width:(CGFloat)width
-                          position:(UIBorderPostion)position;
-
-///添加边框
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor;
-- (UIImage *)borderPathImageWithRoundingCorners:(UIRectCorner)corners radius:(CGFloat)radius width:(CGFloat)width  position:(UIBorderPostion)position strokeColor:(nullable UIColor *)strokeColor fillColor:(UIColor *)fillColor;
-
-+ (UIEdgeInsets)shadowEdgeInsets:(CGSize)shadowOffset shadowRadius:(CGFloat)shadowRadius position:(UIShadowPostion)position;
-+ (CGPoint)shadowBackGroundImageOriginWithShadowOffset:(CGSize)shadowOffset
-                                          shadowRadius:(CGFloat)shadowRadius
-                                              position:(UIShadowPostion)position;
-
-+ (CGSize)shadowBackGroundImageSizeWithViewSize:(CGSize)viewSize
-                                   shadowOffset:(CGSize)shadowOffset
-                                   shadowRadius:(CGFloat)shadowRadius
-                                       position:(UIShadowPostion)position;
-
-+ (CGRect)shadowBackGroundImageRectWithViewSize:(CGSize)viewSize
-                                   shadowOffset:(CGSize)shadowOffset
-                                   shadowRadius:(CGFloat)shadowRadius
-                                       position:(UIShadowPostion)position;
-
-- (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color shadowPositoin:(UIShadowPostion)position;
-- (UIImage *)shadow:(CGSize)offest radius:(CGFloat)radius color:(UIColor *)color;
 ///设置中点为拉伸区域
 - (UIImage *)resizableImageCenterMode;
 - (UIImage *)resizableImageCenterWithInset:(UIEdgeInsets)inset;
