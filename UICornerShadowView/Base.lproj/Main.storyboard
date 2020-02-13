@@ -52,13 +52,25 @@
                                                 <rect key="frame" x="0.0" y="450" width="334" height="120"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkv-jk-8Ms">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kC9-wc-dxQ">
                                                 <rect key="frame" x="0.0" y="600" width="334" height="120"/>
-                                                <state key="normal" title="Test"/>
-                                                <connections>
-                                                    <segue destination="P4B-KE-0QT" kind="show" id="hsU-LT-Ajb"/>
-                                                </connections>
-                                            </button>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkv-jk-8Ms">
+                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="60"/>
+                                                        <state key="normal" title="Random Test"/>
+                                                        <connections>
+                                                            <segue destination="P4B-KE-0QT" kind="show" id="hsU-LT-Ajb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gm-rk-0pP">
+                                                        <rect key="frame" x="0.0" y="60" width="334" height="60"/>
+                                                        <state key="normal" title="Reuse Test"/>
+                                                        <connections>
+                                                            <segue destination="JBi-0D-oxq" kind="show" id="AhF-u0-URO"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -93,6 +105,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="83" y="138"/>
+        </scene>
+        <!--View Controller2-->
+        <scene sceneID="KhR-Vy-Ash">
+            <objects>
+                <viewController id="JBi-0D-oxq" customClass="ViewController2" customModule="UICornerShadowView" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qct-uv-1Qd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p6n-1y-a3M">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReuseImageCell" rowHeight="106" id="kJt-DO-erY" customClass="ReuseImageCell" customModule="UICornerShadowView" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="106"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kJt-DO-erY" id="ilt-H8-rrs">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhQ-Ez-K8S" customClass="UICornerShadowView" customModule="UICornerShadowView" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="0.0" width="382" height="106"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="UhQ-Ez-K8S" secondAttribute="bottom" id="8gW-su-JY0"/>
+                                                <constraint firstItem="UhQ-Ez-K8S" firstAttribute="leading" secondItem="ilt-H8-rrs" secondAttribute="leading" constant="16" id="Kv9-H8-f1H"/>
+                                                <constraint firstAttribute="trailing" secondItem="UhQ-Ez-K8S" secondAttribute="trailing" constant="16" id="lZl-UI-CUy"/>
+                                                <constraint firstItem="UhQ-Ez-K8S" firstAttribute="top" secondItem="ilt-H8-rrs" secondAttribute="top" id="pwg-ka-vbV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="container" destination="UhQ-Ez-K8S" id="nMJ-vO-6UR"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="JBi-0D-oxq" id="Bhx-Hj-Xgk"/>
+                                    <outlet property="delegate" destination="JBi-0D-oxq" id="ekn-P5-7Wr"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vSd-Jh-e2G" firstAttribute="trailing" secondItem="p6n-1y-a3M" secondAttribute="trailing" id="CjT-x9-Qo6"/>
+                            <constraint firstItem="p6n-1y-a3M" firstAttribute="top" secondItem="vSd-Jh-e2G" secondAttribute="top" id="Jo8-RJ-RXP"/>
+                            <constraint firstItem="p6n-1y-a3M" firstAttribute="leading" secondItem="vSd-Jh-e2G" secondAttribute="leading" id="U3j-1p-pKz"/>
+                            <constraint firstItem="vSd-Jh-e2G" firstAttribute="bottom" secondItem="p6n-1y-a3M" secondAttribute="bottom" id="XTU-04-tKE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vSd-Jh-e2G"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tPC-Fn-Qf9"/>
+                    <connections>
+                        <outlet property="tableView" destination="p6n-1y-a3M" id="ewu-s2-Ns9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXA-1p-NHD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="969.56521739130437" y="615.40178571428567"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="V8t-G4-tgz">
@@ -169,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtp-5u-Bzc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="815.94202898550736" y="137.94642857142856"/>
+            <point key="canvasLocation" x="933" y="-56"/>
         </scene>
     </scenes>
 </document>

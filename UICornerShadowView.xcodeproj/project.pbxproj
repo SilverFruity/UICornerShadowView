@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B55706C23F3000900B20FD5 /* ViewController1.swift */; };
+		1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65C53823F53B62007540F6 /* ViewController2.swift */; };
 		1B9FB04323E73A2400AA7D9B /* UICornerShadowViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EC123CE3A89002ABFB5 /* UICornerShadowViewUITests.swift */; };
 		EE731EA023CE3A87002ABFB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731E9F23CE3A87002ABFB5 /* AppDelegate.swift */; };
 		EE731EA223CE3A87002ABFB5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EA123CE3A87002ABFB5 /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		1B55706C23F3000900B20FD5 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
+		1B65C53823F53B62007540F6 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		EE731E9C23CE3A87002ABFB5 /* UICornerShadowView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICornerShadowView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE731E9F23CE3A87002ABFB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE731EA123CE3A87002ABFB5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				EE731EA123CE3A87002ABFB5 /* SceneDelegate.swift */,
 				EE731EA323CE3A87002ABFB5 /* ViewController.swift */,
 				1B55706C23F3000900B20FD5 /* ViewController1.swift */,
+				1B65C53823F53B62007540F6 /* ViewController2.swift */,
 				EE731ED323CE3ABD002ABFB5 /* UICornerShadowView.swift */,
 				EE731ED523CE3AD3002ABFB5 /* UIImage+Extentions.h */,
 				EE731ED623CE3AD3002ABFB5 /* UIImage+Extentions.m */,
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */,
 				1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */,
 				EE731EA423CE3A87002ABFB5 /* ViewController.swift in Sources */,
 				EE731EA023CE3A87002ABFB5 /* AppDelegate.swift in Sources */,

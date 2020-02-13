@@ -44,7 +44,6 @@ class UICornerShadowView: UIView {
     var backGroundImageView: UIImageView!
     // 加下划线的原因是与SwifterSwift库有冲突
     // FIXME: 后续添加UIAppearance 全局设置默认值
-    @IBInspectable public var _enableRectCornner: Bool = true
     @IBInspectable public var _rectCornner: UIRectCorner = .allCorners
     @IBInspectable public var _cornerRadius: CGFloat = 8
     @IBInspectable public var _shadowColor: UIColor = UIColor.black.withAlphaComponent(0.08)
@@ -54,7 +53,38 @@ class UICornerShadowView: UIView {
     @IBInspectable public var _borderColor: UIColor = UIColor.clear
     var _shadowPosition:UIShadowPostion = .all
     var _borderPosition:UIBorderPostion = .all
+    
+    var shadowProcesser: SFShadow{
+        let shadow = SFShadow.init()
+        shadow.shadowColor = self._shadowColor
+        shadow.shadowOffset = self._shadowOffset
+        shadow.shadowBlurRadius = self._shadowRadius
+        shadow.position = self._shadowPosition
+        return shadow;
+    }
+    var rectCornerProcesser: SFRectCorner{
+        let rectCorner = SFRectCorner.init()
+        rectCorner.position = self._rectCornner
+        rectCorner.radius = self._cornerRadius
+        return rectCorner
+    }
+    var borderProcesser: SFBorder{
+        let border = SFBorder.init()
+        border.width = self._borderWidth
+        border.color = self._borderColor
+        border.position = self._borderPosition
+        return border;
+    }
+    var generalImageProcesser: SFColorImage{
+        // Radius ShadowRadius BorderWidth 取最大值
+        var maxValue = self.rectCornerProcesser.radius > (self.borderProcesser.width + 1) && self.rectCornerProcesser.isEnable ? self.rectCornerProcesser.radius : self.borderProcesser.width + 1
+        maxValue = self.shadowProcesser.shadowBlurRadius > maxValue ? self.shadowProcesser.shadowBlurRadius : maxValue
+        let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
+        return SFColorImage.init(color: self.initailBackGroundColor, size: size)
+    }
     private var initailBackGroundColor = UIColor.white
+    // 针对上一次图片的identifier的
+    private var lastBackGroundImageIdentifer = ""
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.backGroundImageView = UIImageView.init()
@@ -75,46 +105,38 @@ class UICornerShadowView: UIView {
     }
     func reloadBackGourndImage(){
         self.sendSubviewToBack(self.backGroundImageView)
-        let shadow = SFShadow.init()
-        shadow.shadowColor = self._shadowColor
-        shadow.shadowOffset = self._shadowOffset
-        shadow.shadowBlurRadius = self._shadowRadius
-        shadow.position = self._shadowPosition
-        let imageRect = shadow.viewRect(for: self.bounds.size)
-        //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
-        //FIXME: 外边框 border和shadow只有一者存在时，宽高的计算。
-        //TODO: errorValue:特意增加的误差 0.o。解决tableView显示时，全是阴影的情况，cell衔接时会有一点点点空缺。
-        let errorValue :CGFloat = 1
-        self.backGroundImageView.frame = imageRect.inset(by: UIEdgeInsets(top: errorValue, left: errorValue, bottom: errorValue, right: errorValue))
-        
         if self.backgroundColor != UIColor.clear && self.backgroundColor != nil{
             self.initailBackGroundColor = self.backgroundColor!
         }
-        let color = self.initailBackGroundColor
+        //保证不会在子线程中调用self获取值
+        let generalImage = self.generalImageProcesser
+        let shadow = self.shadowProcesser
+        let rectCorner = self.rectCornerProcesser
+        let border = self.borderProcesser
         let imageIdentifier = self.identifier()
         
-        //保证不会在子线程中调用self获取值
-        
-        let rectCorner = SFRectCorner.init()
-        rectCorner.position = self._rectCornner
-        rectCorner.radius = self._cornerRadius
-        
-        let border = SFBorder.init()
-        border.width = self._borderWidth
-        border.color = self._borderColor
-        border.position = self._borderPosition
-        
+        //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
+        //FIXME: 外边框 border和shadow只有一者存在时，宽高的计算。
+        var viewFrame = shadow.viewRect(for: self.bounds.size)
+        //insetValue: 特意增加的误差 0.o。解决tableView显示时，cell上下阴影衔接时会有一空缺的问题。
+        let insetValue :CGFloat = -1
+        // CGRect(2,2,2,2) -> CGRect(1,1,4,4)
+        viewFrame = viewFrame.inset(by: UIEdgeInsets(top: insetValue, left: insetValue, bottom: insetValue, right: insetValue))
+        // 每修改一次subview的frame，view会调用layoutSubviews方法。
+        // 目的：在高度重用UICornerShadowView的情况，并且每次都更新的情况下，减少frame更新。
+        // 如果上一次的identifer相同说明是重用图片
+        // 如果当前frame和需要的frame相同，也不用更新frame
+        if imageIdentifier != lastBackGroundImageIdentifer || self.backGroundImageView.frame != viewFrame{
+            self.backGroundImageView.frame = viewFrame
+        }
         if let cacheImage = CustomRenderCache.default.object(forKey: imageIdentifier){
             self.backGroundImageView.image = cacheImage
             self.backgroundColor = UIColor.clear
+            self.lastBackGroundImageIdentifer = imageIdentifier
             return
         }
         DispatchQueue.global().async { [unowned self] in
-            // Radius ShadowRadius BorderWidth 取最大值
-            var maxValue = rectCorner.radius > (border.width + 1) && rectCorner.isEnable ? rectCorner.radius : border.width + 1
-            maxValue = shadow.shadowBlurRadius > maxValue ? shadow.shadowBlurRadius : maxValue
-            let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
-            var image = SFColorImage.init(color: color, size: size).general()
+            var image = generalImage.general()
             image = rectCorner.process(image)
             //FIME: 当前是内边框，外边框的情况？
             image = border.process(image, rectCorner: rectCorner)
@@ -130,19 +152,14 @@ class UICornerShadowView: UIView {
                 if self == nil{
                     return
                 }
+                self?.lastBackGroundImageIdentifer = imageIdentifier
                 self?.backGroundImageView.image = image
             }
         }
         self.backgroundColor = UIColor.clear
     }
     func identifier()->String{
-        //FIXME: border不启用和shadow不启用时的identifier
-        if _enableRectCornner {
-            return "CornerShadow_\(initailBackGroundColor)_\(_cornerRadius)_\(_rectCornner)_\(_shadowOffset)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
-        }else{
-            return "CornerShadow_\(_enableRectCornner)_\(initailBackGroundColor)_\(_shadowOffset)_\(_shadowRadius)_\(_shadowColor)_\(_shadowPosition)_\(_borderColor)_\(_borderWidth)_\(_borderPosition)"
-        }
-        
+        return self.generalImageProcesser.identifier() + self.rectCornerProcesser.identifier() + self.borderProcesser.identifier() + self.shadowProcesser.identifier()
     }
     
     #if DEBUG
@@ -161,7 +178,24 @@ class UICornerShadowView: UIView {
               """
     }
     #endif
-    
-    
-    
+}
+extension SFColorImage{
+    func identifier()->String{
+        return self.isEnable ? "_\(self.color.hashValue)_\(self.size)" : ""
+    }
+}
+extension SFShadow{
+    func identifier()->String{
+        return self.isEnable ? "_\(self.shadowOffset)_\(self.shadowBlurRadius)_\(self.shadowColor.hashValue)_\(self.position.rawValue)" : ""
+    }
+}
+extension SFRectCorner{
+    func identifier()->String{
+        return self.isEnable ? "_\(self.radius)_\(self.position.rawValue)" : ""
+    }
+}
+extension SFBorder{
+    func identifier()->String{
+        return self.isEnable ? "_\(self.color.hashValue)_\(self.width)_\(self.position.rawValue)" : ""
+    }
 }

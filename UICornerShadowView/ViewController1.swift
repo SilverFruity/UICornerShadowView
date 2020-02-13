@@ -28,7 +28,6 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RandomCell") as! RandomCell
         cell.container.backgroundColor = UIColor.init(red: CGFloat.random(in: 0...10) / 10, green: CGFloat.random(in: 0...10) / 10, blue: CGFloat.random(in: 0...10) / 10, alpha: 1)
-        cell.container._enableRectCornner = true
         cell.container._cornerRadius = CGFloat(Int.random(in: 10..<20))
         let cornerPositions: [UIRectCorner] = [.topLeft,.topRight,.bottomLeft,.bottomRight]
         var cornerResult = [UIRectCorner]()
@@ -60,7 +59,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             borderCount -= 1
         }
         
-        cell.container._borderPosition = UIBorderPostion.init(borderPositions)
+        cell.container._borderPosition = UIBorderPostion.init(borderResult)
         cell.container.reloadBackGourndImage()
         return cell
     }

@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @interface SFColorImage : NSObject
 @property (nonatomic, assign)CGSize size;
 @property (nonatomic, strong)UIColor *color;
+@property (nonatomic, getter=isEnable)BOOL enable;
 + (instancetype)imageWithColor:(UIColor *)color;
 + (instancetype)imageWithColor:(UIColor *)color size:(CGSize)size;
 - (UIImage *)general;

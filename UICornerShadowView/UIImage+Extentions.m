@@ -32,7 +32,11 @@ CGRect CGSize2CGRect(CGSize size){
     colorImage.size = size;
     return colorImage;
 }
+- (BOOL)isEnable{
+    return self.color != [UIColor clearColor] && !CGSizeEqualToSize(self.size, CGSizeZero);
+}
 - (UIImage *)general{
+    if (!self.isEnable) return [UIImage new];
     CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
     CGContextRef context =  UIGraphicsGetCurrentContext();
