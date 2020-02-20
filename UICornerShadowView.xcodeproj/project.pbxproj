@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B2CFBA823FEF28D008DBFC1 /* SFImageProcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SFImageProcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B55706C23F3000900B20FD5 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		1B65C53823F53B62007540F6 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		EE731E9C23CE3A87002ABFB5 /* UICornerShadowView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICornerShadowView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B2CFBA723FEF28D008DBFC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B2CFBA823FEF28D008DBFC1 /* SFImageProcess.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EE731E9323CE3A87002ABFB5 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +102,7 @@
 				EE731EB523CE3A89002ABFB5 /* UICornerShadowViewTests */,
 				EE731EC023CE3A89002ABFB5 /* UICornerShadowViewUITests */,
 				EE731E9D23CE3A87002ABFB5 /* Products */,
+				1B2CFBA723FEF28D008DBFC1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
