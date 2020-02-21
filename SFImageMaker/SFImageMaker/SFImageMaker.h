@@ -26,7 +26,7 @@ FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 #ifndef SCREEN_SCALE
 #define SCREEN_SCALE [UIScreen mainScreen].scale
 #endif
-
+#import <SFImageMaker/SFImageMaker-Protocol.h>
 #import <SFImageMaker/SFColorImageMaker.h>
 #import <SFImageMaker/SFGradientImageMaker.h>
 #import <SFImageMaker/SFCornerImageMaker.h>
