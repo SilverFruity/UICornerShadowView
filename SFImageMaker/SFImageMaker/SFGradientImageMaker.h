@@ -10,13 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SFGradientImageMaker : NSObject
+@interface SFGradientImageMaker : NSObject <SFImageGenerator,SFImageProcessor>
 @property (nonatomic, assign)BOOL isHorizontal;
 @property (nonatomic, assign)CGSize size;
 @property (nonatomic, assign)NSArray<NSNumber *> *locations;
 @property (nonatomic, copy)NSArray<UIColor *> *colors;
 + (instancetype)isHorizontal:(BOOL)isHorizontal startColor:(UIColor *)startColor endColor:(UIColor *)endColor;
-- (UIImage *)general;
 @end
 
 NS_ASSUME_NONNULL_END

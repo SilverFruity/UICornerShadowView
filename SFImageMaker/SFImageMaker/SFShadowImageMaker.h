@@ -18,7 +18,7 @@ typedef NS_OPTIONS(NSUInteger, UIShadowPostion) {
     UIShadowPostionAll    = ~0UL
 };
 
-@interface SFShadowImageMaker : NSObject
+@interface SFShadowImageMaker : NSObject <SFImageProcessor>
 @property (nonatomic, assign)CGSize shadowOffset;
 @property (nonatomic, assign)CGFloat shadowBlurRadius;
 @property (nonatomic, strong)UIColor *shadowColor;
@@ -27,7 +27,6 @@ typedef NS_OPTIONS(NSUInteger, UIShadowPostion) {
 @property (nonatomic, getter=isEnable)BOOL enable;
 - (CGRect)viewRectForSize:(CGSize)size;
 - (UIEdgeInsets)convasEdgeInsets;
-- (UIImage *)process:(UIImage *)target;
 @end
 
 NS_ASSUME_NONNULL_END

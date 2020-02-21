@@ -10,12 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SFCornerImageMaker : NSObject
+@interface SFCornerImageMaker : NSObject <SFImageProcessor>
 @property (nonatomic, assign)CGFloat radius;
 @property (nonatomic, strong)UIColor *fillColor;
 @property (nonatomic, assign)UIRectCorner position;
 @property (nonatomic, getter=isEnable)BOOL enable;
-- (UIImage *)process:(UIImage *)target;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,7 +23,10 @@
 - (BOOL)isEnable{
     return self.color != [UIColor clearColor] && !CGSizeEqualToSize(self.size, CGSizeZero);
 }
-- (UIImage *)general{
+- (nonnull UIImage *)generate {
+    return [self process:nil];
+}
+- (nonnull UIImage *)process:(nullable UIImage *)target {
     if (!self.isEnable) return [UIImage new];
     CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
     UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
@@ -31,8 +34,18 @@
     CGContextSetFillColorWithColor(context, self.color.CGColor);
     CGContextSetAlpha(context, CGColorGetAlpha(self.color.CGColor));
     CGContextFillRect(context, rect);
+    if (target){
+        if (self.size.width < target.size.width || self.size.height < target.size.height){
+            //TODO: resize with aspect ratio
+        }else{
+            // Draw in center
+            CGPoint point = CGPointMake((self.size.width - target.size.width) / 2, (self.size.height - target.size.height) / 2);
+            [target drawInRect:CGRectMake(point.x, point.y, target.size.width, target.size.height)];
+        }
+    }
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 }
+
 @end

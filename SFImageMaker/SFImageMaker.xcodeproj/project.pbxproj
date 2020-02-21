@@ -56,6 +56,7 @@
 		1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShadowImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBorderImageMakerTests.swift; sourceTree = "<group>"; };
+		1B3C034023FFEA2B0019104A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +111,7 @@
 				1B2CFC0923FEF53C008DBFC1 /* SFShadowImageMaker.m */,
 				1B2CFC0C23FEF5BC008DBFC1 /* SFBorderImageMaker.h */,
 				1B2CFC0D23FEF5BC008DBFC1 /* SFBorderImageMaker.m */,
+				1B3C034023FFEA2B0019104A /* PrefixHeader.pch */,
 				1B2CFBE423FEF486008DBFC1 /* Info.plist */,
 			);
 			path = SFImageMaker;
@@ -396,6 +398,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = $SRCROOT/$PROJECT_NAME/PrefixHeader.pch;
 				INFOPLIST_FILE = SFImageMaker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -419,6 +422,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = $SRCROOT/$PROJECT_NAME/PrefixHeader.pch;
 				INFOPLIST_FILE = SFImageMaker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

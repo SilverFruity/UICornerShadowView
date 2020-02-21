@@ -20,14 +20,14 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
     UIBorderPostionAll      = ~0UL
 };
 
-@interface SFBorderImageMaker: NSObject
+@interface SFBorderImageMaker: NSObject <SFImageProcessor>
 @property (nonatomic, assign)CGFloat width;
 @property (nonatomic, strong)UIColor *color;
 @property (nonatomic, strong)UIColor *fillColor;
 @property (nonatomic, assign)UIBorderPostion position;
 @property (nonatomic, getter=isEnable)BOOL enable;
+@property(nonatomic, strong, nullable)id <SFImageProcessor> dependency;
 - (CGRect)strokeRectWithSize:(CGSize)size;
-- (UIImage *)process:(UIImage *)target rectCorner:(SFCornerImageMaker *)rectCorner;
 @end
 
 NS_ASSUME_NONNULL_END
