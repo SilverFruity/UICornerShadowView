@@ -14,6 +14,17 @@ shadowView._borderWidth = 5
 shadowView._borderPosition = .all
 
 ```
-~~~ Objective-C: will come soon
+
+## Objective-C: will come soon
+
+**Compare with CALayer**
+
 ![compare with CALayer](https://user-gold-cdn.xitu.io/2020/2/12/1703a1d3defd6b75?imageslim)
+
+**Preview**
+
 ![Review](https://user-gold-cdn.xitu.io/2020/2/13/1703a26ff78b7732?imageslim)
+
+~~~
+
+~~~
