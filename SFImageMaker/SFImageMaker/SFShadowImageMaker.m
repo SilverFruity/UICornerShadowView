@@ -61,4 +61,7 @@
     UIGraphicsEndImageContext();
     return image;
 }
+- (nonnull NSString *)identifier {
+    return self.isEnable ? [NSString stringWithFormat:@"_%@_%@_%@_%@",[NSValue valueWithCGSize:self.shadowOffset],@(self.shadowBlurRadius),@(self.shadowColor.hash),@(self.position)] : @"";
+}
 @end

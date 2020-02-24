@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreGraphics
+import SFImageMaker
+
 class CustomRenderCache{
     static let `default` = CustomRenderCache()
     private let cache: NSCache = NSCache<NSString,UIImage>.init()
@@ -54,33 +56,34 @@ class UICornerShadowView: UIView {
     var _shadowPosition:UIShadowPostion = .all
     var _borderPosition:UIBorderPostion = .all
     
-    var shadowProcesser: SFShadow{
-        let shadow = SFShadow.init()
+    var shadowProcesser: SFShadowImageMaker{
+        let shadow = SFShadowImageMaker.init()
         shadow.shadowColor = self._shadowColor
         shadow.shadowOffset = self._shadowOffset
         shadow.shadowBlurRadius = self._shadowRadius
         shadow.position = self._shadowPosition
         return shadow;
     }
-    var rectCornerProcesser: SFRectCorner{
-        let rectCorner = SFRectCorner.init()
+    var rectCornerProcesser: SFCornerImageMaker{
+        let rectCorner = SFCornerImageMaker.init()
         rectCorner.position = self._rectCornner
         rectCorner.radius = self._cornerRadius
         return rectCorner
     }
-    var borderProcesser: SFBorder{
-        let border = SFBorder.init()
+    var borderProcesser: SFBorderImageMaker{
+        let border = SFBorderImageMaker.init()
         border.width = self._borderWidth
         border.color = self._borderColor
         border.position = self._borderPosition
+        border.dependency = self.rectCornerProcesser
         return border;
     }
-    var generalImageProcesser: SFColorImage{
+    var generalImageProcesser: SFColorImageMaker{
         // Radius ShadowRadius BorderWidth 取最大值
         var maxValue = self.rectCornerProcesser.radius > (self.borderProcesser.width + 1) && self.rectCornerProcesser.isEnable ? self.rectCornerProcesser.radius : self.borderProcesser.width + 1
         maxValue = self.shadowProcesser.shadowBlurRadius > maxValue ? self.shadowProcesser.shadowBlurRadius : maxValue
         let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
-        return SFColorImage.init(color: self.initailBackGroundColor, size: size)
+        return SFColorImageMaker.init(color: self.initailBackGroundColor, size: size)
     }
     private var initailBackGroundColor = UIColor.white
     // 针对上一次图片的identifier的
@@ -136,10 +139,10 @@ class UICornerShadowView: UIView {
             return
         }
         DispatchQueue.global().async { [unowned self] in
-            var image = generalImage.general()
+            var image = generalImage.generate()
             image = rectCorner.process(image)
             //FIME: 当前是内边框，外边框的情况？
-            image = border.process(image, rectCorner: rectCorner)
+            image = border.process(image)
             image = shadow.process(image)
             if shadow.isEnable{
                 let insets = shadow.convasEdgeInsets()
@@ -178,24 +181,4 @@ class UICornerShadowView: UIView {
               """
     }
     #endif
-}
-extension SFColorImage{
-    func identifier()->String{
-        return self.isEnable ? "_\(self.color.hashValue)_\(self.size)" : ""
-    }
-}
-extension SFShadow{
-    func identifier()->String{
-        return self.isEnable ? "_\(self.shadowOffset)_\(self.shadowBlurRadius)_\(self.shadowColor.hashValue)_\(self.position.rawValue)" : ""
-    }
-}
-extension SFRectCorner{
-    func identifier()->String{
-        return self.isEnable ? "_\(self.radius)_\(self.position.rawValue)" : ""
-    }
-}
-extension SFBorder{
-    func identifier()->String{
-        return self.isEnable ? "_\(self.color.hashValue)_\(self.width)_\(self.position.rawValue)" : ""
-    }
 }

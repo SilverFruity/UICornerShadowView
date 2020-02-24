@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B55706C23F3000900B20FD5 /* ViewController1.swift */; };
 		1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65C53823F53B62007540F6 /* ViewController2.swift */; };
+		1B6CC3132403740E00189336 /* SFImageMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CC3122403740E00189336 /* SFImageMaker.framework */; };
+		1B6CC3142403740E00189336 /* SFImageMaker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CC3122403740E00189336 /* SFImageMaker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1B9FB04323E73A2400AA7D9B /* UICornerShadowViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EC123CE3A89002ABFB5 /* UICornerShadowViewUITests.swift */; };
 		EE731EA023CE3A87002ABFB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731E9F23CE3A87002ABFB5 /* AppDelegate.swift */; };
 		EE731EA223CE3A87002ABFB5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EA123CE3A87002ABFB5 /* SceneDelegate.swift */; };
@@ -38,10 +40,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1B6CC3152403740E00189336 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1B6CC3142403740E00189336 /* SFImageMaker.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1B2CFBA823FEF28D008DBFC1 /* SFImageProcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SFImageProcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B55706C23F3000900B20FD5 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		1B65C53823F53B62007540F6 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		1B6CC30B240373EB00189336 /* SFImageMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SFImageMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B6CC3122403740E00189336 /* SFImageMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SFImageMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE731E9C23CE3A87002ABFB5 /* UICornerShadowView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICornerShadowView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE731E9F23CE3A87002ABFB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE731EA123CE3A87002ABFB5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B6CC3132403740E00189336 /* SFImageMaker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +109,8 @@
 		1B2CFBA723FEF28D008DBFC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B6CC3122403740E00189336 /* SFImageMaker.framework */,
+				1B6CC30B240373EB00189336 /* SFImageMaker.framework */,
 				1B2CFBA823FEF28D008DBFC1 /* SFImageProcess.framework */,
 			);
 			name = Frameworks;
@@ -164,6 +185,7 @@
 				EE731E9823CE3A87002ABFB5 /* Sources */,
 				EE731E9923CE3A87002ABFB5 /* Frameworks */,
 				EE731E9A23CE3A87002ABFB5 /* Resources */,
+				1B6CC3152403740E00189336 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

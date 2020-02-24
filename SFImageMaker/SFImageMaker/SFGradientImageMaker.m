@@ -18,7 +18,13 @@
     gradient.size = isHorizontal ? CGSizeMake(SCREEN_WIDTH, 1) : CGSizeMake(1, SCREEN_HEIGHT);
     return gradient;
 }
-- (UIImage *)general{
+- (BOOL)isEnable{
+    return self.colors.count > 0 && self.locations.count > 0 && !CGSizeEqualToSize(self.size, CGSizeZero);
+}
+- (nonnull UIImage *)generate {
+    return [self process:nil];
+}
+- (nonnull UIImage *)process:(nullable UIImage *)target {
     UIGraphicsBeginImageContext(self.size);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -53,5 +59,8 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+- (nonnull NSString *)identifier {
+    return self.isEnable ? [NSString stringWithFormat:@"_%@_%@_%@",[NSValue valueWithCGSize:self.size],[self.colors componentsJoinedByString:@","],[self.locations componentsJoinedByString:@","]] : @"";
 }
 @end

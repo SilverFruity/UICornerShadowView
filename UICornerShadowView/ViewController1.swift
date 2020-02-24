@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SFImageMaker
 class RandomCell: UITableViewCell{
     @IBOutlet weak var container: UICornerShadowView!
     override func awakeFromNib() {

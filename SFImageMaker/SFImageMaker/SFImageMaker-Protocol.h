@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SFImageProcessor <NSObject>
 @required
 @property (nonatomic, readonly, getter=isEnable)BOOL enable;
-- (NSString *)identifer;
+- (NSString *)identifier;
 - (UIImage *)process:(nullable UIImage *)target;
 @optional
 @property(nonatomic, strong, nullable)id <SFImageProcessor> dependency;

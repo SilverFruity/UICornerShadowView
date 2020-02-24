@@ -38,4 +38,7 @@
     
     return image;
 }
+- (nonnull NSString *)identifier {
+    return self.isEnable ? [NSString stringWithFormat:@"_%@_%@",@(self.radius),@(self.position)]:@"";
+}
 @end
