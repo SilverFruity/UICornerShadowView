@@ -139,11 +139,7 @@ class UICornerShadowView: UIView {
             return
         }
         DispatchQueue.global().async { [unowned self] in
-            var image = generalImage.generate()
-            image = rectCorner.process(image)
-            //FIME: 当前是内边框，外边框的情况？
-            image = border.process(image)
-            image = shadow.process(image)
+            var image = SFImageManager.shared().start(with: generalImage, processors: [rectCorner,border,shadow])
             if shadow.isEnable{
                 let insets = shadow.convasEdgeInsets()
                 image = image.resizableImageCenter(withInset: insets)

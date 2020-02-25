@@ -23,6 +23,8 @@
 		1B2CFC1A23FEF99E008DBFC1 /* SFImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */; };
 		1B2CFC1C23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */; };
 		1B2CFC1E23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */; };
+		EEF6E84F240572C2002D005A /* SFImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF6E84D240572C2002D005A /* SFImageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEF6E850240572C2002D005A /* SFImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF6E84E240572C2002D005A /* SFImageManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShadowImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBorderImageMakerTests.swift; sourceTree = "<group>"; };
 		1B3C034023FFEA2B0019104A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		EEF6E84D240572C2002D005A /* SFImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageManager.h; sourceTree = "<group>"; };
+		EEF6E84E240572C2002D005A /* SFImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */,
+				EEF6E84D240572C2002D005A /* SFImageManager.h */,
+				EEF6E84E240572C2002D005A /* SFImageManager.m */,
 				1B2CFBFA23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h */,
 				1B2CFBFC23FEF4E2008DBFC1 /* SFColorImageMaker.h */,
 				1B2CFBFD23FEF4E2008DBFC1 /* SFColorImageMaker.m */,
@@ -141,6 +147,7 @@
 				1B2CFBFB23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h in Headers */,
 				1B2CFBFE23FEF4E2008DBFC1 /* SFColorImageMaker.h in Headers */,
 				1B2CFBF123FEF486008DBFC1 /* SFImageMaker.h in Headers */,
+				EEF6E84F240572C2002D005A /* SFImageManager.h in Headers */,
 				1B2CFC0223FEF503008DBFC1 /* SFGradientImageMaker.h in Headers */,
 				1B2CFC0623FEF50F008DBFC1 /* SFCornerImageMaker.h in Headers */,
 			);
@@ -244,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEF6E850240572C2002D005A /* SFImageManager.m in Sources */,
 				1B2CFC0F23FEF5BC008DBFC1 /* SFBorderImageMaker.m in Sources */,
 				1B2CFC0723FEF50F008DBFC1 /* SFCornerImageMaker.m in Sources */,
 				1B2CFC0B23FEF53C008DBFC1 /* SFShadowImageMaker.m in Sources */,
