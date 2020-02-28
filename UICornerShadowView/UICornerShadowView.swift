@@ -21,7 +21,10 @@ class CustomRenderCache{
         return self.cache.object(forKey: NSString.init(string: key))
     }
     
-    open func setObject(_ obj: UIImage, forKey key: String){
+    open func setObject(_ obj: UIImage?, forKey key: String){
+        guard let obj = obj else{
+            return
+        }
         // 32: RGBA
         var bytes = Int(obj.size.width * obj.size.height * 4 * UIScreen.main.scale * UIScreen.main.scale)
         if let cgimg = obj.cgImage{
@@ -163,18 +166,18 @@ class UICornerShadowView: UIView {
     
     #if DEBUG
     func debugInfo()->String{
-      return  """
-              initailBackGroundColor=\(initailBackGroundColor);\n
-              cornerRadius=\(_cornerRadius);\n
-              rectCornner=\(_rectCornner);\n
-              shadowOffset=\(_shadowOffset);\n
-              shadowRadius=\(_shadowRadius);\n
-              shadowColor=\(_shadowColor);\n
-              shadowPosition=\(_shadowPosition);\n
-              borderColor=\(_borderColor);\n
-              borderWidth=\(_borderWidth);\n
-              borderPosition=\(_borderPosition);
-              """
+        return  """
+        initailBackGroundColor=\(initailBackGroundColor);\n
+        cornerRadius=\(_cornerRadius);\n
+        rectCornner=\(_rectCornner);\n
+        shadowOffset=\(_shadowOffset);\n
+        shadowRadius=\(_shadowRadius);\n
+        shadowColor=\(_shadowColor);\n
+        shadowPosition=\(_shadowPosition);\n
+        borderColor=\(_borderColor);\n
+        borderWidth=\(_borderWidth);\n
+        borderPosition=\(_borderPosition);
+        """
     }
     #endif
 }

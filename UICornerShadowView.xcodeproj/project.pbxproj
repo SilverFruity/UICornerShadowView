@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04430C172408C1DD00224352 /* SFCSBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04430C162408C1DD00224352 /* SFCSBView.m */; };
 		1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B55706C23F3000900B20FD5 /* ViewController1.swift */; };
 		1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65C53823F53B62007540F6 /* ViewController2.swift */; };
 		1B6CC3132403740E00189336 /* SFImageMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CC3122403740E00189336 /* SFImageMaker.framework */; };
@@ -55,6 +56,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04430C152408C1DD00224352 /* SFCSBView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFCSBView.h; sourceTree = "<group>"; };
+		04430C162408C1DD00224352 /* SFCSBView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFCSBView.m; sourceTree = "<group>"; };
 		1B2CFBA823FEF28D008DBFC1 /* SFImageProcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SFImageProcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B55706C23F3000900B20FD5 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		1B65C53823F53B62007540F6 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				1B55706C23F3000900B20FD5 /* ViewController1.swift */,
 				1B65C53823F53B62007540F6 /* ViewController2.swift */,
 				EE731ED323CE3ABD002ABFB5 /* UICornerShadowView.swift */,
+				04430C152408C1DD00224352 /* SFCSBView.h */,
+				04430C162408C1DD00224352 /* SFCSBView.m */,
 				EE731ED523CE3AD3002ABFB5 /* UIImage+Extentions.h */,
 				EE731ED623CE3AD3002ABFB5 /* UIImage+Extentions.m */,
 				EE731EA523CE3A87002ABFB5 /* Main.storyboard */,
@@ -310,6 +315,7 @@
 			files = (
 				1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */,
 				1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */,
+				04430C172408C1DD00224352 /* SFCSBView.m in Sources */,
 				EE731EA423CE3A87002ABFB5 /* ViewController.swift in Sources */,
 				EE731EA023CE3A87002ABFB5 /* AppDelegate.swift in Sources */,
 				EE731EA223CE3A87002ABFB5 /* SceneDelegate.swift in Sources */,

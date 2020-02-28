@@ -9,7 +9,7 @@
 import UIKit
 import SFImageMaker
 class RandomCell: UITableViewCell{
-    @IBOutlet weak var container: UICornerShadowView!
+    @IBOutlet weak var container: SFCSBView!
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -66,9 +66,9 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! RandomCell
-        let alert = UIAlertController.init(title: "DebugInfo", message: cell.container.debugInfo(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController.init(title: "DebugInfo", message: cell.container.debugInfo(), preferredStyle: .alert)
+//        alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
     }
 
     /*
