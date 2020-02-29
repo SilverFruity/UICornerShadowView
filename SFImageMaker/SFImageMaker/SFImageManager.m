@@ -19,11 +19,24 @@
 }
 - (UIImage *)startWithGenerator:(id<SFImageGenerator>)generator processors:(NSArray<id<SFImageProcessor>> *)processors{
     UIImage *image = generator.generate;
+    if ([generator conformsToProtocol:@protocol(SFImageProcessor)]) {
+        id <SFImageProcessor> processor = (id <SFImageProcessor>)generator;
+        for (id <SFImageProcessor> sub in processor.dependencies) {
+            image = [self recursiveProcess:image processor:sub];
+        }
+    }
     return [self startWithImage:image processors:processors];
 }
 - (UIImage *)startWithImage:(UIImage *)image processors:(NSArray <id <SFImageProcessor>>*)processors{
     for (id <SFImageProcessor> processor in processors){
-        image = [processor process:image];
+        image = [self recursiveProcess:image processor:processor];
+    }
+    return image;
+}
+- (UIImage *)recursiveProcess:(UIImage *)image processor:(id <SFImageProcessor>)processor{
+    image = [processor process:image];
+    for (id <SFImageProcessor> subProcessor in processor.dependencies) {
+        image = [self recursiveProcess:image processor:subProcessor];
     }
     return image;
 }

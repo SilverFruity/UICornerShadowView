@@ -13,6 +13,7 @@
 {
     self = [super init];
     self.fillColor = [UIColor clearColor];
+    self.dependencies = [NSMutableArray array];
     return self;
 }
 - (BOOL)isEnable{

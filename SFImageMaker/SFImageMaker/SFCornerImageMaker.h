@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)UIColor *fillColor;
 @property (nonatomic, assign)UIRectCorner position;
 @property (nonatomic, getter=isEnable)BOOL enable;
+@property (nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
 @end
 
 NS_ASSUME_NONNULL_END

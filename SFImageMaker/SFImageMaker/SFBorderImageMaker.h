@@ -26,7 +26,8 @@ typedef NS_OPTIONS(NSUInteger, UIBorderPostion) {
 @property (nonatomic, strong)UIColor *fillColor;
 @property (nonatomic, assign)UIBorderPostion position;
 @property (nonatomic, getter=isEnable)BOOL enable;
-@property (nonatomic, strong, nullable)id <SFImageProcessor> dependency;
+@property (nonatomic, strong, nullable)SFCornerImageMaker *cornerMaker;
+@property (nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
 - (CGRect)strokeRectWithSize:(CGSize)size;
 @end
 

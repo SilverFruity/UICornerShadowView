@@ -33,4 +33,6 @@ FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 #import <SFImageMaker/SFCornerImageMaker.h>
 #import <SFImageMaker/SFShadowImageMaker.h>
 #import <SFImageMaker/SFBorderImageMaker.h>
+#import <SFImageMaker/SFBlockImageMaker.h>
+#import <SFImageMaker/SFBlurImageMaker.h>
 

@@ -59,7 +59,11 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             borderResult.append(borderPositions[Int.random(in: 0..<4)])
             borderCount -= 1
         }
-        
+        cell.container.handleMakers = { makers in
+            if let cornerMake = makers.filter({ $0 is SFColorImageMaker }).first as? SFColorImageMaker{
+                cornerMake.dependencies.add(SFBlurImageMaker.lightEffect())
+            }
+        }
         cell.container._borderPosition = UIBorderPostion.init(borderResult)
         cell.container.reloadBackGourndImage()
         return cell

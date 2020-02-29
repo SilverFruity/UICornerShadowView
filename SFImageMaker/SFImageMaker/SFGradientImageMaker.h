@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)CGSize size;
 @property (nonatomic, assign)NSArray<NSNumber *> *locations;
 @property (nonatomic, copy)NSArray<UIColor *> *colors;
+@property (nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
+
 + (instancetype)isHorizontal:(BOOL)isHorizontal startColor:(UIColor *)startColor endColor:(UIColor *)endColor;
 @end
 

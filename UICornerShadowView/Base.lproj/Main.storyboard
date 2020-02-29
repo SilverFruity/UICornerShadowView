@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pyd-Gk-7oT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pyd-Gk-7oT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -204,13 +204,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WIX-c4-WJk" customClass="SFCSBView">
-                                                    <rect key="frame" x="16" y="0.0" width="382" height="78"/>
+                                                    <rect key="frame" x="16" y="0.0" width="382" height="64"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="WIX-c4-WJk" firstAttribute="leading" secondItem="3jn-cZ-gaV" secondAttribute="leading" constant="16" id="5Av-9h-sZi"/>
-                                                <constraint firstAttribute="bottom" secondItem="WIX-c4-WJk" secondAttribute="bottom" constant="16" id="IHt-ZU-KBB"/>
+                                                <constraint firstAttribute="bottom" secondItem="WIX-c4-WJk" secondAttribute="bottom" constant="30" id="IHt-ZU-KBB"/>
                                                 <constraint firstItem="WIX-c4-WJk" firstAttribute="top" secondItem="3jn-cZ-gaV" secondAttribute="top" id="NG7-fR-Y4Y"/>
                                                 <constraint firstAttribute="trailing" secondItem="WIX-c4-WJk" secondAttribute="trailing" constant="16" id="rC8-nR-Wm7"/>
                                             </constraints>

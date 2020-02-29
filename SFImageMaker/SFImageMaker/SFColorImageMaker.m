@@ -15,6 +15,12 @@
     colorImage.size = CGSizeMake(1, 1);
     return colorImage;
 }
+- (instancetype)init
+{
+    self = [super init];
+    self.dependencies = [NSMutableArray array];
+    return self;
+}
 + (instancetype)imageMakerWithColor:(UIColor *)color size:(CGSize)size{
     SFColorImageMaker *colorImage = [self imageMakerWithColor:color];
     colorImage.size = size;

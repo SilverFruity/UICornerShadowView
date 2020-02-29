@@ -18,6 +18,12 @@
     gradient.size = isHorizontal ? CGSizeMake(SCREEN_WIDTH, 1) : CGSizeMake(1, SCREEN_HEIGHT);
     return gradient;
 }
+- (instancetype)init
+{
+    self = [super init];
+    self.dependencies = [NSMutableArray array];
+    return self;
+}
 - (BOOL)isEnable{
     return self.colors.count > 0 && self.locations.count > 0 && !CGSizeEqualToSize(self.size, CGSizeZero);
 }

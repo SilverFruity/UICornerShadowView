@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)CGSize size;
 @property (nonatomic, strong)UIColor *color;
 @property (nonatomic, getter=isEnable)BOOL enable;
+@property (nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
+
 + (instancetype)imageMakerWithColor:(UIColor *)color;
 + (instancetype)imageMakerWithColor:(UIColor *)color size:(CGSize)size;
 @end

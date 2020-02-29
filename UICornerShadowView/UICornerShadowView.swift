@@ -78,7 +78,7 @@ class UICornerShadowView: UIView {
         border.width = self._borderWidth
         border.color = self._borderColor
         border.position = self._borderPosition
-        border.dependency = self.rectCornerProcesser
+        border.cornerMaker = self.rectCornerProcesser
         return border;
     }
     var generalImageProcesser: SFColorImageMaker{

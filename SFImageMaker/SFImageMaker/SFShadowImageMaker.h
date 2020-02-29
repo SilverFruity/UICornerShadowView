@@ -25,6 +25,8 @@ typedef NS_OPTIONS(NSUInteger, UIShadowPostion) {
 @property (nonatomic, strong)UIColor *fillColor;
 @property (nonatomic, assign)UIShadowPostion position;
 @property (nonatomic, getter=isEnable)BOOL enable;
+@property(nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
+
 - (CGRect)viewRectForSize:(CGSize)size;
 - (UIEdgeInsets)convasEdgeInsets;
 @end

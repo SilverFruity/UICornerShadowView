@@ -15,6 +15,7 @@
 {
     self = [super init];
     self.fillColor = [UIColor clearColor];
+    self.dependencies = [NSMutableArray array];
     return self;
 }
 - (BOOL)isEnable{
@@ -51,10 +52,7 @@
     [self.fillColor setFill];
     CGContextFillRect(context, rect);
     [target drawInRect:rect];
-    SFCornerImageMaker *cornerMaker = nil;
-    if ([self.dependency isKindOfClass:[SFCornerImageMaker class]]) {
-        cornerMaker = (SFCornerImageMaker *)self.dependency;
-    }
+    SFCornerImageMaker *cornerMaker = self.cornerMaker;
     if (cornerMaker){
         UIBezierPath *clipPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:cornerMaker.position cornerRadii:CGSizeMake(cornerMaker.radius, cornerMaker.radius)];
         [clipPath addClip];

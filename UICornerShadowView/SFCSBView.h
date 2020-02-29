@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)IBInspectable UIRectCorner _rectCornner;
 @property (nonatomic,assign)IBInspectable UIShadowPostion _shadowPosition;
 @property (nonatomic,assign)IBInspectable UIBorderPostion _borderPosition;
-
+@property (nonatomic,nullable,copy)void(^handleMakers)(NSArray <id <SFImageProcessor>> * makers);
 @property (nonatomic,readonly)SFShadowImageMaker *shadowProcessor;
 @property (nonatomic,readonly)SFCornerImageMaker *cornerProcessor;
 @property (nonatomic,readonly)SFBorderImageMaker *borderProcessor;

@@ -21,8 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, getter=isEnable)BOOL enable;
 - (NSString *)identifier;
 - (UIImage *)process:(nullable UIImage *)target;
-@optional
-@property(nonatomic, strong, nullable)id <SFImageProcessor> dependency;
+@property(nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
 @end
 
 
