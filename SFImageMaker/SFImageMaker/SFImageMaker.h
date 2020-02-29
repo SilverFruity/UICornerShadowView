@@ -15,17 +15,6 @@ FOUNDATION_EXPORT double SFImageMakerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SFImageMaker/PublicHeader.h>
-#ifndef SCREEN_WIDTH
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#endif
-
-#ifndef SCREEN_HEIGHT
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-#endif
-
-#ifndef SCREEN_SCALE
-#define SCREEN_SCALE [UIScreen mainScreen].scale
-#endif
 #import <SFImageMaker/SFImageMaker-Protocol.h>
 #import <SFImageMaker/SFImageManager.h>
 #import <SFImageMaker/SFColorImageMaker.h>
@@ -35,4 +24,5 @@ FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 #import <SFImageMaker/SFBorderImageMaker.h>
 #import <SFImageMaker/SFBlockImageMaker.h>
 #import <SFImageMaker/SFBlurImageMaker.h>
+#import <SFImageMaker/SFCSBView.h>
 

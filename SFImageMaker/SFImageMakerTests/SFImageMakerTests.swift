@@ -54,7 +54,7 @@ class SFImageMakerTests: XCTestCase {
                     borderCount -= 1
                 }
                 border.position = UIBorderPostion.init(borderResult)
-                border.dependency = rectCorner
+                border.cornerMaker = rectCorner
                 var maxValue = rectCorner.radius > (border.width + 1) && rectCorner.isEnable ? rectCorner.radius : border.width + 1
                 maxValue = shadow.shadowBlurRadius > maxValue ? shadow.shadowBlurRadius : maxValue
                 let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)

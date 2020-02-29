@@ -7,7 +7,6 @@
 //
 
 #import "SFCSBView.h"
-#import "UIImage+Extentions.h"
 
 @interface SFCSBViewImageCache: NSObject
 @property (nonatomic, strong)NSCache *cache;
@@ -158,9 +157,12 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UIImage *image = [SFImageManager.shared startWithGenerator:colorMaker processors:@[cornerMaker,borderMaker,shadowMaker]];
         if (shadowMaker.isEnable) {
-            image = [image resizableImageCenterWithInset:shadowMaker.convasEdgeInsets];
+            UIEdgeInsets inset = shadowMaker.convasEdgeInsets;
+            CGFloat x = (image.size.width - inset.left - inset.right) / 2;
+            CGFloat y = (image.size.height - inset.top - inset.bottom) / 2;
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(y + inset.top, x + inset.left, y + inset.bottom, x + inset.right)];
         }else{
-            image = [image resizableImageCenterMode];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height / 2, image.size.width / 2, image.size.height / 2, image.size.width / 2)];
         }
         [SFCSBViewImageCache.shared setObject:image forKey:identifier];
         dispatch_async(dispatch_get_main_queue(), ^{

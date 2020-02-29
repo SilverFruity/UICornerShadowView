@@ -31,6 +31,8 @@
 		EEF989AB240A1908007DEE53 /* SFBlurImageMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF989A9240A1908007DEE53 /* SFBlurImageMaker.m */; };
 		EEF989AF240A1974007DEE53 /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF989AD240A1974007DEE53 /* UIImageEffects.m */; };
 		EEF989B0240A1974007DEE53 /* UIImageEffects.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF989AE240A1974007DEE53 /* UIImageEffects.h */; };
+		EEF989B3240A3C3C007DEE53 /* SFCSBView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF989B1240A3C3B007DEE53 /* SFCSBView.m */; };
+		EEF989B4240A3D0A007DEE53 /* SFCSBView.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF989B2240A3C3B007DEE53 /* SFCSBView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		EEF989A9240A1908007DEE53 /* SFBlurImageMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFBlurImageMaker.m; sourceTree = "<group>"; };
 		EEF989AD240A1974007DEE53 /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageEffects.m; sourceTree = "<group>"; };
 		EEF989AE240A1974007DEE53 /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageEffects.h; sourceTree = "<group>"; };
+		EEF989B1240A3C3B007DEE53 /* SFCSBView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFCSBView.m; sourceTree = "<group>"; };
+		EEF989B2240A3C3B007DEE53 /* SFCSBView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFCSBView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 		1B2CFBE223FEF486008DBFC1 /* SFImageMaker */ = {
 			isa = PBXGroup;
 			children = (
+				EEF989B2240A3C3B007DEE53 /* SFCSBView.h */,
+				EEF989B1240A3C3B007DEE53 /* SFCSBView.m */,
 				1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */,
 				EEF6E84D240572C2002D005A /* SFImageManager.h */,
 				EEF6E84E240572C2002D005A /* SFImageManager.m */,
@@ -177,6 +183,7 @@
 				1B2CFBF123FEF486008DBFC1 /* SFImageMaker.h in Headers */,
 				EEF6E84F240572C2002D005A /* SFImageManager.h in Headers */,
 				1B2CFC0223FEF503008DBFC1 /* SFGradientImageMaker.h in Headers */,
+				EEF989B4240A3D0A007DEE53 /* SFCSBView.h in Headers */,
 				1B2CFC0623FEF50F008DBFC1 /* SFCornerImageMaker.h in Headers */,
 				EEF989A6240A0B46007DEE53 /* SFBlockImageMaker.h in Headers */,
 			);
@@ -282,6 +289,7 @@
 			files = (
 				EEF6E850240572C2002D005A /* SFImageManager.m in Sources */,
 				1B2CFC0F23FEF5BC008DBFC1 /* SFBorderImageMaker.m in Sources */,
+				EEF989B3240A3C3C007DEE53 /* SFCSBView.m in Sources */,
 				1B2CFC0723FEF50F008DBFC1 /* SFCornerImageMaker.m in Sources */,
 				1B2CFC0B23FEF53C008DBFC1 /* SFShadowImageMaker.m in Sources */,
 				EEF989A7240A0B46007DEE53 /* SFBlockImageMaker.m in Sources */,

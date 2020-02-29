@@ -15,7 +15,7 @@
     gradient.isHorizontal = isHorizontal;
     gradient.colors = @[startColor, endColor];
     gradient.locations = @[@(0),@(1)];
-    gradient.size = isHorizontal ? CGSizeMake(SCREEN_WIDTH, 1) : CGSizeMake(1, SCREEN_HEIGHT);
+    gradient.size = isHorizontal ? CGSizeMake(UIScreen.mainScreen.bounds.size.width, 1) : CGSizeMake(1, UIScreen.mainScreen.bounds.size.height);
     return gradient;
 }
 - (instancetype)init
