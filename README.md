@@ -1,6 +1,10 @@
 # UICornerShadowView
 iOS UIView Subclass: Use CoreGraphics to control the direction of Rect Corner、Shadow 、Border
 # Usage
+## Cocoapods
+```
+pod 'SFImageMaker'
+```
 ## Swift
 ```swift
 let shadowView = SFCSBView.init()
