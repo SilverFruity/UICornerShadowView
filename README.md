@@ -3,7 +3,7 @@ iOS UIView Subclass: Use CoreGraphics to control the direction of Rect Corner、
 # Usage
 ## Swift
 ```swift
-let shadowView = UICornerShadowView.init()
+let shadowView = SFCSBView.init()
 shadowView._cornerRadius = 20
 shadowView._rectCornner = [.topLeft,.topRight,.bottomLeft,.bottomRight]
 shadowView._shadowPosition = [.left,.top,.right,.bottom]
@@ -15,7 +15,18 @@ shadowView._borderPosition = .all
 
 ```
 
-## Objective-C: will come soon
+## Objective-C
+```objective-c
+SFCSBView * shadowView = [SFCSBView new];
+shadowView._cornerRadius = 20;
+shadowView._rectCornner = UIRectCornerAllCorners;
+shadowView._shadowPosition = UIShadowPostionAll;
+shadowView._shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+shadowView._shadowRadius = 20;
+shadowView._borderColor = UIColor.systemBlueColor;
+shadowView._borderWidth = 5;
+shadowView._borderPosition = UIBorderPostionAll;
+```
 
 **Compare with CALayer**
 
