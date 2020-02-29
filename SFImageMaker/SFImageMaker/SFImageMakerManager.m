@@ -6,14 +6,14 @@
 //  Copyright © 2020 SilverFruity. All rights reserved.
 //
 
-#import "SFImageManager.h"
+#import "SFImageMakerManager.h"
 
-@implementation SFImageManager
+@implementation SFImageMakerManager
 + (instancetype)shared{
     static dispatch_once_t onceToken;
-    static SFImageManager *_instance = nil;
+    static SFImageMakerManager *_instance = nil;
     dispatch_once(&onceToken, ^{
-        _instance = [SFImageManager new];
+        _instance = [SFImageMakerManager new];
     });
     return _instance;
 }

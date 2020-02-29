@@ -155,7 +155,7 @@
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        UIImage *image = [SFImageManager.shared startWithGenerator:colorMaker processors:@[cornerMaker,borderMaker,shadowMaker]];
+        UIImage *image = [SFImageMakerManager.shared startWithGenerator:colorMaker processors:@[cornerMaker,borderMaker,shadowMaker]];
         if (shadowMaker.isEnable) {
             UIEdgeInsets inset = shadowMaker.convasEdgeInsets;
             CGFloat x = (image.size.width - inset.left - inset.right) / 2;

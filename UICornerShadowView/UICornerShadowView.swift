@@ -142,7 +142,7 @@ class UICornerShadowView: UIView {
             return
         }
         DispatchQueue.global().async { [unowned self] in
-            var image = SFImageManager.shared().start(with: generalImage, processors: [rectCorner,border,shadow])
+            var image = SFImageMakerManager.shared().start(with: generalImage, processors: [rectCorner,border,shadow])
             if shadow.isEnable{
                 let insets = shadow.convasEdgeInsets()
                 image = image.resizableImageCenter(withInset: insets)

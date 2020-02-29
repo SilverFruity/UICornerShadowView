@@ -10,7 +10,7 @@
 #import "SFImageMaker-Protocol.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SFImageManager : NSObject
+@interface SFImageMakerManager : NSObject
 + (instancetype)shared;
 - (UIImage *)startWithGenerator:(id <SFImageGenerator>)generator processors:(NSArray <id <SFImageProcessor>>*)processors;
 - (UIImage *)startWithImage:(UIImage *)image processors:(NSArray <id <SFImageProcessor>>*)processors;
