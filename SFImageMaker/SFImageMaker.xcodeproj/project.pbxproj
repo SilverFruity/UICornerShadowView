@@ -66,7 +66,6 @@
 		1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShadowImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBorderImageMakerTests.swift; sourceTree = "<group>"; };
-		1B3C034023FFEA2B0019104A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		EEF6E84D240572C2002D005A /* SFImageMakerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageMakerManager.h; sourceTree = "<group>"; };
 		EEF6E84E240572C2002D005A /* SFImageMakerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageMakerManager.m; sourceTree = "<group>"; };
 		EEF989A4240A0B46007DEE53 /* SFBlockImageMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFBlockImageMaker.h; sourceTree = "<group>"; };
@@ -140,7 +139,6 @@
 				EEF989A8240A1908007DEE53 /* SFBlurImageMaker.h */,
 				EEF989A9240A1908007DEE53 /* SFBlurImageMaker.m */,
 				EEF989AC240A195F007DEE53 /* UIImageEffects */,
-				1B3C034023FFEA2B0019104A /* PrefixHeader.pch */,
 				1B2CFBE423FEF486008DBFC1 /* Info.plist */,
 			);
 			path = SFImageMaker;
@@ -446,7 +444,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = $SRCROOT/$PROJECT_NAME/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = SFImageMaker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -470,7 +468,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = $SRCROOT/$PROJECT_NAME/PrefixHeader.pch;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = SFImageMaker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
