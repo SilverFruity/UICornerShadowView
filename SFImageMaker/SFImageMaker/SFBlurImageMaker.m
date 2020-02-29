@@ -16,11 +16,10 @@
     return self;
 }
 - (BOOL)isEnable{
-    return NO;
+    return self.blurRadius != 0  && self.tintColor != nil;
 }
-
 - (nonnull NSString *)identifier {
-    return @"";
+    return self.isEnable ? [NSString stringWithFormat:@"blureImage%.1f%lu%.1f",self.blurRadius,self.tintColor.hash,self.saturationDeltaFactor] : @"";
 }
 + (instancetype)lightEffect{
     SFBlurImageMaker *maker = [SFBlurImageMaker new];
@@ -67,7 +66,10 @@
 }
 
 - (nonnull UIImage *)process:(nullable UIImage *)target {
-    return [UIImageEffects imageByApplyingBlurToImage:target withRadius:self.blurRadius tintColor:self.tintColor saturationDeltaFactor:self.saturationDeltaFactor maskImage:self.maskImage];
+    if (self.isEnable) {
+        return [UIImageEffects imageByApplyingBlurToImage:target withRadius:self.blurRadius tintColor:self.tintColor saturationDeltaFactor:self.saturationDeltaFactor maskImage:self.maskImage];
+    }
+    return target;
 }
 
 @end
