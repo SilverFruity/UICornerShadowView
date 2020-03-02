@@ -59,7 +59,7 @@ class SFImageMakerTests: XCTestCase {
                 maxValue = shadow.shadowBlurRadius > maxValue ? shadow.shadowBlurRadius : maxValue
                 let size = CGSize.init(width: maxValue * 2, height: maxValue * 2)
 //                let size = CGSize.init(width: 400, height: 100)
-                let image = SFImageManager.shared().start(with: SFColorImageMaker(color: UIColor.white, size: size), processors: [rectCorner,border,shadow])
+                let image = SFImageMakerManager.shared().start(with: SFColorImageMaker(color: UIColor.white, size: size), processors: [rectCorner,border,shadow])
                 if let cgimg = image.cgImage{
                     cost += cgimg.height * cgimg.width * (cgimg.bitsPerPixel / cgimg.bitsPerComponent)
                 }
