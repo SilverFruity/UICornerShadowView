@@ -47,23 +47,23 @@
 @implementation SFCSBView
 - (SFShadowImageMaker *)shadowProcessor{
     SFShadowImageMaker *maker = [[SFShadowImageMaker alloc] init];
-    maker.shadowColor = self._shadowColor;
-    maker.shadowOffset = self._shadowOffset;
-    maker.shadowBlurRadius = self._shadowRadius;
-    maker.position = self._shadowPosition;
+    maker.shadowColor = self.shadowColor;
+    maker.shadowOffset = self.shadowOffset;
+    maker.shadowBlurRadius = self.shadowRadius;
+    maker.position = self.shadowPosition;
     return maker;
 }
 - (SFCornerImageMaker *)cornerProcessor{
     SFCornerImageMaker *maker = [[SFCornerImageMaker alloc] init];
-    maker.radius = self._cornerRadius;
-    maker.position = self._rectCornner;
+    maker.radius = self.cornerRadius;
+    maker.position = self.rectCornner;
     return maker;
 }
 - (SFBorderImageMaker *)borderProcessor{
     SFBorderImageMaker *maker = [[SFBorderImageMaker alloc] init];
-    maker.width = self._borderWidth;
-    maker.color = self._borderColor;
-    maker.position = self._borderPosition;
+    maker.width = self.borderWidth;
+    maker.color = self.borderColor;
+    maker.position = self.borderPosition;
     maker.cornerMaker = self.cornerProcessor;
     return maker;
 }
@@ -99,15 +99,15 @@
     return self;
 }
 - (void)setDefaultValues{
-    self._rectCornner = UIRectCornerAllCorners;
-    self._cornerRadius = 8;
-    self._shadowColor = [UIColor.blueColor colorWithAlphaComponent:0.08];
-    self._shadowOffset = CGSizeZero;
-    self._shadowRadius = 0;
-    self._borderWidth = 0;
-    self._borderColor = UIColor.clearColor;
-    self._shadowPosition = UIShadowPostionAll;
-    self._borderPosition = UIBorderPostionAll;
+    self.rectCornner = UIRectCornerAllCorners;
+    self.cornerRadius = 8;
+    self.shadowColor = [UIColor.blueColor colorWithAlphaComponent:0.08];
+    self.shadowOffset = CGSizeZero;
+    self.shadowRadius = 4;
+    self.borderWidth = 0;
+    self.borderColor = UIColor.clearColor;
+    self.shadowPosition = UIShadowPostionAll;
+    self.borderPosition = UIBorderPostionAll;
     self.clipsToBounds = NO;
 }
 - (void)layoutSubviews{

@@ -11,15 +11,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SFCSBView : UIView
-@property (nonatomic,assign)IBInspectable CGFloat _cornerRadius;
-@property (nonatomic,strong)IBInspectable UIColor *_shadowColor;
-@property (nonatomic,assign)IBInspectable CGSize _shadowOffset;
-@property (nonatomic,assign)IBInspectable CGFloat _shadowRadius;
-@property (nonatomic,assign)IBInspectable CGFloat _borderWidth;
-@property (nonatomic,strong)IBInspectable UIColor *_borderColor;
-@property (nonatomic,assign)IBInspectable UIRectCorner _rectCornner;
-@property (nonatomic,assign)IBInspectable UIShadowPostion _shadowPosition;
-@property (nonatomic,assign)IBInspectable UIBorderPostion _borderPosition;
+@property (nonatomic,assign)IBInspectable CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong)IBInspectable UIColor *shadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,assign)IBInspectable CGSize shadowOffset  UI_APPEARANCE_SELECTOR;
+@property (nonatomic,assign)IBInspectable CGFloat shadowRadius UI_APPEARANCE_SELECTOR;
+@property (nonatomic,assign)IBInspectable CGFloat borderWidth  UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong)IBInspectable UIColor *borderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,assign)IBInspectable UIRectCorner rectCornner UI_APPEARANCE_SELECTOR;
+@property (nonatomic,assign)IBInspectable UIShadowPostion shadowPosition UI_APPEARANCE_SELECTOR;
+@property (nonatomic,assign)IBInspectable UIBorderPostion borderPosition UI_APPEARANCE_SELECTOR;
 @property (nonatomic,nullable,copy)void(^handleMakers)(NSArray <id <SFImageProcessor>> * makers);
 @property (nonatomic,readonly)SFShadowImageMaker *shadowProcessor;
 @property (nonatomic,readonly)SFCornerImageMaker *cornerProcessor;

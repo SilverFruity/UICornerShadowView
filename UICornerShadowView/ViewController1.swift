@@ -29,7 +29,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RandomCell") as! RandomCell
         cell.container.backgroundColor = UIColor.init(red: CGFloat.random(in: 0...10) / 10, green: CGFloat.random(in: 0...10) / 10, blue: CGFloat.random(in: 0...10) / 10, alpha: 1)
-        cell.container._cornerRadius = CGFloat(Int.random(in: 10..<20))
+        cell.container.cornerRadius = CGFloat(Int.random(in: 10..<20))
         let cornerPositions: [UIRectCorner] = [.topLeft,.topRight,.bottomLeft,.bottomRight]
         var cornerResult = [UIRectCorner]()
         var cornerCount = Int.random(in: 0..<4)
@@ -37,7 +37,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             cornerResult.append(cornerPositions[Int.random(in: 0..<4)])
             cornerCount -= 1
         }
-        cell.container._rectCornner = UIRectCorner.init(cornerResult)
+        cell.container.rectCornner = UIRectCorner.init(cornerResult)
         
         let shadowPositions: [UIShadowPostion] = [.left,.top,.right,.bottom]
         var shadowResult = [UIShadowPostion]()
@@ -46,11 +46,11 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             shadowResult.append(shadowPositions[Int.random(in: 0..<4)])
             shadowResultCount -= 1
         }
-        cell.container._shadowPosition = UIShadowPostion.init(shadowResult)
-        cell.container._shadowColor = UIColor.black.withAlphaComponent(CGFloat(Int.random(in: 4..<10)) / 10)
-        cell.container._shadowRadius = CGFloat(Int.random(in: 8..<20))
-        cell.container._borderColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
-        cell.container._borderWidth = CGFloat(Int.random(in: 0..<8))
+        cell.container.shadowPosition = UIShadowPostion.init(shadowResult)
+        cell.container.shadowColor = UIColor.black.withAlphaComponent(CGFloat(Int.random(in: 4..<10)) / 10)
+        cell.container.shadowRadius = CGFloat(Int.random(in: 8..<20))
+        cell.container.borderColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
+        cell.container.borderWidth = CGFloat(Int.random(in: 0..<8))
         
         let borderPositions: [UIBorderPostion] = [.left,.top,.right,.bottom]
         var borderResult = [UIBorderPostion]()
@@ -64,7 +64,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
                 cornerMake.dependencies.add(SFBlurImageMaker.lightEffect())
             }
         }
-        cell.container._borderPosition = UIBorderPostion.init(borderResult)
+        cell.container.borderPosition = UIBorderPostion.init(borderResult)
         cell.container.reloadBackGourndImage()
         return cell
     }

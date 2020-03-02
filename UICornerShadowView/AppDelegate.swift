@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SFImageMaker
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,6 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let appearance = SFCSBView.appearance()
+        appearance.cornerRadius = 20
+        appearance.rectCornner = [.topLeft,.topRight,.bottomLeft,.bottomRight]
+        appearance.shadowPosition = [.left,.top,.right,.bottom]
+        appearance.shadowColor = UIColor.black.withAlphaComponent(0.6)
+        appearance.shadowRadius = 20
+        appearance.borderColor = UIColor.systemBlue
+        appearance.borderWidth = 5
+        appearance.borderPosition = .all
         return true
     }
 

@@ -7,54 +7,54 @@
 //
 
 import UIKit
-
+import SFImageMaker
 class ViewController: UIViewController {
-    @IBOutlet weak var shadowView: UICornerShadowView!
+    @IBOutlet weak var shadowView: SFCSBView!
     
     @IBOutlet weak var layerCorner: UIView!
     @IBOutlet weak var layerShadow: UIView!
     
-    @IBOutlet weak var leftRightShadowView: UICornerShadowView!
-    @IBOutlet weak var topBottomShadowView: UICornerShadowView!
+    @IBOutlet weak var leftRightShadowView: SFCSBView!
+    @IBOutlet weak var topBottomShadowView: SFCSBView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.shadowView._cornerRadius = 20
-        self.shadowView._rectCornner = [.topLeft,.topRight,.bottomLeft,.bottomRight]
-        self.shadowView._shadowPosition = [.left,.top,.right,.bottom]
-        self.shadowView._shadowColor = UIColor.black.withAlphaComponent(0.6)
-        self.shadowView._shadowRadius = 20
-        self.shadowView._borderColor = UIColor.systemBlue
-        self.shadowView._borderWidth = 5
-        self.shadowView._borderPosition = .all
+        self.shadowView.cornerRadius = 20
+        self.shadowView.rectCornner = [.topLeft,.topRight,.bottomLeft,.bottomRight]
+        self.shadowView.shadowPosition = [.left,.top,.right,.bottom]
+        self.shadowView.shadowColor = UIColor.black.withAlphaComponent(0.6)
+        self.shadowView.shadowRadius = 20
+        self.shadowView.borderColor = UIColor.systemBlue
+        self.shadowView.borderWidth = 5
+        self.shadowView.borderPosition = .all
 
-        self.layerCorner.layer.borderWidth = self.shadowView._borderWidth
-        self.layerCorner.layer.borderColor = self.shadowView._borderColor.cgColor
-        self.layerCorner.layer.cornerRadius = self.shadowView._cornerRadius
+        self.layerCorner.layer.borderWidth = self.shadowView.borderWidth
+        self.layerCorner.layer.borderColor = self.shadowView.borderColor.cgColor
+        self.layerCorner.layer.cornerRadius = self.shadowView.cornerRadius
         self.layerCorner.layer.masksToBounds = true
 
         self.layerShadow.backgroundColor = UIColor.clear
         self.layerShadow.layer.shadowOpacity = 1.0
         self.layerShadow.layer.shadowOffset = CGSize.zero
         //FIXME: 和系统相同需要 /2
-        self.layerShadow.layer.shadowRadius = self.shadowView._shadowRadius / 2
-        self.layerShadow.layer.shadowColor = self.shadowView._shadowColor.cgColor
+        self.layerShadow.layer.shadowRadius = self.shadowView.shadowRadius / 2
+        self.layerShadow.layer.shadowColor = self.shadowView.shadowColor.cgColor
         
-        self.leftRightShadowView._cornerRadius = 0
-        self.leftRightShadowView._shadowPosition = [.left,.right]
-        self.leftRightShadowView._shadowColor = UIColor.black.withAlphaComponent(0.6)
-        self.leftRightShadowView._shadowRadius = 20
-        self.leftRightShadowView._borderWidth = 5
-        self.leftRightShadowView._borderColor = UIColor.systemBlue
-        self.leftRightShadowView._borderPosition = [.left,.right]
+        self.leftRightShadowView.cornerRadius = 0
+        self.leftRightShadowView.shadowPosition = [.left,.right]
+        self.leftRightShadowView.shadowColor = UIColor.black.withAlphaComponent(0.6)
+        self.leftRightShadowView.shadowRadius = 20
+        self.leftRightShadowView.borderWidth = 5
+        self.leftRightShadowView.borderColor = UIColor.systemBlue
+        self.leftRightShadowView.borderPosition = [.left,.right]
         
-        self.topBottomShadowView._cornerRadius = 0
-        self.topBottomShadowView._shadowPosition = [.top,.bottom]
-        self.topBottomShadowView._shadowColor = UIColor.black.withAlphaComponent(0.6)
-        self.topBottomShadowView._shadowRadius = 20
-        self.topBottomShadowView._borderWidth = 5
-        self.topBottomShadowView._borderColor = UIColor.systemBlue
-        self.topBottomShadowView._borderPosition = [.top,.bottom]
+        self.topBottomShadowView.cornerRadius = 0
+        self.topBottomShadowView.shadowPosition = [.top,.bottom]
+        self.topBottomShadowView.shadowColor = UIColor.black.withAlphaComponent(0.6)
+        self.topBottomShadowView.shadowRadius = 20
+        self.topBottomShadowView.borderWidth = 5
+        self.topBottomShadowView.borderColor = UIColor.systemBlue
+        self.topBottomShadowView.borderPosition = [.top,.bottom]
 
     }
 }

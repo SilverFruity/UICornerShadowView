@@ -7,26 +7,26 @@
 //
 
 import UIKit
-
+import SFImageMaker
 class ReuseImageCell: UITableViewCell{
-    @IBOutlet weak var container: UICornerShadowView!
+    @IBOutlet weak var container: SFCSBView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.container._shadowColor = UIColor.black.withAlphaComponent(0.6)
-        self.container._shadowRadius = 10
-        self.container._cornerRadius = 10
+        self.container.shadowColor = UIColor.black.withAlphaComponent(0.6)
+        self.container.shadowRadius = 10
+        self.container.cornerRadius = 10
     }
     func topStyle(){
-        self.container._shadowPosition = [.left,.right,.top]
-        self.container._rectCornner = [.topLeft,.topRight]
+        self.container.shadowPosition = [.left,.right,.top]
+        self.container.rectCornner = [.topLeft,.topRight]
     }
     func middleStyle(){
-        self.container._shadowPosition = [.left,.right]
-        self.container._rectCornner = UIRectCorner.init(rawValue: 0)
+        self.container.shadowPosition = [.left,.right]
+        self.container.rectCornner = UIRectCorner.init(rawValue: 0)
     }
     func bottomStyle(){
-        self.container._shadowPosition = [.left,.right,.bottom]
-        self.container._rectCornner = [.bottomRight,.bottomLeft]
+        self.container.shadowPosition = [.left,.right,.bottom]
+        self.container.rectCornner = [.bottomRight,.bottomLeft]
     }
 }
 class ViewController2: UIViewController,UITableViewDataSource,UITableViewDelegate{
@@ -57,9 +57,9 @@ class ViewController2: UIViewController,UITableViewDataSource,UITableViewDelegat
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! ReuseImageCell
-        let alert = UIAlertController.init(title: "DebugInfo", message: cell.container.debugInfo(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController.init(title: "DebugInfo", message: cell.container.debugInfo(), preferredStyle: .alert)
+//        alert.addAction(UIAlertAction.init(title: "cancel", style: .cancel, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
     }
 
     /*
