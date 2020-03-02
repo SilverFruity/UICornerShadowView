@@ -15,6 +15,7 @@ class ReuseImageCell: UITableViewCell{
         self.container.shadowColor = UIColor.black.withAlphaComponent(0.6)
         self.container.shadowRadius = 10
         self.container.cornerRadius = 10
+        self.container.borderWidth = 0
     }
     func topStyle(){
         self.container.shadowPosition = [.left,.right,.top]
