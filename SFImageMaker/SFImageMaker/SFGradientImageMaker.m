@@ -10,6 +10,16 @@
 #import <SFImageMaker/SFImageMaker.h>
 
 @implementation SFGradientImageMaker
+- (instancetype)init{
+    self = [[SFGradientImageMaker alloc] initWithSize:CGSizeMake(1, 1)];
+    return self;
+}
+- (nonnull instancetype)initWithSize:(CGSize)size{
+    self = [super init];
+    self.size = size;
+    self.dependencies = [NSMutableArray array];
+    return  self;
+}
 + (instancetype)isHorizontal:(BOOL)isHorizontal startColor:(UIColor *)startColor endColor:(UIColor *)endColor{
     SFGradientImageMaker *gradient = [[self class] new];
     gradient.isHorizontal = isHorizontal;
@@ -18,19 +28,10 @@
     gradient.size = isHorizontal ? CGSizeMake(UIScreen.mainScreen.bounds.size.width, 1) : CGSizeMake(1, UIScreen.mainScreen.bounds.size.height);
     return gradient;
 }
-- (instancetype)init
-{
-    self = [super init];
-    self.dependencies = [NSMutableArray array];
-    return self;
-}
 - (BOOL)isEnable{
     return self.colors.count > 0 && self.locations.count > 0 && !CGSizeEqualToSize(self.size, CGSizeZero);
 }
 - (nonnull UIImage *)generate {
-    return [self process:nil];
-}
-- (nonnull UIImage *)process:(nullable UIImage *)target {
     UIGraphicsBeginImageContext(self.size);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

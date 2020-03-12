@@ -20,11 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)IBInspectable UIRectCorner rectCornner UI_APPEARANCE_SELECTOR;
 @property (nonatomic,assign)IBInspectable UIShadowPostion shadowPosition UI_APPEARANCE_SELECTOR;
 @property (nonatomic,assign)IBInspectable UIBorderPostion borderPosition UI_APPEARANCE_SELECTOR;
-@property (nonatomic,nullable,copy)void(^handleMakers)(NSArray <id <SFImageProcessor>> * makers);
+@property (nonatomic,nullable,copy)void(^handleMakers)(NSArray <id <SFImageDependencies,SFImageIdentifier>> * makers);
+@property (nonatomic,nullable,copy)Class defautlGeneratorClass;
+@property (nonatomic,readonly)id <SFImageGenerator>  imageGenerator;
 @property (nonatomic,readonly)SFShadowImageMaker *shadowProcessor;
 @property (nonatomic,readonly)SFCornerImageMaker *cornerProcessor;
 @property (nonatomic,readonly)SFBorderImageMaker *borderProcessor;
-@property (nonatomic,readonly)SFColorImageMaker  *colorProcessor;
 - (void)reloadBackGourndImage;
 @end
 

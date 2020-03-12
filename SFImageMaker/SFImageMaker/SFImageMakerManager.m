@@ -19,8 +19,8 @@
 }
 - (UIImage *)startWithGenerator:(id<SFImageGenerator>)generator processors:(NSArray<id<SFImageProcessor>> *)processors{
     UIImage *image = generator.generate;
-    if ([generator conformsToProtocol:@protocol(SFImageProcessor)]) {
-        id <SFImageProcessor> processor = (id <SFImageProcessor>)generator;
+    if ([generator conformsToProtocol:@protocol(SFImageDependencies)]) {
+        id <SFImageDependencies> processor = (id <SFImageDependencies>)generator;
         for (id <SFImageProcessor> sub in processor.dependencies) {
             image = [self recursiveProcess:image processor:sub];
         }

@@ -10,9 +10,9 @@
 #import <SFImageMaker/SFImageMaker-Protocol.h>
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SFColorImageMaker : NSObject <SFImageGenerator,SFImageProcessor>
+@interface SFColorImageMaker : NSObject <SFImageGenerator>
 @property (nonatomic, assign)CGSize size;
-@property (nonatomic, strong)UIColor *color;
+@property (nonatomic, strong, nullable)UIColor *color;
 @property (nonatomic, getter=isEnable)BOOL enable;
 @property (nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
 

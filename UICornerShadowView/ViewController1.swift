@@ -59,9 +59,22 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             borderResult.append(borderPositions[Int.random(in: 0..<4)])
             borderCount -= 1
         }
+        if Int.random(in: 0..<100) / 2 == 0{
+            cell.container.defautlGeneratorClass = SFGradientImageMaker.self
+        }else{
+            cell.container.defautlGeneratorClass = SFColorImageMaker.self
+        }
         cell.container.handleMakers = { makers in
-            if let cornerMake = makers.filter({ $0 is SFColorImageMaker }).first as? SFColorImageMaker{
-                cornerMake.dependencies.add(SFBlurImageMaker.lightEffect())
+            if let gradientGenerator = makers.filter({ $0 is SFGradientImageMaker }).first as? SFGradientImageMaker{
+                let startColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
+                let endColor = UIColor.init(red: CGFloat(Int.random(in: 0...10)) / 10, green: CGFloat(Int.random(in: 0...10)) / 10, blue: CGFloat(Int.random(in: 0...10)) / 10, alpha: 1)
+                gradientGenerator.colors = [startColor, endColor]
+                gradientGenerator.locations = [NSNumber(0), NSNumber(1)];
+                gradientGenerator.isHorizontal = true
+                gradientGenerator.dependencies.add(SFBlurImageMaker.lightEffect())
+            }
+            if let gradientGenerator = makers.filter({ $0 is SFColorImageMaker }).first as? SFColorImageMaker{
+                gradientGenerator.dependencies.add(SFBlurImageMaker.lightEffect())
             }
         }
         cell.container.borderPosition = UIBorderPostion.init(borderResult)

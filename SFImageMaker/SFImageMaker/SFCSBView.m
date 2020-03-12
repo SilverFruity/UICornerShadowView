@@ -67,12 +67,26 @@
     maker.cornerMaker = self.cornerProcessor;
     return maker;
 }
-- (SFColorImageMaker *)colorProcessor{
-    // Radius ShadowRadius BorderWidth 取最大值
-    CGFloat maxValue = self.cornerProcessor.radius > (self.borderProcessor.width + 1) && self.cornerProcessor.isEnable ? self.cornerProcessor.radius : self.borderProcessor.width + 1;
-    maxValue = self.shadowProcessor.shadowBlurRadius > maxValue ? self.shadowProcessor.shadowBlurRadius : maxValue;
-    CGSize size = CGSizeMake(maxValue * 2, maxValue * 2);
-    return [SFColorImageMaker imageMakerWithColor:self.initailBackGroundColor size:size];
+
+- (Class)defautlGeneratorClass{
+    if (!_defautlGeneratorClass) {
+        _defautlGeneratorClass = [SFColorImageMaker class];
+    }
+    return _defautlGeneratorClass;
+}
+- (id <SFImageGenerator>)imageGenerator{
+    id <SFImageGenerator> generator = [self.defautlGeneratorClass alloc];
+    // 只有纯色背景色才能以中点为拉伸点
+    if ([generator isKindOfClass:[SFColorImageMaker class]]){
+        // Radius ShadowRadius BorderWidth 取最大值
+        CGFloat maxValue = self.cornerProcessor.radius > (self.borderProcessor.width + 1) && self.cornerProcessor.isEnable ? self.cornerProcessor.radius : self.borderProcessor.width + 1;
+        maxValue = self.shadowProcessor.shadowBlurRadius > maxValue ? self.shadowProcessor.shadowBlurRadius : maxValue;
+        CGSize size = CGSizeMake(maxValue * 2, maxValue * 2);
+        return [generator initWithSize:size];
+    }else{
+        return [generator initWithSize:self.bounds.size];
+    }
+    
 }
 - (UIImageView *)backGroundImageView{
     if (!_backGroundImageView){
@@ -124,11 +138,15 @@
     SFShadowImageMaker *shadowMaker = self.shadowProcessor;
     SFCornerImageMaker *cornerMaker = self.cornerProcessor;
     SFBorderImageMaker *borderMaker = self.borderProcessor;
-    SFColorImageMaker  *colorMaker = self.colorProcessor;
+    id <SFImageGenerator> imageGenerator = self.imageGenerator;
+    if ([imageGenerator isKindOfClass:[SFColorImageMaker class]]) {
+        SFColorImageMaker *colorMaker = imageGenerator;
+        colorMaker.color = self.initailBackGroundColor;
+    }
     if (self.handleMakers)
-        self.handleMakers(@[colorMaker,cornerMaker,borderMaker,shadowMaker]);
+        self.handleMakers(@[imageGenerator,cornerMaker,borderMaker,shadowMaker]);
     
-    NSString *identifier = [NSString stringWithFormat:@"%@%@%@%@",colorMaker.identifier,cornerMaker.identifier,borderMaker.identifier,shadowMaker.identifier];
+    NSString *identifier = [NSString stringWithFormat:@"%@%@%@%@",imageGenerator.identifier,cornerMaker.identifier,borderMaker.identifier,shadowMaker.identifier];
     CGRect backImageViewFrame = self.bounds;
     if (shadowMaker.isEnable){
         //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
@@ -155,7 +173,7 @@
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        UIImage *image = [SFImageMakerManager.shared startWithGenerator:colorMaker processors:@[cornerMaker,borderMaker,shadowMaker]];
+        UIImage *image = [SFImageMakerManager.shared startWithGenerator:imageGenerator processors:@[cornerMaker,borderMaker,shadowMaker]];
         if (shadowMaker.isEnable) {
             UIEdgeInsets inset = shadowMaker.convasEdgeInsets;
             CGFloat x = (image.size.width - inset.left - inset.right) / 2;

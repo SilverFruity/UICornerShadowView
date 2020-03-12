@@ -9,19 +9,26 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol SFImageGenerator <NSObject>
-@required
-- (UIImage *)generate;
-@end
-
-
-@protocol SFImageProcessor <NSObject>
-@required
+@protocol SFImageIdentifier <NSObject>
 @property (nonatomic, readonly, getter=isEnable)BOOL enable;
 - (NSString *)identifier;
-- (UIImage *)process:(nullable UIImage *)target;
+@end
+
+@protocol SFImageProcessor;
+@protocol SFImageDependencies <NSObject>
 @property(nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
+@end
+
+@protocol SFImageProcessor <SFImageIdentifier,SFImageDependencies>
+@required
+- (UIImage *)process:(nullable UIImage *)target;
+@end
+
+@protocol SFImageGenerator <SFImageIdentifier,SFImageDependencies>
+@required
+@property (nonatomic,assign)CGSize size;
+- (instancetype)initWithSize:(CGSize)size;
+- (UIImage *)generate;
 @end
 
 
