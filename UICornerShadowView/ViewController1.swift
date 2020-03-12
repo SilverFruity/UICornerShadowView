@@ -59,7 +59,7 @@ class ViewController1: UIViewController,UITableViewDataSource,UITableViewDelegat
             borderResult.append(borderPositions[Int.random(in: 0..<4)])
             borderCount -= 1
         }
-        if Int.random(in: 0..<100) / 2 == 0{
+        if Int.random(in: 0..<5) / 2 == 0{
             cell.container.defautlGeneratorClass = SFGradientImageMaker.self
         }else{
             cell.container.defautlGeneratorClass = SFColorImageMaker.self
