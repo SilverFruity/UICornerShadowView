@@ -14,10 +14,30 @@ class SFImageMakerTests: XCTestCase {
     let border = SFBorderImageMaker.init()
     let rectCorner = SFCornerImageMaker.init()
     override func setUp() {
-        
+        rectCorner.radius = 20
+        rectCorner.position = .allCorners
+        shadow.position = .all
+        shadow.shadowColor = UIColor.black
+        shadow.shadowBlurRadius = 20
+        border.color = UIColor.black
+        border.width = 5
+        border.cornerMaker = rectCorner
     }
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
+    }
+    func testDependenciesIdentifier(){
+        let noDependencies = SFColorImageMaker.init(color: UIColor.white)
+        let colorMaker = SFColorImageMaker.init(color: UIColor.white)
+        colorMaker.dependencies.addObjects(from: [rectCorner,border,shadow])
+        var result = noDependencies.identifier() + rectCorner.identifier() + border.identifier() + shadow.identifier()
+        XCTAssert(SFImageMakerManager.shared().identifier(with: colorMaker, processors: nil) == result, result)
+        
+        colorMaker.dependencies = NSMutableArray.init()
+        colorMaker.dependencies.add(SFBlurImageMaker.lightEffect())
+        let processors:[SFImageProcessor] = [rectCorner,border,shadow]
+        result = noDependencies.identifier() + SFBlurImageMaker.lightEffect().identifier() + processors.reduce("", {$0 + $1.identifier()})
+        XCTAssert(SFImageMakerManager.shared().identifier(with: colorMaker, processors: processors) == result, result)
     }
     func testPerformanceExample() {
         self.measure {

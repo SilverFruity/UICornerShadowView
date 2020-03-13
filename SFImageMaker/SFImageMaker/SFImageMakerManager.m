@@ -18,14 +18,12 @@
     return _instance;
 }
 - (UIImage *)startWithGenerator:(id<SFImageGenerator>)generator processors:(NSArray<id<SFImageProcessor>> *)processors{
-    UIImage *image = generator.generate;
-    if ([generator conformsToProtocol:@protocol(SFImageDependencies)]) {
-        id <SFImageDependencies> processor = (id <SFImageDependencies>)generator;
-        for (id <SFImageProcessor> sub in processor.dependencies) {
-            image = [self recursiveProcess:image processor:sub];
-        }
+    UIImage *image = [generator generate];
+    NSMutableArray *totalProcessors = [generator.dependencies mutableCopy];
+    if (processors) {
+        [totalProcessors addObjectsFromArray:processors];
     }
-    return [self startWithImage:image processors:processors];
+    return [self startWithImage:image processors:totalProcessors];
 }
 - (UIImage *)startWithImage:(UIImage *)image processors:(NSArray <id <SFImageProcessor>>*)processors{
     for (id <SFImageProcessor> processor in processors){
@@ -39,5 +37,27 @@
         image = [self recursiveProcess:image processor:subProcessor];
     }
     return image;
+}
+
+- (NSString *)identifierWithGenerator:(id<SFImageGenerator>)generator processors:(NSArray<id<SFImageProcessor>> *)processors{
+    NSMutableArray *elements = [@[generator] mutableCopy];
+    if (processors){
+        [elements addObjectsFromArray:processors];
+    }
+    return [self identifierWithProcessors:[elements copy]];
+}
+- (NSString *)identifierWithProcessors:(NSArray<id<SFImageIdentifier,SFImageProcessor>> *)processors{
+    NSMutableString * identifier = [@"" mutableCopy];
+    for (id<SFImageIdentifier,SFImageProcessor> processor in processors){
+        [self recursiveGetIdentifier:identifier processor:processor];
+    }
+    return [identifier copy];
+}
+
+- (void)recursiveGetIdentifier:(NSMutableString *)identifier processor:(id <SFImageIdentifier,SFImageDependencies>)processor{
+    [identifier appendString:processor.identifier];
+    for (id <SFImageProcessor> subProcessor in processor.dependencies) {
+        [self recursiveGetIdentifier:identifier processor:subProcessor];
+    }
 }
 @end

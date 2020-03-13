@@ -146,7 +146,8 @@
     if (self.handleMakers)
         self.handleMakers(@[imageGenerator,cornerMaker,borderMaker,shadowMaker]);
     
-    NSString *identifier = [NSString stringWithFormat:@"%@%@%@%@",imageGenerator.identifier,cornerMaker.identifier,borderMaker.identifier,shadowMaker.identifier];
+    NSString *identifier = [SFImageMakerManager.shared identifierWithGenerator:imageGenerator processors:@[cornerMaker,borderMaker,shadowMaker]];
+    
     CGRect backImageViewFrame = self.bounds;
     if (shadowMaker.isEnable){
         //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。

@@ -12,9 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SFImageMakerManager : NSObject
 + (instancetype)shared;
-- (UIImage *)startWithGenerator:(id <SFImageGenerator>)generator processors:(NSArray <id <SFImageProcessor>>*)processors;
+- (UIImage *)startWithGenerator:(id <SFImageGenerator>)generator processors:(nullable NSArray <id <SFImageProcessor>>*)processors;
 - (UIImage *)startWithImage:(UIImage *)image processors:(NSArray <id <SFImageProcessor>>*)processors;
-
+- (NSString *)identifierWithGenerator:(id<SFImageGenerator>)generator processors:(nullable NSArray<id<SFImageProcessor>> *)processors;
+- (NSString *)identifierWithProcessors:(NSArray<id<SFImageIdentifier,SFImageProcessor>> *)processors;
 @end
 
 NS_ASSUME_NONNULL_END
