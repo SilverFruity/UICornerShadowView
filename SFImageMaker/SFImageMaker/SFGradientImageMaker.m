@@ -68,6 +68,6 @@
     return image;
 }
 - (nonnull NSString *)identifier {
-    return self.isEnable ? [NSString stringWithFormat:@"_%@_%@_%@",[NSValue valueWithCGSize:self.size],[self.colors componentsJoinedByString:@","],[self.locations componentsJoinedByString:@","]] : @"";
+    return self.isEnable ? [NSString stringWithFormat:@"gradient_%@_%@_%@",[NSValue valueWithCGSize:self.size],[self.colors componentsJoinedByString:@","],[self.locations componentsJoinedByString:@","]] : @"";
 }
 @end
