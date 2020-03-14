@@ -9,9 +9,8 @@
 #import "SFWebImageMakerHelper.h"
 #import "SFImageMakerManager.h"
 @interface SFWebImageMakerHelper()
-@property (nonatomic, copy)NSURL *url;
 @property (nonatomic, copy)NSArray<id<SFImageProcessor>> *processors;
-
+@property (nonatomic, readwrite, strong)NSURL *url;
 @end
 @implementation SFWebImageMakerHelper
 - (instancetype)initWithUrl:(NSURL *)url processors:(NSArray<id<SFImageProcessor>> *)processors{
@@ -20,41 +19,45 @@
     self.processors = processors;
     return self;
 }
+- (NSString *)identifier{
+    return [SFImageMakerManager.shared identifierWithProcessors:self.processors];
+}
 - (void)prcoessWithCompleted:(SFWebImageCompleteHandler)completed{
-    if (!self.delegate){
+    if (!self.delegate || !self.url){
         return;
     }
-    NSString *identifier = [SFImageMakerManager.shared identifierWithProcessors:self.processors];
+    NSString *identifier = self.identifier;
     void (^noCacheOperation)(void) = ^{
         [self.delegate downloadForUrl:self.url completed:^(UIImage * _Nullable downloadImage, NSURL * _Nullable url, NSError * _Nullable error) {
             if (downloadImage){
                 UIImage *resultImage = [SFImageMakerManager.shared startWithImage:downloadImage processors:self.processors];
-                completed(resultImage,url,error);
                 // save without identifier
-                [self.delegate saveMemeryCache:downloadImage forUrl:self.url identifier:nil];
-                [self.delegate saveDiskCache:downloadImage forUrl:self.url identifier:nil completed:nil];
+                NSString *noIdentifierKey = [self.delegate keyForUrl:self.url identifier:nil];
+                [self.delegate saveMemeryCache:downloadImage forKey:noIdentifierKey];
+                [self.delegate saveDiskCache:downloadImage forKey:noIdentifierKey completed:nil];
                 
                 // save with identifier
-                if (self.cacheOption & SFWebImageCacheOptionAll) {
-                    [self.delegate saveMemeryCache:resultImage forUrl:self.url identifier:identifier];
-                    [self.delegate saveDiskCache:resultImage forUrl:self.url identifier:identifier completed:nil];
-                    
-                }else if (self.cacheOption & SFWebImageCacheOptionMemery) {
-                    [self.delegate saveMemeryCache:resultImage forUrl:self.url identifier:identifier];
-                    
+                NSString *key = [self.delegate keyForUrl:self.url identifier:identifier];
+                if (self.cacheOption & SFWebImageCacheOptionMemery) {
+                    [self.delegate saveMemeryCache:resultImage forKey:key];
+                    if (self.cacheOption & SFWebImageCacheOptionDisk)
+                        [self.delegate saveDiskCache:resultImage forKey:key completed:nil];
                 }else if (self.cacheOption & SFWebImageCacheOptionDisk) {
-                    [self.delegate saveDiskCache:resultImage forUrl:self.url identifier:identifier completed:nil];
+                    [self.delegate saveDiskCache:resultImage forKey:key completed:nil];
                 }
+                completed(resultImage,url,error);
+            }else{
+                completed(downloadImage,url,error);
             }
-            completed(downloadImage,url,error);
         }];
     };
     
-    if (self.cacheOption & SFWebImageCacheOptionAll) {
-        [self memeryImageWithIdentifier:identifier handler:^(UIImage *image) {
-            if (image) {
-                completed(image,self.url,nil);
-            }else{
+    if (self.cacheOption & SFWebImageCacheOptionMemery) {
+        UIImage *image = [self memeryImageWithIdentifier:identifier];
+        if (image) {
+            completed(image, self.url, nil);
+        }else{
+            if (self.cacheOption & SFWebImageCacheOptionDisk){
                 [self diskImageWithIdentifier:identifier handler:^(UIImage *image) {
                     if (image) {
                         completed(image, self.url, nil);
@@ -62,18 +65,13 @@
                         noCacheOperation();
                     }
                 }];
-            }
-        }];
-    }else if (self.cacheOption & SFWebImageCacheOptionDisk) {
-       [self diskImageWithIdentifier:identifier handler:^(UIImage *image) {
-            if (image) {
-                completed(image, self.url, nil);
             }else{
                 noCacheOperation();
             }
-        }];
-    }else if (self.cacheOption & SFWebImageCacheOptionDisk) {
-        [self memeryImageWithIdentifier:identifier handler:^(UIImage *image) {
+        }
+    }
+    if (self.cacheOption & SFWebImageCacheOptionDisk) {
+        [self diskImageWithIdentifier:identifier handler:^(UIImage *image) {
             if (image) {
                 completed(image, self.url, nil);
             }else{
@@ -85,38 +83,41 @@
 
 - (void)diskImageWithIdentifier:(NSString *)identifier handler:(void(^)(UIImage *image))handler{
     // search in DiskCache with identifier
-    [self.delegate diskCacheForUrl:self.url identifier:identifier completed:^(UIImage * _Nullable image, NSURL * _Nullable url, NSError * _Nullable error) {
+    NSString *noIdentifierKey = [self.delegate keyForUrl:self.url identifier:nil];
+    [self.delegate diskCacheForKey:noIdentifierKey completed:^(UIImage * _Nullable image, NSError * _Nullable error) {
         if (image) {
             handler(image);
             return;
         }
         // search in DiskCache without identifier
-        [self.delegate diskCacheForUrl:self.url identifier:nil completed:^(UIImage * _Nullable image, NSURL * _Nullable url, NSError * _Nullable error) {
+        NSString *key = [self.delegate keyForUrl:self.url identifier:identifier];
+        [self.delegate diskCacheForKey:key completed:^(UIImage * _Nullable image, NSError * _Nullable error) {
             if (image) {
                 UIImage *resultImage = [SFImageMakerManager.shared startWithImage:image processors:self.processors];
                 handler(resultImage);
-                [self.delegate saveDiskCache:resultImage forUrl:self.url identifier:identifier completed:nil];
+                [self.delegate saveDiskCache:resultImage forKey:key completed:nil];
             }else{
                 handler(nil);
             }
         }];
     }];
 }
-- (void)memeryImageWithIdentifier:(NSString *)identifier handler:(void(^)(UIImage *image))handler{
+- (UIImage *)memeryImageWithIdentifier:(NSString *)identifier{
     // search in MemCache with identifier
-    UIImage *image = [self.delegate memeryCacheForUrl:self.url identifier:identifier];
+    NSString *noIdentifierKey = [self.delegate keyForUrl:self.url identifier:nil];
+    UIImage *image = [self.delegate memeryCacheForKey:noIdentifierKey];
     if (image) {
-        handler(image);
-        return;
+        return image;
     }
     // search in MemCache without identifer
-    image = [self.delegate memeryCacheForUrl:self.url identifier:nil];
+    NSString *key = [self.delegate keyForUrl:self.url identifier:identifier];
+    image = [self.delegate memeryCacheForKey:key];
     if (image) {
         UIImage *resultImage = [SFImageMakerManager.shared startWithImage:image processors:self.processors];
-        handler(image);
-        [self.delegate saveMemeryCache:resultImage forUrl:self.url identifier:identifier];
+        [self.delegate saveMemeryCache:resultImage forKey:key];
+        return resultImage;
     }else{
-        handler(nil);
+        return nil;
     }
 }
 @end

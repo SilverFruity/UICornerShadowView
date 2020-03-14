@@ -25,4 +25,4 @@ FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 #import <SFImageMaker/SFBlockImageMaker.h>
 #import <SFImageMaker/SFBlurImageMaker.h>
 #import <SFImageMaker/SFCSBView.h>
-
+#import <SFImageMaker/SFWebImageMakerHelper.h>

@@ -23,8 +23,9 @@
 		1B2CFC1A23FEF99E008DBFC1 /* SFImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */; };
 		1B2CFC1C23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */; };
 		1B2CFC1E23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */; };
-		EE6AA7F5241BCBE4005C4DA5 /* SFWebImageMakerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */; };
+		EE6AA7F5241BCBE4005C4DA5 /* SFWebImageMakerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE6AA7F6241BCBE4005C4DA5 /* SFWebImageMakerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */; };
+		EE7EEAF7241CA25D007EB109 /* SFWebImageMakerHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */; };
 		EEF6E84F240572C2002D005A /* SFImageMakerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF6E84D240572C2002D005A /* SFImageMakerManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEF6E850240572C2002D005A /* SFImageMakerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF6E84E240572C2002D005A /* SFImageMakerManager.m */; };
 		EEF989A6240A0B46007DEE53 /* SFBlockImageMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF989A4240A0B46007DEE53 /* SFBlockImageMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -70,6 +71,7 @@
 		1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBorderImageMakerTests.swift; sourceTree = "<group>"; };
 		EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFWebImageMakerHelper.h; sourceTree = "<group>"; };
 		EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFWebImageMakerHelper.m; sourceTree = "<group>"; };
+		EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFWebImageMakerHelperTest.swift; sourceTree = "<group>"; };
 		EEF6E84D240572C2002D005A /* SFImageMakerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageMakerManager.h; sourceTree = "<group>"; };
 		EEF6E84E240572C2002D005A /* SFImageMakerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageMakerManager.m; sourceTree = "<group>"; };
 		EEF989A4240A0B46007DEE53 /* SFBlockImageMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFBlockImageMaker.h; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				1B2CFBF023FEF486008DBFC1 /* Info.plist */,
 				1B2CFC1023FEF926008DBFC1 /* SFImageMakerTests-Bridging-Header.h */,
 				1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */,
+				EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */,
 				1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */,
 				1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */,
 			);
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE7EEAF7241CA25D007EB109 /* SFWebImageMakerHelperTest.swift in Sources */,
 				1B2CFC1A23FEF99E008DBFC1 /* SFImageMakerTests.swift in Sources */,
 				1B2CFC1E23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift in Sources */,
 				1B2CFC1C23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift in Sources */,

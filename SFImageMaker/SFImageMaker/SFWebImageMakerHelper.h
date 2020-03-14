@@ -41,17 +41,22 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 - (void)downloadForUrl:(NSURL *)url completed:(SFWebImageCompleteHandler)completed;
 
-- (UIImage *)memeryCacheForUrl:(NSURL *)url identifier:(NSString * _Nullable)identifer;
-- (void)saveMemeryCache:(UIImage *)image forUrl:(NSURL *)url identifier:(NSString *_Nullable)identifier;
+- (NSString *)keyForUrl:(NSURL *)url identifier:(nullable NSString *)identifier;
 
-- (void)diskCacheForUrl:(NSURL *)url identifier:(NSString * _Nullable)identifer completed:(SFWebImageCompleteHandler)completed;
-- (void)saveDiskCache:(UIImage *)image forUrl:(NSURL *)url identifier:(NSString *_Nullable)identifier completed:(nullable void(^)(NSError *error))completed;
+- (nullable UIImage *)memeryCacheForKey:(NSString *)key;
+- (void)saveMemeryCache:(UIImage *)image forKey:(NSString *)key;
+
+- (void)diskCacheForKey:(NSString *)key completed:(nullable void(^)(UIImage * _Nullable image,NSError * _Nullable error))completed;
+- (void)saveDiskCache:(UIImage *)image forKey:(NSString *)key completed:(nullable void(^)(NSError *_Nullable error))completed;
+
 @end
 
 @interface SFWebImageMakerHelper : NSObject
 @property (nonatomic, weak)id <SFWebImageManagerDelegate>delegate;
 @property (nonatomic, assign)SFWebImageCacheOption cacheOption;
-- (instancetype)initWithUrl:(NSURL *)url processors:(NSArray <id<SFImageProcessor>>*)processors;
+@property (nonatomic, readonly)NSString *identifier;
+@property (nonatomic, readonly, strong)NSURL *url;
+- (instancetype)initWithUrl:(nullable NSURL *)url processors:(NSArray <id<SFImageProcessor>>*)processors;
 - (void)prcoessWithCompleted:(SFWebImageCompleteHandler)completed;
 @end
 
