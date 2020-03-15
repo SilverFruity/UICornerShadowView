@@ -30,11 +30,13 @@
  *  error: complete with error
  **/
 typedef void(^SFWebImageCompleteHandler)(UIImage * _Nullable image,NSURL * _Nullable url,NSError * _Nullable error);
-typedef NS_OPTIONS(NSUInteger, SFWebImageCacheOption){
-    SFWebImageCacheOptionNone   = 0,
-    SFWebImageCacheOptionMemery = 1,
-    SFWebImageCacheOptionDisk   = 1 << 1,
-    SFWebImageCacheOptionAll    = ~0UL
+typedef NS_OPTIONS(NSUInteger, SFWebImageCacheSaveOption){
+    SFWebImageCacheSaveOptionNone   = 0,
+    SFWebImageCacheSaveOptionOriginalMemery = 1,
+    SFWebImageCacheSaveOptionOriginalDisk   = 1 << 1,
+    SFWebImageCacheSaveOptionResultMemery = 1 << 2,
+    SFWebImageCacheSaveOptionResultDisk = 1 << 3,
+    SFWebImageCacheSaveOptionAll    = ~0UL
 };
 NS_ASSUME_NONNULL_BEGIN
 @protocol SFWebImageManagerDelegate <NSObject>
@@ -53,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SFWebImageMakerHelper : NSObject
 @property (nonatomic, weak)id <SFWebImageManagerDelegate>delegate;
-@property (nonatomic, assign)SFWebImageCacheOption cacheOption;
+@property (nonatomic, assign)SFWebImageCacheSaveOption saveOption;
 @property (nonatomic, readonly)NSString *identifier;
 @property (nonatomic, readonly, strong)NSURL *url;
 - (instancetype)initWithUrl:(nullable NSURL *)url processors:(NSArray <id<SFImageProcessor>>*)processors;

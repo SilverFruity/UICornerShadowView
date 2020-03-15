@@ -76,8 +76,8 @@ class SFWebImageMakerHelperTest: XCTestCase {
         fakeManager.diskCache = [:]
     }
     
-    func testCacheOnlyStoreInMemery() {
-        helper.cacheOption = .memery
+    func testCacheOnlyStoreResultImage() {
+        helper.saveOption = [.resultMemery,.resultDisk]
         var exception = self.expectation(description: "")
         helper.prcoess { (image, url, error) in
             if let image = image{
@@ -85,7 +85,7 @@ class SFWebImageMakerHelperTest: XCTestCase {
             }
             exception.fulfill()
         }
-        self.waitForExpectations(timeout: 1, handler: nil)
+        self.waitForExpectations(timeout: 2, handler: nil)
         // wait for disk save
         exception = self.expectation(description: "")
         DispatchQueue.global().async {
@@ -93,14 +93,15 @@ class SFWebImageMakerHelperTest: XCTestCase {
             exception.fulfill()
         }
         self.waitForExpectations(timeout: 2, handler: nil)
-        XCTAssert(fakeManager.memeryCache(forKey: noIdentifierKey) != nil)
+        XCTAssert(fakeManager.memeryCache(forKey: noIdentifierKey) == nil)
+        XCTAssert(fakeManager.diskCache[noIdentifierKey] == nil)
+ 
         XCTAssert(fakeManager.memeryCache(forKey: identifierKey) != nil)
-        XCTAssert(fakeManager.diskCache[noIdentifierKey] != nil)
-        XCTAssert(fakeManager.diskCache[identifierKey] == nil)
+        XCTAssert(fakeManager.diskCache[identifierKey] != nil)
     }
     
-    func testCacheOnlyStoreInDisk() {
-        helper.cacheOption = .disk
+    func testCacheOnlyStoreOriginalImage() {
+        helper.saveOption = [.originalMemery,.originalDisk]
         var exception = self.expectation(description: "")
         helper.prcoess { (image, url, error) in
             if let image = image{
@@ -117,12 +118,12 @@ class SFWebImageMakerHelperTest: XCTestCase {
         }
         self.waitForExpectations(timeout: 2, handler: nil)
         XCTAssert(fakeManager.diskCache[noIdentifierKey] != nil)
-        XCTAssert(fakeManager.diskCache[identifierKey] != nil)
         XCTAssert(fakeManager.memeryCache(forKey: noIdentifierKey) != nil)
+        XCTAssert(fakeManager.diskCache[identifierKey] == nil)
         XCTAssert(fakeManager.memeryCache(forKey: identifierKey) == nil)
     }
     func testCacheStoreInAll() {
-        helper.cacheOption = .all
+        helper.saveOption = .all
         var exception = self.expectation(description: "")
         helper.prcoess { (image, url, error) in
             if let image = image{
@@ -142,6 +143,95 @@ class SFWebImageMakerHelperTest: XCTestCase {
         XCTAssert(fakeManager.diskCache[identifierKey] != nil)
 
         XCTAssert(fakeManager.memeryCache(forKey: noIdentifierKey) != nil)
+        XCTAssert(fakeManager.memeryCache(forKey: identifierKey) != nil)
+    }
+    func testWhileOriginalInDiskCache(){
+        helper.saveOption = .all
+        self.fakeManager.diskCache[noIdentifierKey] = UIImage.init()
+        var exception = self.expectation(description: "")
+        helper.prcoess { (image, url, error) in
+            if let image = image{
+                XCTAssert(image.size != CGSize.zero)
+            }
+            exception.fulfill()
+        }
+        self.waitForExpectations(timeout: 3, handler: nil)
+        // wait for disk save
+        exception = self.expectation(description: "")
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 1)
+            exception.fulfill()
+        }
+        self.waitForExpectations(timeout: 2, handler: nil)
+        XCTAssert(fakeManager.diskCache[noIdentifierKey] != nil)
+        XCTAssert(fakeManager.diskCache[identifierKey] != nil)
+
+        XCTAssert(fakeManager.memeryCache(forKey: noIdentifierKey) != nil)
+        XCTAssert(fakeManager.memeryCache(forKey: identifierKey) != nil)
+    }
+    
+    func testWhileResultInDiskCache(){
+        helper.saveOption = .all
+        self.fakeManager.diskCache[identifierKey] = UIImage.init()
+        var exception = self.expectation(description: "")
+         helper.prcoess { (image, url, error) in
+             if let image = image{
+                 XCTAssert(image.size == CGSize.zero)
+             }
+             exception.fulfill()
+         }
+         self.waitForExpectations(timeout: 3, handler: nil)
+         // wait for disk save
+         exception = self.expectation(description: "")
+         DispatchQueue.global().async {
+             Thread.sleep(forTimeInterval: 1)
+             exception.fulfill()
+         }
+         self.waitForExpectations(timeout: 2, handler: nil)
+
+        XCTAssert(fakeManager.diskCache[identifierKey] != nil)
+        XCTAssert(fakeManager.memeryCache(forKey: identifierKey) != nil)
+    }
+    
+    func testWhileOriginalInMemeryCache(){
+        helper.saveOption = .all
+        self.fakeManager.memCache[noIdentifierKey] = UIImage.init()
+        var exception = self.expectation(description: "")
+        helper.prcoess { (image, url, error) in
+            if let image = image{
+                XCTAssert(image.size != CGSize.zero)
+            }
+            exception.fulfill()
+        }
+        self.waitForExpectations(timeout: 3, handler: nil)
+        // wait for disk save
+        exception = self.expectation(description: "")
+        DispatchQueue.global().async {
+            Thread.sleep(forTimeInterval: 1)
+            exception.fulfill()
+        }
+        self.waitForExpectations(timeout: 2, handler: nil)
+        XCTAssert(fakeManager.memeryCache(forKey: identifierKey) != nil)
+    }
+    
+    func testWhileResultInMemeryCache(){
+        helper.saveOption = .all
+        self.fakeManager.memCache[identifierKey] = UIImage.init()
+        var exception = self.expectation(description: "")
+         helper.prcoess { (image, url, error) in
+             if let image = image{
+                 XCTAssert(image.size == CGSize.zero)
+             }
+             exception.fulfill()
+         }
+         self.waitForExpectations(timeout: 3, handler: nil)
+         // wait for disk save
+         exception = self.expectation(description: "")
+         DispatchQueue.global().async {
+             Thread.sleep(forTimeInterval: 1)
+             exception.fulfill()
+         }
+         self.waitForExpectations(timeout: 2, handler: nil)
         XCTAssert(fakeManager.memeryCache(forKey: identifierKey) != nil)
     }
     
