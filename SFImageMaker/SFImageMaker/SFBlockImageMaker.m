@@ -64,9 +64,10 @@
             x = floor((width - height*aspectRatio) * 0.5);
             width = height * aspectRatio;
         }
-        CGImageRef imageRef = CGImageCreateWithImageInRect(image.CGImage, CGRectMake(x, y, width, height));
-        UIImage *newImage = [UIImage imageWithCGImage:imageRef];
-        CGImageRelease(imageRef);
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), NO, 0);
+        [image drawAtPoint:CGPointMake(-x, -y)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         return newImage;
     } isEnableHandler:^BOOL{
         return aspectRatio != 0;
