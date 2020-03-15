@@ -136,7 +136,7 @@
         CGFloat currentMax = MAX(image.size.width, image.size.height);
         if (maxValue > currentMax) return image;
         CGFloat ratio = image.size.width / image.size.height;
-        CGSize size = ratio > 1 ? CGSizeMake(maxValue, maxValue/ratio) : CGSizeMake(maxValue/ratio, maxValue);
+        CGSize size = ratio > 1 ? CGSizeMake(maxValue, maxValue/ratio) : CGSizeMake(maxValue*ratio, maxValue);
         return [[SFBlockImageMaker resizeWithSize:size] process:image];
     } isEnableHandler:^BOOL{
         return maxValue != 0;
