@@ -1,6 +1,10 @@
+[![CI Status](https://img.shields.io/travis/389185764@qq.com/SDWebImage-SFImageMaker.svg?style=flat)](https://travis-ci.org/389185764@qq.com/SDWebImage-SFImageMaker)
+[![Version](https://img.shields.io/cocoapods/v/SFImageMaker.svg?style=flat)](https://cocoapods.org/pods/SFImageMaker)
+[![License](https://img.shields.io/cocoapods/l/SFImageMaker.svg?style=flat)](https://cocoapods.org/pods/SFImageMaker)
+[![Platform](https://img.shields.io/cocoapods/p/SFImageMaker.svg?style=flat)](https://cocoapods.org/pods/SFImageMaker)
+
 # SFCSBView
 iOS UIView Subclass: Use CoreGraphics to control the direction of Rect Corner、Shadow 、Border
-
 ## Example
 ```objective-c
 // UIAppearance
