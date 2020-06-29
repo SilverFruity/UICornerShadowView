@@ -130,9 +130,7 @@
 }
 - (void)reloadBackGourndImage{
     [self sendSubviewToBack:self.backGroundImageView];
-    if (!CGColorEqualToColor(self.backgroundColor.CGColor, UIColor.clearColor.CGColor) && self.backgroundColor != nil) {
-        self.initailBackGroundColor = self.backgroundColor;
-    }
+    self.initailBackGroundColor = self.backgroundColor ?: UIColor.clearColor;
     //保证不会在子线程中调用self获取值
     //TODO: 增加网络图片的处理
     SFShadowImageMaker *shadowMaker = self.shadowProcessor;
