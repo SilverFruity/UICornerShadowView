@@ -130,7 +130,9 @@
 }
 - (void)reloadBackGourndImage{
     [self sendSubviewToBack:self.backGroundImageView];
-    self.initailBackGroundColor = self.backgroundColor ?: UIColor.clearColor;
+    if (self.backgroundColor != nil) {
+        self.initailBackGroundColor = self.backgroundColor;
+    }
     //保证不会在子线程中调用self获取值
     //TODO: 增加网络图片的处理
     SFShadowImageMaker *shadowMaker = self.shadowProcessor;
@@ -166,7 +168,7 @@
     UIImage *cacheImage = [[SFCSBViewImageCache shared] objectForKey:identifier];
     if (cacheImage) {
         self.backGroundImageView.image = cacheImage;
-        self.backgroundColor = UIColor.clearColor;
+        self.backgroundColor = nil;
         self.lastBackGroundImageIdentifer = identifier;
         return;
     }
@@ -190,6 +192,6 @@
             weakSelf.backGroundImageView.image = image;
         });
     });
-    self.backgroundColor = UIColor.clearColor;
+    self.backgroundColor = nil;
 }
 @end
