@@ -2,7 +2,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "SFImageMaker"
-  spec.version      = "1.0.2"
+  spec.version      = "1.0.3"
   spec.summary      = "Use CoreGraphics to control the direction of Rect Corner、Shadow 、Border"
   spec.homepage     = "https://github.com/SilverFruity/UICornerShadowView"
   spec.license      = { :type => "MIT", :file => "LICENSE" }

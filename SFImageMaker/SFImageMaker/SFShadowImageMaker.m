@@ -63,6 +63,6 @@
     return image;
 }
 - (nonnull NSString *)identifier {
-    return self.isEnable ? [NSString stringWithFormat:@"shadow_%@_%@_%@_%@",[NSValue valueWithCGSize:self.shadowOffset],@(self.shadowBlurRadius),@(self.shadowColor.hash),@(self.position)] : @"";
+    return self.isEnable ? [NSString stringWithFormat:@"shadow_%@_%@_%@_%@",[NSValue valueWithCGSize:self.shadowOffset],@(self.shadowBlurRadius),self.shadowColor.sf_identifier,@(self.position)] : @"";
 }
 @end

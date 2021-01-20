@@ -79,7 +79,7 @@
 }
 
 - (nonnull NSString *)identifier {
-    return self.isEnable ? [NSString stringWithFormat:@"border_%@_%@_%@",@(self.color.hash),@(self.width),@(self.position)] : @"";
+    return self.isEnable ? [NSString stringWithFormat:@"border_%@_%@_%@",self.color.sf_identifier,@(self.width),@(self.position)] : @"";
 }
 
 @end

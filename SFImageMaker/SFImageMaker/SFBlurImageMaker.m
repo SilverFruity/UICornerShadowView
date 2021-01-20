@@ -19,7 +19,7 @@
     return self.blurRadius != 0  && self.tintColor != nil;
 }
 - (nonnull NSString *)identifier {
-    return self.isEnable ? [NSString stringWithFormat:@"blureImage%.1f%lu%.1f",self.blurRadius,self.tintColor.hash,self.saturationDeltaFactor] : @"";
+    return self.isEnable ? [NSString stringWithFormat:@"blureImage%.1f%@%.1f",self.blurRadius,self.tintColor.sf_identifier,self.saturationDeltaFactor] : @"";
 }
 + (instancetype)lightEffect{
     SFBlurImageMaker *maker = [SFBlurImageMaker new];

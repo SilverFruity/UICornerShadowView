@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <SFImageMaker/UIColor+SFIdentifier.h>
 NS_ASSUME_NONNULL_BEGIN
 @protocol SFImageIdentifier <NSObject>
 @property (nonatomic, readonly, getter=isEnable)BOOL enable;

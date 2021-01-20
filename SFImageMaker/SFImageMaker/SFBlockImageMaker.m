@@ -111,7 +111,7 @@
     } isEnableHandler:^BOOL{
         return YES;
     } identifierHandler:^NSString * _Nonnull{
-        return [NSString stringWithFormat:@"edgeInsets_%@_%lu",[NSValue valueWithUIEdgeInsets:insets],color.hash];
+        return [NSString stringWithFormat:@"edgeInsets_%@_%@",[NSValue valueWithUIEdgeInsets:insets],color.sf_identifier];
     }];
 }
 + (instancetype)resizeWithSize:(CGSize)targetSize{
