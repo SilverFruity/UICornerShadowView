@@ -146,7 +146,7 @@
     if (self.handleMakers)
         self.handleMakers(@[imageGenerator,cornerMaker,borderMaker,shadowMaker]);
     
-    NSString *identifier = [SFImageMakerManager.shared identifierWithGenerator:imageGenerator processors:@[cornerMaker,borderMaker,shadowMaker]];
+    NSString *identifier = sf_identifierWithGenerator(imageGenerator, @[cornerMaker,borderMaker,shadowMaker]);
     
     CGRect backImageViewFrame = self.bounds;
     if (shadowMaker.isEnable){
@@ -174,7 +174,9 @@
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        UIImage *image = [SFImageMakerManager.shared startWithGenerator:imageGenerator processors:@[cornerMaker,borderMaker,shadowMaker]];
+        SFImageFlow *processor = [SFImageFlow flowWithGenerator:imageGenerator];
+        processor.processors = [@[cornerMaker,borderMaker,shadowMaker] mutableCopy];
+        UIImage *image = [processor image];
         if (shadowMaker.isEnable) {
             UIEdgeInsets inset = shadowMaker.convasEdgeInsets;
             CGFloat x = (image.size.width - inset.left - inset.right) / 2;

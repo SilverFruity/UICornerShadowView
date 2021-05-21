@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		04F1E92525B826C5006A9087 /* UIColor+SFIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F1E92325B826C5006A9087 /* UIColor+SFIdentifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04F1E92625B826C5006A9087 /* UIColor+SFIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F1E92425B826C5006A9087 /* UIColor+SFIdentifier.m */; };
+		18A44BF026578BA200B2B4E5 /* UIKit+SFImageFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 18A44BEE26578BA200B2B4E5 /* UIKit+SFImageFlow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		18A44BF126578BA200B2B4E5 /* UIKit+SFImageFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A44BEF26578BA200B2B4E5 /* UIKit+SFImageFlow.m */; };
 		1B2CFBEA23FEF486008DBFC1 /* SFImageMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2CFBE023FEF486008DBFC1 /* SFImageMaker.framework */; };
 		1B2CFBF123FEF486008DBFC1 /* SFImageMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B2CFBFB23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2CFBFA23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,8 +30,8 @@
 		EE6AA7F5241BCBE4005C4DA5 /* SFWebImageMakerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE6AA7F6241BCBE4005C4DA5 /* SFWebImageMakerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */; };
 		EE7EEAF7241CA25D007EB109 /* SFWebImageMakerHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */; };
-		EEF6E84F240572C2002D005A /* SFImageMakerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF6E84D240572C2002D005A /* SFImageMakerManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EEF6E850240572C2002D005A /* SFImageMakerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF6E84E240572C2002D005A /* SFImageMakerManager.m */; };
+		EEF6E84F240572C2002D005A /* SFImageFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF6E84D240572C2002D005A /* SFImageFlow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEF6E850240572C2002D005A /* SFImageFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF6E84E240572C2002D005A /* SFImageFlow.m */; };
 		EEF989A6240A0B46007DEE53 /* SFBlockImageMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF989A4240A0B46007DEE53 /* SFBlockImageMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEF989A7240A0B46007DEE53 /* SFBlockImageMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF989A5240A0B46007DEE53 /* SFBlockImageMaker.m */; };
 		EEF989AA240A1908007DEE53 /* SFBlurImageMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF989A8240A1908007DEE53 /* SFBlurImageMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,6 +55,8 @@
 /* Begin PBXFileReference section */
 		04F1E92325B826C5006A9087 /* UIColor+SFIdentifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+SFIdentifier.h"; sourceTree = "<group>"; };
 		04F1E92425B826C5006A9087 /* UIColor+SFIdentifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SFIdentifier.m"; sourceTree = "<group>"; };
+		18A44BEE26578BA200B2B4E5 /* UIKit+SFImageFlow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIKit+SFImageFlow.h"; sourceTree = "<group>"; };
+		18A44BEF26578BA200B2B4E5 /* UIKit+SFImageFlow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIKit+SFImageFlow.m"; sourceTree = "<group>"; };
 		1B2CFBE023FEF486008DBFC1 /* SFImageMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SFImageMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageMaker.h; sourceTree = "<group>"; };
 		1B2CFBE423FEF486008DBFC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,8 +80,8 @@
 		EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFWebImageMakerHelper.h; sourceTree = "<group>"; };
 		EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFWebImageMakerHelper.m; sourceTree = "<group>"; };
 		EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFWebImageMakerHelperTest.swift; sourceTree = "<group>"; };
-		EEF6E84D240572C2002D005A /* SFImageMakerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageMakerManager.h; sourceTree = "<group>"; };
-		EEF6E84E240572C2002D005A /* SFImageMakerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageMakerManager.m; sourceTree = "<group>"; };
+		EEF6E84D240572C2002D005A /* SFImageFlow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageFlow.h; sourceTree = "<group>"; };
+		EEF6E84E240572C2002D005A /* SFImageFlow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageFlow.m; sourceTree = "<group>"; };
 		EEF989A4240A0B46007DEE53 /* SFBlockImageMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFBlockImageMaker.h; sourceTree = "<group>"; };
 		EEF989A5240A0B46007DEE53 /* SFBlockImageMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFBlockImageMaker.m; sourceTree = "<group>"; };
 		EEF989A8240A1908007DEE53 /* SFBlurImageMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFBlurImageMaker.h; sourceTree = "<group>"; };
@@ -128,32 +132,34 @@
 		1B2CFBE223FEF486008DBFC1 /* SFImageMaker */ = {
 			isa = PBXGroup;
 			children = (
-				EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */,
-				EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */,
-				EEF989B2240A3C3B007DEE53 /* SFCSBView.h */,
-				EEF989B1240A3C3B007DEE53 /* SFCSBView.m */,
-				1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */,
-				EEF6E84D240572C2002D005A /* SFImageMakerManager.h */,
-				EEF6E84E240572C2002D005A /* SFImageMakerManager.m */,
-				1B2CFBFA23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h */,
-				1B2CFBFC23FEF4E2008DBFC1 /* SFColorImageMaker.h */,
-				1B2CFBFD23FEF4E2008DBFC1 /* SFColorImageMaker.m */,
-				1B2CFC0023FEF503008DBFC1 /* SFGradientImageMaker.h */,
-				1B2CFC0123FEF503008DBFC1 /* SFGradientImageMaker.m */,
-				1B2CFC0423FEF50F008DBFC1 /* SFCornerImageMaker.h */,
-				1B2CFC0523FEF50F008DBFC1 /* SFCornerImageMaker.m */,
-				1B2CFC0823FEF53C008DBFC1 /* SFShadowImageMaker.h */,
-				1B2CFC0923FEF53C008DBFC1 /* SFShadowImageMaker.m */,
-				1B2CFC0C23FEF5BC008DBFC1 /* SFBorderImageMaker.h */,
-				1B2CFC0D23FEF5BC008DBFC1 /* SFBorderImageMaker.m */,
+				1B2CFBE423FEF486008DBFC1 /* Info.plist */,
+				EEF6E84D240572C2002D005A /* SFImageFlow.h */,
+				EEF6E84E240572C2002D005A /* SFImageFlow.m */,
+				18A44BEE26578BA200B2B4E5 /* UIKit+SFImageFlow.h */,
+				18A44BEF26578BA200B2B4E5 /* UIKit+SFImageFlow.m */,
 				EEF989A4240A0B46007DEE53 /* SFBlockImageMaker.h */,
 				EEF989A5240A0B46007DEE53 /* SFBlockImageMaker.m */,
 				EEF989A8240A1908007DEE53 /* SFBlurImageMaker.h */,
 				EEF989A9240A1908007DEE53 /* SFBlurImageMaker.m */,
+				1B2CFC0C23FEF5BC008DBFC1 /* SFBorderImageMaker.h */,
+				1B2CFC0D23FEF5BC008DBFC1 /* SFBorderImageMaker.m */,
+				1B2CFBFC23FEF4E2008DBFC1 /* SFColorImageMaker.h */,
+				1B2CFBFD23FEF4E2008DBFC1 /* SFColorImageMaker.m */,
+				1B2CFC0423FEF50F008DBFC1 /* SFCornerImageMaker.h */,
+				1B2CFC0523FEF50F008DBFC1 /* SFCornerImageMaker.m */,
+				EEF989B2240A3C3B007DEE53 /* SFCSBView.h */,
+				EEF989B1240A3C3B007DEE53 /* SFCSBView.m */,
+				1B2CFC0023FEF503008DBFC1 /* SFGradientImageMaker.h */,
+				1B2CFC0123FEF503008DBFC1 /* SFGradientImageMaker.m */,
+				1B2CFBFA23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h */,
+				1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */,
+				1B2CFC0823FEF53C008DBFC1 /* SFShadowImageMaker.h */,
+				1B2CFC0923FEF53C008DBFC1 /* SFShadowImageMaker.m */,
+				EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */,
+				EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */,
 				04F1E92325B826C5006A9087 /* UIColor+SFIdentifier.h */,
 				04F1E92425B826C5006A9087 /* UIColor+SFIdentifier.m */,
 				EEF989AC240A195F007DEE53 /* UIImageEffects */,
-				1B2CFBE423FEF486008DBFC1 /* Info.plist */,
 			);
 			path = SFImageMaker;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A44BF026578BA200B2B4E5 /* UIKit+SFImageFlow.h in Headers */,
 				EE6AA7F5241BCBE4005C4DA5 /* SFWebImageMakerHelper.h in Headers */,
 				1B2CFC0E23FEF5BC008DBFC1 /* SFBorderImageMaker.h in Headers */,
 				1B2CFC0A23FEF53C008DBFC1 /* SFShadowImageMaker.h in Headers */,
@@ -195,7 +202,7 @@
 				EEF989B0240A1974007DEE53 /* UIImageEffects.h in Headers */,
 				1B2CFBFE23FEF4E2008DBFC1 /* SFColorImageMaker.h in Headers */,
 				1B2CFBF123FEF486008DBFC1 /* SFImageMaker.h in Headers */,
-				EEF6E84F240572C2002D005A /* SFImageMakerManager.h in Headers */,
+				EEF6E84F240572C2002D005A /* SFImageFlow.h in Headers */,
 				1B2CFC0223FEF503008DBFC1 /* SFGradientImageMaker.h in Headers */,
 				04F1E92525B826C5006A9087 /* UIColor+SFIdentifier.h in Headers */,
 				EEF989B4240A3D0A007DEE53 /* SFCSBView.h in Headers */,
@@ -302,7 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEF6E850240572C2002D005A /* SFImageMakerManager.m in Sources */,
+				EEF6E850240572C2002D005A /* SFImageFlow.m in Sources */,
 				1B2CFC0F23FEF5BC008DBFC1 /* SFBorderImageMaker.m in Sources */,
 				EEF989B3240A3C3C007DEE53 /* SFCSBView.m in Sources */,
 				1B2CFC0723FEF50F008DBFC1 /* SFCornerImageMaker.m in Sources */,
@@ -311,6 +318,7 @@
 				EEF989AF240A1974007DEE53 /* UIImageEffects.m in Sources */,
 				1B2CFC0323FEF503008DBFC1 /* SFGradientImageMaker.m in Sources */,
 				EEF989AB240A1908007DEE53 /* SFBlurImageMaker.m in Sources */,
+				18A44BF126578BA200B2B4E5 /* UIKit+SFImageFlow.m in Sources */,
 				04F1E92625B826C5006A9087 /* UIColor+SFIdentifier.m in Sources */,
 				1B2CFBFF23FEF4E2008DBFC1 /* SFColorImageMaker.m in Sources */,
 				EE6AA7F6241BCBE4005C4DA5 /* SFWebImageMakerHelper.m in Sources */,

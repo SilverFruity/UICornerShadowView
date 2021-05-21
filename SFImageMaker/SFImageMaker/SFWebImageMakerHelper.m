@@ -7,7 +7,7 @@
 //
 
 #import "SFWebImageMakerHelper.h"
-#import "SFImageMakerManager.h"
+#import <SFImageMaker/SFImageMaker.h>
 @interface SFWebImageMakerHelper()
 @property (nonatomic, copy)NSArray<id<SFImageProcessor>> *processors;
 @property (nonatomic, readwrite, strong)NSURL *url;
@@ -20,7 +20,7 @@
     return self;
 }
 - (NSString *)identifier{
-    return [SFImageMakerManager.shared identifierWithProcessors:self.processors];
+    return sf_identifierWithProcessors(self.processors);
 }
 - (void)prcoessWithCompleted:(SFWebImageCompleteHandler)completed{
     if (!self.url) {
@@ -35,7 +35,9 @@
     void (^noCacheOperation)(void) = ^{
         [self.delegate downloadForUrl:self.url completed:^(UIImage * _Nullable downloadImage, NSURL * _Nullable url, NSError * _Nullable error) {
             if (!error){
-                UIImage *resultImage = [SFImageMakerManager.shared startWithImage:downloadImage processors:self.processors];
+                SFImageFlow *processor = [SFImageFlow flowWithImage:downloadImage];
+                processor.processors = [self.processors mutableCopy];
+                UIImage *resultImage = [processor image];
                 // save without identifier
                 NSString *noIdentifierKey = [self.delegate keyForUrl:self.url identifier:nil];
                 if (self.saveOption & SFWebImageCacheSaveOptionOriginalMemery) {
@@ -92,7 +94,9 @@
         NSString *noIdentifierKey = [self.delegate keyForUrl:self.url identifier:nil];
         [self.delegate diskCacheForKey:noIdentifierKey completed:^(UIImage * _Nullable image, NSError * _Nullable error) {
             if (!error) {
-                UIImage *resultImage = [SFImageMakerManager.shared startWithImage:image processors:self.processors];
+                SFImageFlow *processor = [SFImageFlow flowWithImage:image];
+                processor.processors = [self.processors mutableCopy];
+                UIImage *resultImage = [processor image];
                 if (self.saveOption & SFWebImageCacheSaveOptionOriginalMemery) {
                     [self.delegate saveMemeryCache:resultImage forKey:noIdentifierKey];
                 }
@@ -121,7 +125,9 @@
     NSString *noIdentifierKey = [self.delegate keyForUrl:self.url identifier:nil];
     image = [self.delegate memeryCacheForKey:noIdentifierKey];
     if (image) {
-        UIImage *resultImage = [SFImageMakerManager.shared startWithImage:image processors:self.processors];
+        SFImageFlow *processor = [SFImageFlow flowWithImage:image];
+        processor.processors = [self.processors mutableCopy];
+        UIImage *resultImage = [processor image];
         if (self.saveOption & SFWebImageCacheSaveOptionResultMemery) {
             [self.delegate saveMemeryCache:resultImage forKey:key];
         }

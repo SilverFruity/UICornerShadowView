@@ -16,7 +16,7 @@ FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SFImageMaker/PublicHeader.h>
 #import <SFImageMaker/SFImageMaker-Protocol.h>
-#import <SFImageMaker/SFImageMakerManager.h>
+#import <SFImageMaker/SFImageFlow.h>
 #import <SFImageMaker/SFColorImageMaker.h>
 #import <SFImageMaker/SFGradientImageMaker.h>
 #import <SFImageMaker/SFCornerImageMaker.h>
@@ -26,3 +26,4 @@ FOUNDATION_EXPORT const unsigned char SFImageMakerVersionString[];
 #import <SFImageMaker/SFBlurImageMaker.h>
 #import <SFImageMaker/SFCSBView.h>
 #import <SFImageMaker/SFWebImageMakerHelper.h>
+#import <SFImageMaker/UIKit+SFImageFlow.h>
