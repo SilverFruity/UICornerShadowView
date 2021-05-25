@@ -27,8 +27,6 @@
 		1B2CFC1A23FEF99E008DBFC1 /* SFImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */; };
 		1B2CFC1C23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */; };
 		1B2CFC1E23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */; };
-		EE6AA7F5241BCBE4005C4DA5 /* SFWebImageMakerHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE6AA7F6241BCBE4005C4DA5 /* SFWebImageMakerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */; };
 		EE7EEAF7241CA25D007EB109 /* SFWebImageMakerHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */; };
 		EEF6E84F240572C2002D005A /* SFImageFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF6E84D240572C2002D005A /* SFImageFlow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEF6E850240572C2002D005A /* SFImageFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF6E84E240572C2002D005A /* SFImageFlow.m */; };
@@ -77,8 +75,6 @@
 		1B2CFC1923FEF99E008DBFC1 /* SFImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1B23FEFB52008DBFC1 /* SFShadowImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFShadowImageMakerTests.swift; sourceTree = "<group>"; };
 		1B2CFC1D23FEFBA6008DBFC1 /* SFBorderImageMakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFBorderImageMakerTests.swift; sourceTree = "<group>"; };
-		EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFWebImageMakerHelper.h; sourceTree = "<group>"; };
-		EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFWebImageMakerHelper.m; sourceTree = "<group>"; };
 		EE7EEAF6241CA25D007EB109 /* SFWebImageMakerHelperTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFWebImageMakerHelperTest.swift; sourceTree = "<group>"; };
 		EEF6E84D240572C2002D005A /* SFImageFlow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageFlow.h; sourceTree = "<group>"; };
 		EEF6E84E240572C2002D005A /* SFImageFlow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageFlow.m; sourceTree = "<group>"; };
@@ -155,8 +151,6 @@
 				1B2CFBE323FEF486008DBFC1 /* SFImageMaker.h */,
 				1B2CFC0823FEF53C008DBFC1 /* SFShadowImageMaker.h */,
 				1B2CFC0923FEF53C008DBFC1 /* SFShadowImageMaker.m */,
-				EE6AA7F3241BCBE4005C4DA5 /* SFWebImageMakerHelper.h */,
-				EE6AA7F4241BCBE4005C4DA5 /* SFWebImageMakerHelper.m */,
 				04F1E92325B826C5006A9087 /* UIColor+SFIdentifier.h */,
 				04F1E92425B826C5006A9087 /* UIColor+SFIdentifier.m */,
 				EEF989AC240A195F007DEE53 /* UIImageEffects */,
@@ -194,7 +188,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A44BF026578BA200B2B4E5 /* UIKit+SFImageFlow.h in Headers */,
-				EE6AA7F5241BCBE4005C4DA5 /* SFWebImageMakerHelper.h in Headers */,
 				1B2CFC0E23FEF5BC008DBFC1 /* SFBorderImageMaker.h in Headers */,
 				1B2CFC0A23FEF53C008DBFC1 /* SFShadowImageMaker.h in Headers */,
 				1B2CFBFB23FEF4B0008DBFC1 /* SFImageMaker-Protocol.h in Headers */,
@@ -321,7 +314,6 @@
 				18A44BF126578BA200B2B4E5 /* UIKit+SFImageFlow.m in Sources */,
 				04F1E92625B826C5006A9087 /* UIColor+SFIdentifier.m in Sources */,
 				1B2CFBFF23FEF4E2008DBFC1 /* SFColorImageMaker.m in Sources */,
-				EE6AA7F6241BCBE4005C4DA5 /* SFWebImageMakerHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
