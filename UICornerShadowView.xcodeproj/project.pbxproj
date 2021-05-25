@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18A44BFC2657BDB300B2B4E5 /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A44BFB2657BDB300B2B4E5 /* ViewController3.swift */; };
+		18F13929265CB622006E7730 /* SFImageFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F13927265CB622006E7730 /* SFImageFlowController.m */; };
+		18F1392D265CBA82006E7730 /* UIImage+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F1392C265CBA82006E7730 /* UIImage+Extentions.m */; };
 		1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B55706C23F3000900B20FD5 /* ViewController1.swift */; };
 		1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65C53823F53B62007540F6 /* ViewController2.swift */; };
 		1B6CC3132403740E00189336 /* SFImageMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CC3122403740E00189336 /* SFImageMaker.framework */; };
@@ -20,7 +21,6 @@
 		EE731EA923CE3A89002ABFB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE731EA823CE3A89002ABFB5 /* Assets.xcassets */; };
 		EE731EAC23CE3A89002ABFB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE731EAA23CE3A89002ABFB5 /* LaunchScreen.storyboard */; };
 		EE731EB723CE3A89002ABFB5 /* UICornerShadowViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE731EB623CE3A89002ABFB5 /* UICornerShadowViewTests.swift */; };
-		EE731ED723CE3AD3002ABFB5 /* UIImage+Extentions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE731ED623CE3AD3002ABFB5 /* UIImage+Extentions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +55,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		18A44BFB2657BDB300B2B4E5 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
+		18F13926265CB622006E7730 /* SFImageFlowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SFImageFlowController.h; sourceTree = "<group>"; };
+		18F13927265CB622006E7730 /* SFImageFlowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFImageFlowController.m; sourceTree = "<group>"; };
+		18F1392B265CBA82006E7730 /* UIImage+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extentions.h"; sourceTree = "<group>"; };
+		18F1392C265CBA82006E7730 /* UIImage+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extentions.m"; sourceTree = "<group>"; };
 		1B2CFBA823FEF28D008DBFC1 /* SFImageProcess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SFImageProcess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B55706C23F3000900B20FD5 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		1B65C53823F53B62007540F6 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
@@ -76,8 +79,6 @@
 		EE731EC123CE3A89002ABFB5 /* UICornerShadowViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICornerShadowViewUITests.swift; sourceTree = "<group>"; };
 		EE731EC323CE3A89002ABFB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE731ECF23CE3AA6002ABFB5 /* UICornerShadowView-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICornerShadowView-Bridging-Header.h"; sourceTree = "<group>"; };
-		EE731ED523CE3AD3002ABFB5 /* UIImage+Extentions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extentions.h"; sourceTree = "<group>"; };
-		EE731ED623CE3AD3002ABFB5 /* UIImage+Extentions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extentions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,9 +146,10 @@
 				EE731EA323CE3A87002ABFB5 /* ViewController.swift */,
 				1B55706C23F3000900B20FD5 /* ViewController1.swift */,
 				1B65C53823F53B62007540F6 /* ViewController2.swift */,
-				18A44BFB2657BDB300B2B4E5 /* ViewController3.swift */,
-				EE731ED523CE3AD3002ABFB5 /* UIImage+Extentions.h */,
-				EE731ED623CE3AD3002ABFB5 /* UIImage+Extentions.m */,
+				18F13926265CB622006E7730 /* SFImageFlowController.h */,
+				18F13927265CB622006E7730 /* SFImageFlowController.m */,
+				18F1392B265CBA82006E7730 /* UIImage+Extentions.h */,
+				18F1392C265CBA82006E7730 /* UIImage+Extentions.m */,
 				EE731EA523CE3A87002ABFB5 /* Main.storyboard */,
 				EE731EA823CE3A89002ABFB5 /* Assets.xcassets */,
 				EE731EAA23CE3A89002ABFB5 /* LaunchScreen.storyboard */,
@@ -308,13 +310,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18F13929265CB622006E7730 /* SFImageFlowController.m in Sources */,
 				1B65C53923F53B62007540F6 /* ViewController2.swift in Sources */,
 				1B55706D23F3000A00B20FD5 /* ViewController1.swift in Sources */,
 				EE731EA423CE3A87002ABFB5 /* ViewController.swift in Sources */,
+				18F1392D265CBA82006E7730 /* UIImage+Extentions.m in Sources */,
 				EE731EA023CE3A87002ABFB5 /* AppDelegate.swift in Sources */,
 				EE731EA223CE3A87002ABFB5 /* SceneDelegate.swift in Sources */,
-				18A44BFC2657BDB300B2B4E5 /* ViewController3.swift in Sources */,
-				EE731ED723CE3AD3002ABFB5 /* UIImage+Extentions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

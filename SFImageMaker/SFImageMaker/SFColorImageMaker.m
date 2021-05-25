@@ -9,8 +9,11 @@
 #import "SFColorImageMaker.h"
 
 @implementation SFColorImageMaker
++ (CGSize)defaultSize{
+    return CGSizeMake(1, 1);
+}
 - (instancetype)init{
-    self = [[SFColorImageMaker alloc] initWithSize:CGSizeMake(1, 1)];
+    self = [[SFColorImageMaker alloc] initWithSize:[[self class] defaultSize]];
     return self;
 }
 - (nonnull instancetype)initWithSize:(CGSize)size{

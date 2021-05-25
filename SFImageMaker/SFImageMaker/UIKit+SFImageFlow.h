@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SFImageFlow;
 @interface NSArray (SFImageFlow)
-@property (nonatomic, readonly)SFImageFlow *(^sf_gradientFlow)(BOOL isHorizontal);
+@property (nonatomic, readonly)SFImageFlow *(^sf_gradientFlow)(BOOL isHorizontal, CGSize size);
 @end
 
 NS_ASSUME_NONNULL_END

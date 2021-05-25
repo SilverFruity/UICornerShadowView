@@ -43,6 +43,7 @@
 @property (nonatomic, strong)UIColor * initailBackGroundColor;
 @property (nonatomic, copy)NSString * lastBackGroundImageIdentifer;
 @property (nonatomic, strong)UIImageView * backGroundImageView;
+@property (nonatomic, strong)SFImageFlow * flow;
 @end
 @implementation SFCSBView
 - (SFShadowImageMaker *)shadowProcessor{
@@ -146,7 +147,10 @@
     if (self.handleMakers)
         self.handleMakers(@[imageGenerator,cornerMaker,borderMaker,shadowMaker]);
     
-    NSString *identifier = sf_identifierWithGenerator(imageGenerator, @[cornerMaker,borderMaker,shadowMaker]);
+    self.flow = [SFImageFlow flowWithGenerator:imageGenerator];
+    self.flow.processors = [@[cornerMaker,borderMaker,shadowMaker] mutableCopy];
+    
+    NSString *identifier = self.flow.identifier;
     
     CGRect backImageViewFrame = self.bounds;
     if (shadowMaker.isEnable){
@@ -174,9 +178,7 @@
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        SFImageFlow *processor = [SFImageFlow flowWithGenerator:imageGenerator];
-        processor.processors = [@[cornerMaker,borderMaker,shadowMaker] mutableCopy];
-        UIImage *image = [processor image];
+        UIImage *image = [self.flow image];
         if (shadowMaker.isEnable) {
             UIEdgeInsets inset = shadowMaker.convasEdgeInsets;
             CGFloat x = (image.size.width - inset.left - inset.right) / 2;

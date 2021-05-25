@@ -29,6 +29,9 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
 }
 
 @implementation SFImageFlow
++ (instancetype)flow{
+    return [SFImageFlow new];
+}
 + (instancetype)flowWithImage:(UIImage *)targetImage{
     SFImageFlow *proc = [SFImageFlow new];
     proc.targetImage = targetImage;
@@ -37,12 +40,14 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
 + (instancetype)flowWithGenerator:(id <SFImageGenerator>)generator{
     SFImageFlow *proc = [SFImageFlow new];
     proc.generator = generator;
+    proc.lastProcessor = generator;
     return proc;
 }
 - (instancetype)init
 {
     self = [super init];
     self.processors = [NSMutableArray array];
+    self.finals = [NSMutableArray array];
     return self;
 }
 - (void)appendProcessor:(id)processor{
@@ -50,26 +55,28 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
     [self.processors addObject:processor];
 }
 - (UIImage *)image{
+    UIImage *result = nil;
     if (self.generator) {
-        return [self startWithGenerator:self.generator processors:self.processors];
+        result = [self startWithGenerator:self.generator processors:self.processors];
     }else{
-       return [self startWithImage:self.targetImage processors:self.processors];
+        result = [self startWithImage:self.targetImage processors:self.processors];
     }
+    result = [self startWithImage:result processors:self.finals];
+    return result;
 }
 - (NSString *)identifier{
+    NSString *result = nil;
     if (self.generator) {
-        return sf_identifierWithGenerator(self.generator, self.processors);
+        result = sf_identifierWithGenerator(self.generator, self.processors);
     }else{
-        return sf_identifierWithProcessors(self.processors);
+        result = sf_identifierWithProcessors(self.processors);
     }
+    return [result stringByAppendingString:sf_identifierWithProcessors(self.finals)];
 }
 - (UIImage *)startWithGenerator:(id<SFImageGenerator>)generator processors:(NSArray<id<SFImageProcessor>> *)processors{
     UIImage *image = [generator generate];
-    NSMutableArray *totalProcessors = [generator.dependencies mutableCopy];
-    if (processors) {
-        [totalProcessors addObjectsFromArray:processors];
-    }
-    return [self startWithImage:image processors:totalProcessors];
+    image = [self startWithImage:image processors:(id)generator.dependencies];
+    return [self startWithImage:image processors:processors];
 }
 - (UIImage *)startWithImage:(UIImage *)image processors:(NSArray <id <SFImageProcessor>>*)processors{
     for (id <SFImageProcessor> processor in processors){
@@ -94,6 +101,16 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
         SFCornerImageMaker *maker = [SFCornerImageMaker new];
         maker.radius = radius;
         maker.position = rectCorner;
+        if ([self.generator conformsToProtocol:@protocol(SFImageGenerator)]) {
+            SFColorImageMaker *generator = (SFColorImageMaker *)self.lastProcessor;
+            CGSize size = generator.size;
+            if (size.height < radius * 2) size.height = radius * 2;
+            if (size.width < radius * 2) size.width = radius * 2;
+            if (!CGSizeEqualToSize(generator.size, size)) {
+                generator.size = size;
+                [self.finals addObject:[SFBlockImageMaker resizableCenterMode]];
+            }
+        }
         [self appendProcessor:maker];
         return self;
     };
@@ -125,6 +142,54 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
         maker.shadowBlurRadius = blurRadius;
         maker.position = UIShadowPostionAll;
         [self appendProcessor:maker];
+        return self;
+    };
+}
+- (SFImageFlow * _Nonnull (^)(SFBlurEffect))blur{
+    return  ^SFImageFlow* (SFBlurEffect effect){
+        switch (effect) {
+            case SFBlurEffectLight:
+                [self appendProcessor:[SFBlurImageMaker lightEffect]];
+                break;
+            case SFBlurEffectDark:
+                [self appendProcessor:[SFBlurImageMaker darkEffect]];
+                break;
+            case SFBlurEffectExtraLight:
+                [self appendProcessor:[SFBlurImageMaker extraLightEffect]];
+                break;
+        }
+        return self;
+    };
+}
+- (SFImageFlow *)circle{
+    [self appendProcessor:[SFBlockImageMaker circle]];
+    return self;
+}
+- (SFImageFlow *)centerSquare{
+    [self appendProcessor:[SFBlockImageMaker centerSquare]];
+    return self;
+}
+- (SFImageFlow * _Nonnull (^)(CGFloat))centerRect{
+    return  ^SFImageFlow* (CGFloat aspectRatio){
+        [self appendProcessor:[SFBlockImageMaker centerRectWithAspectRatio:aspectRatio]];
+        return self;
+    };
+}
+- (SFImageFlow * _Nonnull (^)(UIEdgeInsets, UIColor * _Nonnull))edgeInsets{
+    return  ^SFImageFlow* (UIEdgeInsets insets, UIColor *fillColor){
+        [self appendProcessor:[SFBlockImageMaker edgeInsets:insets fillColor:fillColor]];
+        return self;
+    };
+}
+- (SFImageFlow * _Nonnull (^)(CGSize))resize{
+    return  ^SFImageFlow* (CGSize size){
+        [self appendProcessor:[SFBlockImageMaker resizeWithSize:size]];
+        return self;
+    };
+}
+- (SFImageFlow * _Nonnull (^)(CGFloat))resizeWithMax{
+    return  ^SFImageFlow* (CGFloat max){
+        [self appendProcessor:[SFBlockImageMaker resizeWithMaxValue:max]];
         return self;
     };
 }

@@ -50,7 +50,7 @@
     return target;
 }
 
-+ (instancetype)centerRectWithAspect:(CGFloat)aspectRatio{
++ (instancetype)centerRectWithAspectRatio:(CGFloat)aspectRatio{
    return [SFBlockImageMaker imageMakerWithProcessHandler:^UIImage * _Nonnull(UIImage * _Nonnull image) {
         CGFloat width = floor(image.size.width);
         CGFloat height = floor(image.size.height);
@@ -76,7 +76,7 @@
     }];
 }
 + (instancetype)centerSquare{
-    return [self centerRectWithAspect:1.0];
+    return [self centerRectWithAspectRatio:1.0];
 }
 + (instancetype)circle{
     return [SFBlockImageMaker imageMakerWithProcessHandler:^UIImage * _Nonnull(UIImage * _Nonnull image) {
@@ -84,7 +84,7 @@
             image = [[self centerSquare] process:image];
         }
         SFCornerImageMaker *cornerMaker = [SFCornerImageMaker new];
-        cornerMaker.position = UIRectEdgeAll;
+        cornerMaker.position = UIRectCornerAllCorners;
         cornerMaker.radius = image.size.width * 0.5;
         return [cornerMaker process:image];
     } isEnableHandler:^BOOL{
@@ -142,6 +142,15 @@
         return maxValue != 0;
     } identifierHandler:^NSString * _Nonnull{
         return [NSString stringWithFormat:@"resizeMax_%@",@(maxValue)];
+    }];
+}
++ (instancetype)resizableCenterMode{
+    return [SFBlockImageMaker imageMakerWithProcessHandler:^UIImage * _Nonnull(UIImage * _Nonnull image) {
+        return [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height / 2, image.size.width / 2, image.size.height / 2, image.size.width / 2)];
+    } isEnableHandler:^BOOL{
+        return YES;
+    } identifierHandler:^NSString * _Nonnull{
+        return @"resizableCenterMode";
     }];
 }
 @end

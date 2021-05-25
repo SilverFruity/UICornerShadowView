@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <SFImageMaker/SFImageMaker-Protocol.h>
 NS_ASSUME_NONNULL_BEGIN
-
+typedef enum : NSUInteger {
+    SFBlurEffectLight,
+    SFBlurEffectExtraLight,
+    SFBlurEffectDark,
+} SFBlurEffect;
 @interface SFBlurImageMaker : NSObject <SFImageProcessor>
 @property (nonatomic, assign)CGFloat blurRadius;
 @property (nonatomic, strong)UIColor * tintColor;

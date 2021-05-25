@@ -18,12 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
                              isEnableHandler:(BOOL (^)(void))isEnableHandler
                            identifierHandler:(NSString *(^)(void))identifierHandler;
 
-+ (instancetype)centerRectWithAspect:(CGFloat)aspect;
++ (instancetype)centerRectWithAspectRatio:(CGFloat)aspectRatio;
 + (instancetype)centerSquare;
 + (instancetype)circle;
 + (instancetype)edgeInsets:(UIEdgeInsets)insets fillColor:(nullable UIColor *)color;
 + (instancetype)resizeWithSize:(CGSize)targetSize;
 + (instancetype)resizeWithMaxValue:(CGFloat)maxValue;
++ (instancetype)resizableCenterMode;
 @end
 
 NS_ASSUME_NONNULL_END

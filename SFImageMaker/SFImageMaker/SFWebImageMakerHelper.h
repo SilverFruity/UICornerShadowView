@@ -52,13 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveDiskCache:(UIImage *)image forKey:(NSString *)key completed:(nullable void(^)(NSError *_Nullable error))completed;
 
 @end
-
+@class SFImageFlow;
 @interface SFWebImageMakerHelper : NSObject
 @property (nonatomic, weak)id <SFWebImageManagerDelegate>delegate;
 @property (nonatomic, assign)SFWebImageCacheSaveOption saveOption;
 @property (nonatomic, readonly)NSString *identifier;
 @property (nonatomic, readonly, strong)NSURL *url;
-- (instancetype)initWithUrl:(nullable NSURL *)url processors:(NSArray <id<SFImageProcessor>>*)processors;
+- (instancetype)initWithUrl:(NSURL *)url flow:(SFImageFlow *)flow;
 - (void)prcoessWithCompleted:(SFWebImageCompleteHandler)completed;
 @end
 

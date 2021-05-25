@@ -30,10 +30,11 @@
 
 
 @implementation NSArray (SFImageFlow)
-- (SFImageFlow * _Nonnull (^)(BOOL))sf_gradientFlow{
-    return  ^SFImageFlow* (BOOL isHorizontal){
+- (SFImageFlow * _Nonnull (^)(BOOL, CGSize))sf_gradientFlow{
+    return  ^SFImageFlow* (BOOL isHorizontal, CGSize size){
         NSAssert(self.count == 2, @"");
         SFGradientImageMaker *maker = [SFGradientImageMaker isHorizontal:isHorizontal startColor:self[0] endColor:self[1]];
+        maker.size = size;
         return [SFImageFlow flowWithGenerator:maker];
     };
 }

@@ -8,19 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "SFImageMaker-Protocol.h"
-
+#import "SFBlurImageMaker.h"
 NS_ASSUME_NONNULL_BEGIN
-
-NSString *sf_identifierWithProcessors(NSArray *processors);
-NSString *sf_identifierWithGenerator(id generator, NSArray *processors);
 
 @interface SFImageFlow : NSObject
 @property (nonatomic, nullable, strong)UIImage *targetImage;
 @property (nonatomic, nullable, strong)id <SFImageGenerator> generator;
-
 @property (nonatomic, nullable, strong)id lastProcessor;
 @property (nonatomic, nullable, strong)NSMutableArray *processors;
-
+@property (nonatomic, nullable, strong)NSMutableArray *finals;
++ (instancetype)flow;
 + (instancetype)flowWithImage:(UIImage *)targetImage;
 + (instancetype)flowWithGenerator:(id <SFImageGenerator>)generator;
 - (void)appendProcessor:(id)processor;
@@ -36,5 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly)SFImageFlow* (^border)(CGFloat width, UIColor *color);
 @property (nonatomic, readonly)SFImageFlow* (^borderWithPosition)(UIBorderPostion position, CGFloat width, UIColor *color);
 @property (nonatomic, readonly)SFImageFlow* (^shadow)(UIColor *color, CGSize offset, CGFloat blurRadius);
+@property (nonatomic, readonly)SFImageFlow* (^blur)(SFBlurEffect effect);;
+@property (nonatomic, readonly)SFImageFlow* circle;
+@property (nonatomic, readonly)SFImageFlow* centerSquare;
+@property (nonatomic, readonly)SFImageFlow* (^centerRect)(CGFloat aspectRatio);
+@property (nonatomic, readonly)SFImageFlow* (^edgeInsets)(UIEdgeInsets insets, UIColor *fillColor);
+@property (nonatomic, readonly)SFImageFlow* (^resize)(CGSize size);
+@property (nonatomic, readonly)SFImageFlow* (^resizeWithMax)(CGFloat max);
 @end
 NS_ASSUME_NONNULL_END
