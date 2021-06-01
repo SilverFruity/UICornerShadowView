@@ -28,6 +28,13 @@ shadowView.shadowRadius = 20;
 shadowView.borderColor = UIColor.systemBlueColor;
 shadowView.borderWidth = 5;
 shadowView.borderPosition = UIBorderPostionAll;
+
+// Generate UIImage by color or gradient colors, then start UIImage process flow
+UIColor.lightGrayColor.sf_flow.corner(10, UIRectCornerAllCorners).border(0.5, UIColor.blackColor).image;
+@[UIColor.redColor,UIColor.purpleColor].sf_gradientFlow(YES,self.gradientButton.frame.size).corner(10, UIRectCornerTopLeft|UIRectCornerBottomRight).border(1, UIColor.blackColor).image
+
+// UIImage Process Flow
+[UIImage new].sf_flow.circle.resize(CGSizeMake(40, 40)).blur(SFBlurEffectLight).corner(10, UIRectEdgeAll).border(1, UIColor.redColor)
 ```
 
 ## CocoaPods
