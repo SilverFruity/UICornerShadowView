@@ -10,7 +10,6 @@
 #import <SFImageMaker/SFImageMaker-Protocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
 @interface SFBlockImageMaker : NSObject <SFImageProcessor>
 @property(nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
 
@@ -20,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)centerRectWithAspectRatio:(CGFloat)aspectRatio;
 + (instancetype)centerSquare;
-+ (instancetype)circle;
 + (instancetype)edgeInsets:(UIEdgeInsets)insets fillColor:(nullable UIColor *)color;
 + (instancetype)resizeWithSize:(CGSize)targetSize;
 + (instancetype)resizeWithMaxValue:(CGFloat)maxValue;

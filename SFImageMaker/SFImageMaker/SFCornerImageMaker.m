@@ -7,7 +7,7 @@
 //
 
 #import "SFCornerImageMaker.h"
-
+#import "SFBlockImageMaker.h"
 @implementation SFCornerImageMaker
 - (instancetype)init
 {
@@ -41,5 +41,22 @@
 }
 - (nonnull NSString *)identifier {
     return self.isEnable ? [NSString stringWithFormat:@"rectCorner_%@_%@",@(self.radius),@(self.position)]:@"";
+}
+@end
+
+@implementation SFCircleImageMaker
+- (BOOL)isEnable{
+    return YES;
+}
+- (UIImage *)process:(UIImage *)target{
+    if (ceil(target.size.width) != ceil(target.size.height)) {
+        target = [[SFBlockImageMaker centerSquare] process:target];
+    }
+    self.position = UIRectCornerAllCorners;
+    self.radius = target.size.width * 0.5;
+    return [super process:target];
+}
+- (NSString *)identifier{
+    return @"circle";
 }
 @end

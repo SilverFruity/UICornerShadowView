@@ -40,7 +40,6 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
 + (instancetype)flowWithGenerator:(id <SFImageGenerator>)generator{
     SFImageFlow *proc = [SFImageFlow new];
     proc.generator = generator;
-    proc.lastProcessor = generator;
     return proc;
 }
 - (instancetype)init
@@ -51,7 +50,6 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
     return self;
 }
 - (void)appendProcessor:(id)processor{
-    self.lastProcessor = processor;
     [self.processors addObject:processor];
 }
 - (UIImage *)image{
@@ -98,99 +96,134 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
 @implementation SFImageFlow (Processor)
 - (SFImageFlow * _Nonnull (^)(CGFloat, UIRectCorner))corner{
     return  ^SFImageFlow* (CGFloat radius, UIRectCorner rectCorner){
-        SFCornerImageMaker *maker = [SFCornerImageMaker new];
-        maker.radius = radius;
-        maker.position = rectCorner;
-        if ([self.generator conformsToProtocol:@protocol(SFImageGenerator)]) {
-            SFColorImageMaker *generator = (SFColorImageMaker *)self.lastProcessor;
-            CGSize size = generator.size;
-            if (size.height < radius * 2) size.height = radius * 2;
-            if (size.width < radius * 2) size.width = radius * 2;
-            if (!CGSizeEqualToSize(generator.size, size)) {
-                generator.size = size;
-                [self.finals addObject:[SFBlockImageMaker resizableCenterMode]];
-            }
-        }
-        [self appendProcessor:maker];
-        return self;
+        return [self cornerWithRadius:radius rectCorner:rectCorner];
     };
 }
 - (SFImageFlow * _Nonnull (^)(CGFloat, UIColor * _Nonnull))border{
     return  ^SFImageFlow* (CGFloat width, UIColor *color){
-        return self.borderWithPosition(UIBorderPostionAll, width, color);
+        return [self borderWithWidth:width color:color];
     };
 }
 - (SFImageFlow * _Nonnull (^)(UIBorderPostion, CGFloat, UIColor * _Nonnull))borderWithPosition{
     return  ^SFImageFlow* (UIBorderPostion position, CGFloat width, UIColor *color){
-        SFBorderImageMaker *maker = [SFBorderImageMaker new];
-        maker.width = width;
-        maker.position = position;
-        maker.color = color;
-        if ([self.lastProcessor isKindOfClass:[SFCornerImageMaker class]]) {
-            maker.cornerMaker = self.lastProcessor;
-        }
-        [self appendProcessor:maker];
-        return self;
+        return [self borderWithPosition:position width:width color:color];
     };
 }
 
 - (SFImageFlow * _Nonnull (^)(UIColor * _Nonnull, CGSize, CGFloat))shadow{
     return  ^SFImageFlow* (UIColor *color, CGSize offset, CGFloat blurRadius){
-        SFShadowImageMaker *maker = [SFShadowImageMaker new];
-        maker.shadowColor = color;
-        maker.shadowOffset = offset;
-        maker.shadowBlurRadius = blurRadius;
-        maker.position = UIShadowPostionAll;
-        [self appendProcessor:maker];
-        return self;
+        return [self shadowWithColor:color offset:offset blurRadius:blurRadius];
     };
 }
 - (SFImageFlow * _Nonnull (^)(SFBlurEffect))blur{
     return  ^SFImageFlow* (SFBlurEffect effect){
-        switch (effect) {
-            case SFBlurEffectLight:
-                [self appendProcessor:[SFBlurImageMaker lightEffect]];
-                break;
-            case SFBlurEffectDark:
-                [self appendProcessor:[SFBlurImageMaker darkEffect]];
-                break;
-            case SFBlurEffectExtraLight:
-                [self appendProcessor:[SFBlurImageMaker extraLightEffect]];
-                break;
-        }
-        return self;
+        return [self blurWithEffect:effect];
     };
 }
+- (SFImageFlow * _Nonnull (^)(CGFloat))centerRect{
+    return  ^SFImageFlow* (CGFloat aspectRatio){
+        return [self centerRectWithAspectRatio:aspectRatio];
+    };
+}
+- (SFImageFlow * _Nonnull (^)(UIEdgeInsets, UIColor * _Nonnull))edgeInsets{
+    return  ^SFImageFlow* (UIEdgeInsets insets, UIColor *fillColor){
+        return [self edgeInsetsWithInsets:insets fillColor:fillColor];
+    };
+}
+- (SFImageFlow * _Nonnull (^)(CGSize))resize{
+    return  ^SFImageFlow* (CGSize size){
+        return [self resizeWithSize:size];
+    };
+}
+- (SFImageFlow * _Nonnull (^)(CGFloat))resizeWithMax{
+    return  ^SFImageFlow* (CGFloat max){
+        return [self resizeWithMax:max];
+    };
+}
+@end
+
+
+
+@implementation SFImageFlow (SwiftProcessor)
+- (SFImageFlow *)cornerWithRadius:(CGFloat)radius rectCorner: (UIRectCorner) rectCorner{
+    SFCornerImageMaker *maker = [SFCornerImageMaker new];
+    maker.radius = radius;
+    maker.position = rectCorner;
+    if ([self.generator conformsToProtocol:@protocol(SFImageGenerator)]) {
+        SFColorImageMaker *generator = (SFColorImageMaker *)self.generator;
+        CGSize size = generator.size;
+        if (size.height < radius * 2) size.height = radius * 2;
+        if (size.width < radius * 2) size.width = radius * 2;
+        if (!CGSizeEqualToSize(generator.size, size)) {
+            generator.size = size;
+            [self.finals addObject:[SFBlockImageMaker resizableCenterMode]];
+        }
+    }
+    [self appendProcessor:maker];
+    return self;
+}
+- (SFImageFlow *)borderWithWidth:(CGFloat)width color:(UIColor *)color{
+    return [self borderWithPosition:UIBorderPostionAll width:width color:color];
+}
+- (SFImageFlow *)borderWithPosition:(UIBorderPostion)position width:(CGFloat)width color:(UIColor *)color{
+    SFBorderImageMaker *maker = [SFBorderImageMaker new];
+    maker.width = width;
+    maker.position = position;
+    maker.color = color;
+    for (id processor in self.processors) {
+        if ([processor isKindOfClass:[SFCornerImageMaker class]]) {
+            maker.cornerMaker = processor;
+            break;
+        }
+    }
+    [self appendProcessor:maker];
+    return self;
+}
+- (SFImageFlow *)shadowWithColor:(UIColor *)color offset:(CGSize)offset blurRadius:(CGFloat) blurRadius{
+    SFShadowImageMaker *maker = [SFShadowImageMaker new];
+    maker.shadowColor = color;
+    maker.shadowOffset = offset;
+    maker.shadowBlurRadius = blurRadius;
+    maker.position = UIShadowPostionAll;
+    [self appendProcessor:maker];
+    return self;
+}
+- (SFImageFlow *)blurWithEffect:(SFBlurEffect)effect{
+    switch (effect) {
+        case SFBlurEffectLight:
+            [self appendProcessor:[SFBlurImageMaker lightEffect]];
+            break;
+        case SFBlurEffectDark:
+            [self appendProcessor:[SFBlurImageMaker darkEffect]];
+            break;
+        case SFBlurEffectExtraLight:
+            [self appendProcessor:[SFBlurImageMaker extraLightEffect]];
+            break;
+    }
+    return self;
+}
+- (SFImageFlow *)centerRectWithAspectRatio:(CGFloat)aspectRatio{
+    [self appendProcessor:[SFBlockImageMaker centerRectWithAspectRatio:aspectRatio]];
+    return self;
+}
+- (SFImageFlow *)edgeInsetsWithInsets:(UIEdgeInsets)insets fillColor:(UIColor *)fillColor{
+    [self appendProcessor:[SFBlockImageMaker edgeInsets:insets fillColor:fillColor]];
+    return self;
+}
+- (SFImageFlow *)resizeWithSize:(CGSize)size{
+    [self appendProcessor:[SFBlockImageMaker resizeWithSize:size]];
+    return self;
+}
+- (SFImageFlow *)resizeWithMax:(CGFloat)max{
+    [self appendProcessor:[SFBlockImageMaker resizeWithMaxValue:max]];
+    return self;
+}
 - (SFImageFlow *)circle{
-    [self appendProcessor:[SFBlockImageMaker circle]];
+    [self appendProcessor:[SFCircleImageMaker new]];
     return self;
 }
 - (SFImageFlow *)centerSquare{
     [self appendProcessor:[SFBlockImageMaker centerSquare]];
     return self;
-}
-- (SFImageFlow * _Nonnull (^)(CGFloat))centerRect{
-    return  ^SFImageFlow* (CGFloat aspectRatio){
-        [self appendProcessor:[SFBlockImageMaker centerRectWithAspectRatio:aspectRatio]];
-        return self;
-    };
-}
-- (SFImageFlow * _Nonnull (^)(UIEdgeInsets, UIColor * _Nonnull))edgeInsets{
-    return  ^SFImageFlow* (UIEdgeInsets insets, UIColor *fillColor){
-        [self appendProcessor:[SFBlockImageMaker edgeInsets:insets fillColor:fillColor]];
-        return self;
-    };
-}
-- (SFImageFlow * _Nonnull (^)(CGSize))resize{
-    return  ^SFImageFlow* (CGSize size){
-        [self appendProcessor:[SFBlockImageMaker resizeWithSize:size]];
-        return self;
-    };
-}
-- (SFImageFlow * _Nonnull (^)(CGFloat))resizeWithMax{
-    return  ^SFImageFlow* (CGFloat max){
-        [self appendProcessor:[SFBlockImageMaker resizeWithMaxValue:max]];
-        return self;
-    };
 }
 @end

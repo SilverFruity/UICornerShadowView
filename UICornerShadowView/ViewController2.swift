@@ -34,6 +34,15 @@ class ViewController2: UIViewController,UITableViewDataSource,UITableViewDelegat
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let _ = UIColor.red
+            .sf_flow(with: CGSize.init(width: 40, height: 40))
+            .blur(with: SFBlurEffectLight)
+            .border(withWidth: 1, color: .gray)
+            .shadow(with: UIColor.black.withAlphaComponent(0.5), offset: .init(width: 10, height: 10), blurRadius: 10)
+            .resize(with: .init(width: 20, height: 20))
+            .circle
+            .image();
+        
         tableView.rowHeight = 80
         tableView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 20))
         tableView.tableFooterView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 20))

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIColor (SFImageFlow)
 @property (nonatomic, readonly)SFImageFlow *sf_flow;
 @property (nonatomic, readonly)SFImageFlow *(^sf_flowWithSize)(CGSize size);
+- (SFImageFlow *)sf_flowWithSize:(CGSize)size;
 @end
 
 @class SFImageFlow;
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SFImageFlow;
 @interface NSArray (SFImageFlow)
 @property (nonatomic, readonly)SFImageFlow *(^sf_gradientFlow)(BOOL isHorizontal, CGSize size);
+- (SFImageFlow *)sf_gradientFlow:(BOOL)isHorizontal size:(CGSize)size;
 @end
 
 NS_ASSUME_NONNULL_END

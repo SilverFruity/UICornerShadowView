@@ -15,9 +15,12 @@
 }
 - (SFImageFlow * _Nonnull (^)(CGSize))sf_flowWithSize{
     return  ^SFImageFlow* (CGSize size){
-        SFColorImageMaker *maker = [SFColorImageMaker imageMakerWithColor:self size:size];
-        return [SFImageFlow flowWithGenerator:maker];;
+        return [self sf_flowWithSize:size];
     };
+}
+- (SFImageFlow *)sf_flowWithSize:(CGSize)size{
+    SFColorImageMaker *maker = [SFColorImageMaker imageMakerWithColor:self size:size];
+    return [SFImageFlow flowWithGenerator:maker];;
 }
 @end
 
@@ -32,11 +35,13 @@
 @implementation NSArray (SFImageFlow)
 - (SFImageFlow * _Nonnull (^)(BOOL, CGSize))sf_gradientFlow{
     return  ^SFImageFlow* (BOOL isHorizontal, CGSize size){
-        NSAssert(self.count == 2, @"");
-        SFGradientImageMaker *maker = [SFGradientImageMaker isHorizontal:isHorizontal startColor:self[0] endColor:self[1]];
-        maker.size = size;
-        return [SFImageFlow flowWithGenerator:maker];
+        return [self sf_gradientFlow:isHorizontal size:size];
     };
 }
-
+- (SFImageFlow *)sf_gradientFlow:(BOOL)isHorizontal size:(CGSize)size{
+    NSAssert(self.count == 2, @"");
+    SFGradientImageMaker *maker = [SFGradientImageMaker isHorizontal:isHorizontal startColor:self[0] endColor:self[1]];
+    maker.size = size;
+    return [SFImageFlow flowWithGenerator:maker];
+}
 @end

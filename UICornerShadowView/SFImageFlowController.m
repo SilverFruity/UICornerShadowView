@@ -22,10 +22,11 @@
     [self.cornerBorderButton setBackgroundImage:UIColor.lightGrayColor.sf_flow.corner(10, UIRectCornerAllCorners).border(0.5, UIColor.blackColor).image forState:UIControlStateNormal];
     UIImage *image =  @[UIColor.redColor,UIColor.purpleColor].sf_gradientFlow(YES,self.gradientButton.frame.size).corner(10, UIRectCornerTopLeft|UIRectCornerBottomRight).border(1, UIColor.blackColor).image;
     [self.gradientButton setBackgroundImage:image forState:UIControlStateNormal];
-    image = @[UIColor.redColor,UIColor.greenColor].sf_gradientFlow(YES,CGSizeMake(40, 40)).blur(SFBlurEffectLight).circle.image;
+//    image = @[UIColor.redColor,UIColor.greenColor].sf_gradientFlow(YES,CGSizeMake(40, 40)).blur(SFBlurEffectLight).circle.image;
+    image = @[UIColor.redColor,UIColor.greenColor].sf_gradientFlow(YES,CGSizeMake(40, 40)).blur(SFBlurEffectLight).circle.border(1, UIColor.blackColor).shadow([UIColor.blackColor colorWithAlphaComponent:0.5], CGSizeMake(10, 10), 10).image;
     [self.avatarButton setBackgroundImage:image forState:UIControlStateNormal];
     
-//    [SFImageFlow flowWithImage:[UIImage new]].corner(10, UIRectEdgeAll).border(1, UIColor.redColor);
+    image = [UIImage new].sf_flow.corner(10, UIRectCornerAllCorners).border(1, UIColor.redColor).image;
 }
 
 /*

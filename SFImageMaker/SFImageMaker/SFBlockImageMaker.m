@@ -78,21 +78,6 @@
 + (instancetype)centerSquare{
     return [self centerRectWithAspectRatio:1.0];
 }
-+ (instancetype)circle{
-    return [SFBlockImageMaker imageMakerWithProcessHandler:^UIImage * _Nonnull(UIImage * _Nonnull image) {
-        if (ceil(image.size.width) != ceil(image.size.height)) {
-            image = [[self centerSquare] process:image];
-        }
-        SFCornerImageMaker *cornerMaker = [SFCornerImageMaker new];
-        cornerMaker.position = UIRectCornerAllCorners;
-        cornerMaker.radius = image.size.width * 0.5;
-        return [cornerMaker process:image];
-    } isEnableHandler:^BOOL{
-        return YES;
-    } identifierHandler:^NSString * _Nonnull{
-        return [NSString stringWithFormat:@"circle"];
-    }];
-}
 + (instancetype)edgeInsets:(UIEdgeInsets)insets fillColor:(UIColor *)color{
     color = color?:[UIColor clearColor];
     return [SFBlockImageMaker imageMakerWithProcessHandler:^UIImage * _Nonnull(UIImage * _Nonnull image) {
