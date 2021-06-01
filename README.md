@@ -29,15 +29,6 @@ shadowView.borderColor = UIColor.systemBlueColor;
 shadowView.borderWidth = 5;
 shadowView.borderPosition = UIBorderPostionAll;
 
-// UIAppearance
-[SFCSBView appearance].cornerRadius = 20;
-[SFCSBView appearance].rectCornner = UIRectCornerAllCorners;
-[SFCSBView appearance].shadowPosition = UIShadowPostionAll;
-[SFCSBView appearance].shadowRadius = 20;
-[SFCSBView appearance].borderColor = [UIColor systemBlueColor];
-[SFCSBView appearance].borderWidth = 5;
-[SFCSBView appearance].borderPosition = UIBorderPostionAll;
-
 // Generate UIImage by color or gradient colors, then start UIImage process flow
 UIColor.lightGrayColor.sf_flow.corner(10, UIRectCornerAllCorners).border(0.5, UIColor.blackColor).image;
 @[UIColor.redColor,UIColor.purpleColor].sf_gradientFlow(YES,self.gradientButton.frame.size).corner(10, UIRectCornerTopLeft|UIRectCornerBottomRight).border(1, UIColor.blackColor).image
