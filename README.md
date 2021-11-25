@@ -46,11 +46,11 @@ pod 'SFImageMaker'
 
 **Compare with CALayer**
 
-![compare with CALayer](https://user-gold-cdn.xitu.io/2020/2/12/1703a1d3defd6b75?imageslim)
+![compare with CALayer](https://silverfruity.github.io/assets/img/UICornerShadowView_1.a69ce9a7.jpeg)
 
 **Random Cells**
 
-![Review](https://user-gold-cdn.xitu.io/2020/2/13/1703a26ff78b7732?imageslim)
+![Review](https://silverfruity.github.io/assets/img/UICornerShadowView_2.51bb194d.jpeg)
 
 
 
@@ -60,12 +60,12 @@ pod 'SFImageMaker'
 
 In this condition, maximum cpu occupancy rates is 45% and 60FPS when the count of cell is 1000 and quick slide，use iPhone 7, iOS13.3.1.
 
-![](https://user-gold-cdn.xitu.io/2020/2/13/1703e06843524f23?imageslim)
+![](https://silverfruity.github.io/assets/img/UICornerShadowView_2.51bb194d.jpeg)
 
-![](https://user-gold-cdn.xitu.io/2020/2/13/1703e0dab3941395?imageslim)
+![](https://silverfruity.github.io/assets/img/UICornerShadowView_3.a15b93dd.jpeg)
 
 In extreme cases，no reuse,  maximum cpu occupancy rates is 140% and 60FPS when the count of cell is 1000 and quick slide.
 
-![Review](https://user-gold-cdn.xitu.io/2020/2/13/1703a26ff78b7732?imageslim)
+![Review](https://silverfruity.github.io/assets/img/UICornerShadowView_4.3697f58a.jpeg)
 
-![](https://user-gold-cdn.xitu.io/2020/2/13/1703d3b50c47b1c1?imageslim)
+![](https://silverfruity.github.io/assets/img/UICornerShadowView_5.c12a9d56.jpeg)
