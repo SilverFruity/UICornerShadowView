@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pyd-Gk-7oT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pyd-Gk-7oT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -126,8 +126,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="OVP-o9-VkL">
-                                <rect key="frame" x="0.0" y="108" width="414" height="136"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="OVP-o9-VkL">
+                                <rect key="frame" x="0.0" y="108" width="414" height="448"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvh-EY-6dS">
                                         <rect key="frame" x="157" y="0.0" width="100" height="40"/>
@@ -140,7 +140,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hd1-BM-DOk">
-                                        <rect key="frame" x="154" y="52" width="106" height="42"/>
+                                        <rect key="frame" x="154" y="70" width="106" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="106" id="RuP-Mo-rbD"/>
                                         </constraints>
@@ -148,8 +148,47 @@
                                         <state key="normal" title="Button"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aq4-qz-tYO">
-                                        <rect key="frame" x="192" y="106" width="30" height="30"/>
+                                        <rect key="frame" x="192" y="142" width="30" height="30"/>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFM-mR-sSA" customClass="SFCSBView">
+                                        <rect key="frame" x="87" y="202" width="240" height="128"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohh-xw-Mgr">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="64"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="8ql-nX-qXf"/>
+                                            <constraint firstAttribute="width" constant="240" id="ByS-wN-9Cl"/>
+                                            <constraint firstAttribute="centerY" secondItem="ohh-xw-Mgr" secondAttribute="bottom" id="C84-PD-1Wi"/>
+                                            <constraint firstAttribute="trailing" secondItem="ohh-xw-Mgr" secondAttribute="trailing" id="akS-kf-OjM"/>
+                                            <constraint firstItem="ohh-xw-Mgr" firstAttribute="leading" secondItem="qFM-mR-sSA" secondAttribute="leading" id="c1x-7M-Nu3"/>
+                                            <constraint firstItem="ohh-xw-Mgr" firstAttribute="top" secondItem="qFM-mR-sSA" secondAttribute="top" id="not-7X-GZ0"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vYy-KC-VVh">
+                                        <rect key="frame" x="87" y="360" width="240" height="88"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U0R-kQ-mFa" customClass="SFCSBView">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="240" id="cZ9-mB-a1H"/>
+                                                    <constraint firstAttribute="height" constant="44" id="kFN-p8-imX"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSW-i5-5n4" customClass="SFCSBView">
+                                                <rect key="frame" x="0.0" y="44" width="240" height="44"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="240" id="9Ec-Wa-uil"/>
+                                                    <constraint firstAttribute="height" constant="44" id="dJE-hy-evc"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -164,8 +203,11 @@
                     <navigationItem key="navigationItem" id="Dpi-cf-2PH"/>
                     <connections>
                         <outlet property="avatarButton" destination="aq4-qz-tYO" id="yKV-Zq-tma"/>
+                        <outlet property="bottomView" destination="lSW-i5-5n4" id="alk-a9-ky7"/>
                         <outlet property="cornerBorderButton" destination="fvh-EY-6dS" id="33T-zW-D77"/>
                         <outlet property="gradientButton" destination="Hd1-BM-DOk" id="aJa-9V-JEb"/>
+                        <outlet property="testView" destination="qFM-mR-sSA" id="7Bt-eb-gvg"/>
+                        <outlet property="topView" destination="U0R-kQ-mFa" id="s4d-15-cc4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8c-71-m2F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -185,7 +227,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReuseImageCell" rowHeight="106" id="kJt-DO-erY" customClass="ReuseImageCell" customModule="UICornerShadowView" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="106"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kJt-DO-erY" id="ilt-H8-rrs">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
@@ -263,7 +305,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RandomCell" rowHeight="94" id="GbQ-98-hbs" customClass="RandomCell" customModule="UICornerShadowView" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="94"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GbQ-98-hbs" id="3jn-cZ-gaV">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>

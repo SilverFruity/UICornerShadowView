@@ -13,6 +13,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *cornerBorderButton;
 @property (weak, nonatomic) IBOutlet UIButton *gradientButton;
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
+@property (weak, nonatomic) IBOutlet SFCSBView *testView;
+
+@property (weak, nonatomic) IBOutlet SFCSBView *topView;
+@property (weak, nonatomic) IBOutlet SFCSBView *bottomView;
 @end
 
 @implementation SFImageFlowController
@@ -27,6 +31,32 @@
     [self.avatarButton setBackgroundImage:image forState:UIControlStateNormal];
     
     image = [UIImage new].sf_flow.corner(10, UIRectCornerAllCorners).border(1, UIColor.redColor).image;
+    
+    self.testView.cornerRadius = 8;
+    self.testView.shadowRadius = 20;
+    self.testView.shadowColor = UIColor.blackColor;
+    self.testView.borderWidth = 0;
+    self.testView.borderColor = [UIColor clearColor];
+    
+    
+    self.topView.cornerRadius = 0;
+    self.topView.shadowRadius = 20;
+    self.topView.shadowColor = UIColor.blackColor;
+    self.topView.rectCornner = UIRectCornerTopLeft | UIRectCornerBottomRight;
+    self.topView.shadowPosition = UIShadowPostionLeft | UIShadowPostionRight;
+    self.topView.shadowFixValue = -0.2455;
+    self.topView.borderWidth = 0;
+    self.topView.borderColor = [UIColor clearColor];
+
+    self.bottomView.cornerRadius = 10;
+    self.bottomView.shadowRadius = 20;
+    self.bottomView.shadowFixValue = -0.2455;
+    self.bottomView.shadowPosition = UIShadowPostionLeft | UIShadowPostionRight;
+    self.bottomView.rectCornner = UIRectCornerBottomLeft | UIRectCornerTopRight;
+    self.bottomView.shadowColor = UIColor.blackColor;
+    self.bottomView.borderWidth = 0;
+    self.bottomView.borderColor = [UIColor clearColor];
+    
 }
 
 /*

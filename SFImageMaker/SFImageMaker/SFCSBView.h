@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,readonly)SFShadowImageMaker *shadowProcessor;
 @property (nonatomic,readonly)SFCornerImageMaker *cornerProcessor;
 @property (nonatomic,readonly)SFBorderImageMaker *borderProcessor;
+// 用于解决阴影衔接问题，通常不会用到，默认值为0
+// 需要解决时，可以将其设置为 -0.5 或者 -0.25
+@property (nonatomic,assign)CGFloat shadowFixValue;
 - (void)reloadBackGourndImage;
 @end
 

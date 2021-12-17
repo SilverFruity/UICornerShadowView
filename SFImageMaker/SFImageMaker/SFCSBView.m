@@ -114,6 +114,7 @@
     return self;
 }
 - (void)setDefaultValues{
+    self.shadowFixValue = 0;
     self.rectCornner = UIRectCornerAllCorners;
     self.cornerRadius = 8;
     self.shadowColor = [UIColor.blueColor colorWithAlphaComponent:0.08];
@@ -157,8 +158,9 @@
         //FIXME: 外边框 border和shadow同时存在时，宽高的计算，一大一小。
         //FIXME: 外边框 border和shadow只有一者存在时，宽高的计算。
         backImageViewFrame = [shadowMaker viewRectForSize:self.bounds.size];
-        //insetValue: 特意增加的误差 0.o。解决tableView显示时，cell上下阴影衔接时会有一空缺的问题。
-        CGFloat insertValue = -1;
+        // 解决tableView显示时，cell上下阴影衔接时会有一空缺的问题。
+        // 2021.12.17 默认为0，解决子视图对齐时，白边的问题
+        CGFloat insertValue = _shadowFixValue;
         // CGRect(2,2,2,2) -> CGRect(1,1,4,4)
         backImageViewFrame = CGRectInset(backImageViewFrame, insertValue, insertValue);
     }
