@@ -70,4 +70,11 @@
 - (nonnull NSString *)identifier {
     return self.isEnable ? [NSString stringWithFormat:@"gradient_%@_%@_%@",[NSValue valueWithCGSize:self.size],[self.colors componentsJoinedByString:@","],[self.locations componentsJoinedByString:@","]] : @"";
 }
+- (void)saveContext {
+    NSMutableArray *container = [@[] mutableCopy];
+    for (UIColor *color in container) {
+        [container addObject:[UIColor colorWithCGColor:color.CGColor]];
+    }
+    _colors = [container copy];
+}
 @end

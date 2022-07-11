@@ -42,6 +42,9 @@
 - (nonnull NSString *)identifier {
     return self.isEnable ? [NSString stringWithFormat:@"rectCorner_%@_%@",@(self.radius),@(self.position)]:@"";
 }
+- (void)saveContext {
+    _fillColor = [UIColor colorWithCGColor:_fillColor.CGColor];
+}
 @end
 
 @implementation SFCircleImageMaker

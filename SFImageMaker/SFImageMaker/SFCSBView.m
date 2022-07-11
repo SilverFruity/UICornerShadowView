@@ -178,6 +178,15 @@
         self.lastBackGroundImageIdentifer = identifier;
         return;
     }
+    /*
+     新增 saveContext
+     解决当 App 直接退到后台时，会直接调用 layoutSubViews 两次，并且两次 backgroudColor 的 RGB 的值都不相同，
+     而我们此处是异步调用的执行图片的绘制，会出现 identifier 对应的图片颜色被改变的问题。
+     比如：此处我们生成 identfier 时是使用的白色RGB值，但当我们在其他线程绘制的时候，color 值却在其他线程被改变为黑色，导致我们绘制颜色的 RGB 值却是黑色，
+     从而导致使用白色图片的 identifier 获取到的图片却是黑色的问题。
+     为避免这种情况发生，我们需要在异步执行前，先将相关颜色RGB值进行一次复制，避免出现以上问题。
+     */
+    [self.flow saveContext];
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UIImage *image = [self.flow image];

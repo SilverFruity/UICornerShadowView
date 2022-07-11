@@ -12,6 +12,6 @@
 - (NSString *)sf_identifier{
     CGFloat red, green, blue, alpha;
     [self getRed:&red green:&green blue:&blue alpha:&alpha];
-    return [NSString stringWithFormat:@"color_%.2f%.2f%2.f%.2f",red,green,blue,alpha];
+    return [NSString stringWithFormat:@"color_%.2f%.2f%.2f%.2f",red,green,blue,alpha];
 }
 @end

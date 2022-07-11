@@ -7,25 +7,32 @@
 //
 
 #import "SFImageFlow.h"
-void sf_recursiveGetIdentifier(NSMutableString *identifier,id <SFImageIdentifier,SFImageDependencies> processor){
-    [identifier appendString:processor.identifier];
-    for (id <SFImageProcessor> subProcessor in processor.dependencies) {
-        sf_recursiveGetIdentifier(identifier, subProcessor);
+static id visitProcessor(id processor,
+                         id result,
+                         id (^handler)(id, id<SFImageIdentifier, SFImageDependencies>)) {
+    if (handler) {
+        result = handler(result, processor);
     }
+    id<SFImageIdentifier, SFImageDependencies> cur = processor;
+    for (id<SFImageProcessor> subProcessor in cur.dependencies) {
+        result = visitProcessor(subProcessor, result, handler);
+    }
+    return result;
 }
-NSString *sf_identifierWithProcessors(NSArray *processors){
-    NSMutableString * identifier = [@"" mutableCopy];
-    for (id<SFImageIdentifier,SFImageProcessor> processor in processors){
-        sf_recursiveGetIdentifier(identifier, processor);
+
+static id visitProcessors(NSArray *processors,
+                          id result,
+                          id (^handler)(id result, id curProcessor)) {
+    for (id<SFImageIdentifier, SFImageProcessor> processor in processors) {
+        result = visitProcessor(processor, result, handler);
     }
-    return [identifier copy];
+    return result;
 }
-NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
-    NSMutableArray *elements = [@[generator] mutableCopy];
-    if (processors){
-        [elements addObjectsFromArray:processors];
-    }
-    return sf_identifierWithProcessors([elements copy]);
+
+NSString *sf_identifierWithProcessors(NSArray *processors) {
+    return visitProcessors(processors, [@"" mutableCopy], ^id(id result, id<SFImageIdentifier, SFImageDependencies> curProcessor) {
+        return [NSString stringWithFormat:@"%@%@", result, curProcessor.identifier];
+    });
 }
 
 @implementation SFImageFlow
@@ -62,32 +69,40 @@ NSString *sf_identifierWithGenerator(id generator, NSArray *processors){
     result = [self startWithImage:result processors:self.finals];
     return result;
 }
-- (NSString *)identifier{
+
+- (NSString *)identifier {
     NSString *result = nil;
     if (self.generator) {
-        result = sf_identifierWithGenerator(self.generator, self.processors);
-    }else{
+        NSMutableArray *procssors = [@[ self.generator ] mutableCopy];
+        [procssors addObjectsFromArray:self.processors];
+        result = sf_identifierWithProcessors(procssors);
+    } else {
         result = sf_identifierWithProcessors(self.processors);
     }
     return [result stringByAppendingString:sf_identifierWithProcessors(self.finals)];
 }
+
 - (UIImage *)startWithGenerator:(id<SFImageGenerator>)generator processors:(NSArray<id<SFImageProcessor>> *)processors{
     UIImage *image = [generator generate];
     image = [self startWithImage:image processors:(id)generator.dependencies];
     return [self startWithImage:image processors:processors];
 }
-- (UIImage *)startWithImage:(UIImage *)image processors:(NSArray <id <SFImageProcessor>>*)processors{
-    for (id <SFImageProcessor> processor in processors){
-        image = [self recursiveProcess:image processor:processor];
-    }
-    return image;
+
+- (UIImage *)startWithImage:(UIImage *)image processors:(NSArray<id<SFImageProcessor>> *)processors {
+    return visitProcessors(processors, image, ^id(id result, id curProcessor) {
+        return [curProcessor process:result];
+    });
 }
-- (UIImage *)recursiveProcess:(UIImage *)image processor:(id <SFImageProcessor>)processor{
-    image = [processor process:image];
-    for (id <SFImageProcessor> subProcessor in processor.dependencies) {
-        image = [self recursiveProcess:image processor:subProcessor];
-    }
-    return image;
+
+- (void)saveContext {
+    NSMutableArray *processors = [@[ self.generator ] mutableCopy];
+    [processors addObjectsFromArray:self.processors];
+    visitProcessors(processors, nil, ^id(id result, id curProcessor) {
+        if ([curProcessor respondsToSelector:@selector(saveContext)]) {
+            [curProcessor saveContext];
+        }
+        return nil;
+    });
 }
 @end
 

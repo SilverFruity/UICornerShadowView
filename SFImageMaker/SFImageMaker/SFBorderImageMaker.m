@@ -81,5 +81,8 @@
 - (nonnull NSString *)identifier {
     return self.isEnable ? [NSString stringWithFormat:@"border_%@_%@_%@",self.color.sf_identifier,@(self.width),@(self.position)] : @"";
 }
-
+- (void)saveContext {
+    _fillColor = [UIColor colorWithCGColor:_fillColor.CGColor];
+    _color = [UIColor colorWithCGColor:_color.CGColor];
+}
 @end

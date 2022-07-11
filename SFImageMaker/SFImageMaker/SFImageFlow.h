@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)flowWithImage:(UIImage *)targetImage;
 + (instancetype)flowWithGenerator:(id <SFImageGenerator>)generator;
 - (void)appendProcessor:(id)processor;
+- (void)saveContext;
 - (UIImage *)image;
 - (NSString *)identifier;
 @end

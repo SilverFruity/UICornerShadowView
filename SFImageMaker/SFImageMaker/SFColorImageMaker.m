@@ -49,4 +49,7 @@
 - (nonnull NSString *)identifier {
     return self.isEnable ? [NSString stringWithFormat:@"%@%@",self.color.sf_identifier,[NSValue valueWithCGSize:self.size]] : @"";
 }
+- (void)saveContext {
+    _color = [UIColor colorWithCGColor:_color.CGColor];
+}
 @end

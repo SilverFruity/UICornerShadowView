@@ -71,5 +71,7 @@
     }
     return target;
 }
-
+- (void)saveContext {
+    _tintColor = [UIColor colorWithCGColor:_tintColor.CGColor];
+}
 @end

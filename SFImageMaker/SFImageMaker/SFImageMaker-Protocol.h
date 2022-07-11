@@ -19,12 +19,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong)NSMutableArray <id <SFImageProcessor>> *dependencies;
 @end
 
-@protocol SFImageProcessor <SFImageIdentifier,SFImageDependencies>
+@protocol SFImageSaveContext <NSObject>
+@optional
+- (void)saveContext;
+@end
+
+@protocol SFImageProcessor <SFImageIdentifier,SFImageDependencies,SFImageSaveContext>
 @required
 - (UIImage *)process:(nullable UIImage *)target;
 @end
 
-@protocol SFImageGenerator <SFImageIdentifier,SFImageDependencies>
+@protocol SFImageGenerator <SFImageIdentifier,SFImageDependencies,SFImageSaveContext>
 @required
 @property (nonatomic,assign)CGSize size;
 - (instancetype)initWithSize:(CGSize)size;
