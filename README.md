@@ -28,7 +28,20 @@ shadowView.shadowRadius = 20;
 shadowView.borderColor = UIColor.systemBlueColor;
 shadowView.borderWidth = 5;
 shadowView.borderPosition = UIBorderPostionAll;
+```
 
+## Features
+1. Surpport xib / storyboard
+
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/16136774/178286687-4e4c50e3-44d8-458f-b83b-f7bc567ee560.png">
+
+
+2. Using them freedomly
+
+<img width="405" alt="image" src="https://user-images.githubusercontent.com/16136774/178287207-569fade1-eda0-489f-b4c3-791838cfd86b.png">
+
+3. Create and process image
+```objc
 // Generate UIImage by color or gradient colors, then start UIImage process flow
 UIColor.lightGrayColor.sf_flow.corner(10, UIRectCornerAllCorners).border(0.5, UIColor.blackColor).image;
 @[UIColor.redColor,UIColor.purpleColor].sf_gradientFlow(YES,self.gradientButton.frame.size).corner(10, UIRectCornerTopLeft|UIRectCornerBottomRight).border(1, UIColor.blackColor).image
@@ -51,6 +64,8 @@ pod 'SFImageMaker'
 **Random Cells**
 
 ![Review](https://silverfruity.github.io/assets/img/UICornerShadowView_2.51bb194d.jpeg)
+
+
 
 
 
