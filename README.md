@@ -41,6 +41,8 @@ shadowView.borderPosition = UIBorderPostionAll;
 <img width="405" alt="image" src="https://user-images.githubusercontent.com/16136774/178287207-569fade1-eda0-489f-b4c3-791838cfd86b.png">
 
 3. Create and process image
+
+for objc:
 ```objc
 // Generate UIImage by color or gradient colors, then start UIImage process flow
 UIColor.lightGrayColor.sf_flow.corner(10, UIRectCornerAllCorners).border(0.5, UIColor.blackColor).image;
@@ -49,6 +51,19 @@ UIColor.lightGrayColor.sf_flow.corner(10, UIRectCornerAllCorners).border(0.5, UI
 // UIImage Process Flow
 [UIImage new].sf_flow.circle.resize(CGSizeMake(40, 40)).blur(SFBlurEffectLight).corner(10, UIRectEdgeAll).border(1, UIColor.redColor)
 ```
+
+for swift:
+```swift
+let _ = UIColor.red
+            .sf_flow(with: CGSize.init(width: 40, height: 40))
+            .blur(with: SFBlurEffectLight)
+            .border(withWidth: 1, color: .gray)
+            .shadow(with: UIColor.black.withAlphaComponent(0.5), offset: .init(width: 10, height: 10), blurRadius: 10)
+            .resize(with: .init(width: 20, height: 20))
+            .circle
+            .image();
+```
+
 
 ## CocoaPods
 ```
